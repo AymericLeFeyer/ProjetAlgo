@@ -1,0 +1,6 @@
+Mettre le contenu de installation/sdl/dll dans C:\Windows\System32
+Mettre le dossier installation/SDL-1.2.15 sur votre ordinateur (retenez le chemin, on le note A)
+File - Settings - Packages - gcc-make-run - Link Librairies - Insérer la ligne contenue dans installation/compiler_options mais
+-> Changer "D:\SDL-1.2.15\lib" par A\lib et "D:\SDL-1.2.15\include" par A\include
+Merci de faire les modifications uniquement dans vos Settings et non sur le fichier
+Et cocher la case "Unconditional Build"

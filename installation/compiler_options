@@ -1,0 +1,1 @@
+-LD:\SDL-1.2.15\lib -ID:\SDL-1.2.15\include -lmingw32 -lSDLmain -lSDL -lSDL_image -lSDL_ttf
