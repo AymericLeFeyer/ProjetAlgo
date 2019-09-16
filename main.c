@@ -2,6 +2,9 @@
 
 int main()
 {
-  printf("Hello les amis");
+  int i;
+  for (i=0;i<10;i++){
+    printf("Hello les amis \n");
+  }
   return 0;
 }
