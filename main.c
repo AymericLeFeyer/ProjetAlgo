@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <SDL/SDL.h>
-
+//test 
 int main(int argc, char *argv[])
 {
   // Variable de la boucle principale
