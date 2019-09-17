@@ -46,6 +46,8 @@ int main(int argc, char *argv[])
     SDL_Flip(screen);
   }
 
+  //test guillaume
+
   // On quitte le programme, sans erreur
   return EXIT_SUCCESS;
 }
