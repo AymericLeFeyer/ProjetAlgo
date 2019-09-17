@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
   SDL_WM_SetCaption("Test SDL !", NULL);
 
   // Event pour la détection des entrées (clavier, souris)
-  //Test-icule
+  //Test
   SDL_Event event;
 
   // Boucle principale
