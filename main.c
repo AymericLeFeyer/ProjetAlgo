@@ -17,12 +17,14 @@ int main(int argc, char *argv[])
   SDL_Surface *screen = NULL;
 
   // Affichage de la fenêtre
+
   screen = SDL_SetVideoMode(500 , 500, 32, SDL_SWSURFACE | SDL_DOUBLEBUF);
 
   // Nom de la fenêtre
   SDL_WM_SetCaption("Test SDL !", NULL);
 
   // Event pour la détection des entrées (clavier, souris)
+  //Test-icule
   SDL_Event event;
 
   // Boucle principale
