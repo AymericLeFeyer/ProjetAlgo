@@ -11,6 +11,7 @@ int y;
 typedef struct{
 int direction = 1 ;
 int pv;
+int taille;
 Coord tete;
 }Bateau;
 
