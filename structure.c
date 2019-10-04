@@ -4,13 +4,11 @@ int x;
 int y;
 }Coord;
 
-//structure bateau qui comprendra un entier coulé, coulé = 1 (kapout) coulé = 0 (vivant),
 //entier direction haut=1 bas=2 droite=3 gauche=4
-//entier PV si a 0 , coulé passe a 1
+//entier PV si a 0 , bateau mort
 //entier taille qui correspondra a la taille du bateau
 //struct coord qui prendra la tête du bateau
 typedef struct{
-int coule;
 int direction = 1 ;
 int pv;
 Coord tete;
