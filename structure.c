@@ -21,4 +21,5 @@ typedef struct{
   Bateau tab[5];
   int score;
   int joueur;
+  Grille g;
 }Joueur;
