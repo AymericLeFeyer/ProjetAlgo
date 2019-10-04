@@ -4,7 +4,7 @@ int x;
 int y;
 }Coord;
 
-//entier direction haut=1 bas=2 droite=3 gauche=4
+//entier direction haut=1 gauche=2 bas=3 droite=4
 //entier PV si a 0 , bateau mort
 //entier taille qui correspondra a la taille du bateau
 //struct coord qui prendra la tête du bateau
