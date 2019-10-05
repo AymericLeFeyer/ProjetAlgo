@@ -1,3 +1,9 @@
+#include <stdio.h>
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+
+#include "headers/grille.h"
+#include "headers/structure.h"
 //test si bateau sur grille
 int choixBateau (Coord clic, SDL_Rect[5] positionsB, Joueur j){
   if(clic.x>=positionsB[0].x && clic.x<=positionsB[0].w && clic.y>=positionsB[0].y && clic.y<=positionsB[0].h){
