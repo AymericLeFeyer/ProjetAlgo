@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
   // Nom de la fenêtre
   SDL_WM_SetCaption(TITLE_GAME, NULL);
 
+
   // On affiche la bataille navale
   affichageBatailleNavale(screen);
 
