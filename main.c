@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 
+#include "headers/affichage.h"
+#include "headers/constantes.h"
+
+//ceci est un test, rien de plus
+//test
 int main(int argc, char *argv[])
 {
   // Variable de la boucle principale
@@ -13,38 +19,17 @@ int main(int argc, char *argv[])
     exit(EXIT_FAILURE);
   }
 
-  // Création de la surface
+  // Création de la surface principale
   SDL_Surface *screen = NULL;
 
   // Affichage de la fenêtre
-  screen = SDL_SetVideoMode(500 , 500, 32, SDL_SWSURFACE | SDL_DOUBLEBUF);
+  screen = SDL_SetVideoMode(WIDTH_GAME, HEIGHT_GAME, 32, SDL_SWSURFACE | SDL_DOUBLEBUF);
 
   // Nom de la fenêtre
-  SDL_WM_SetCaption("Test SDL !", NULL);
+  SDL_WM_SetCaption(TITLE_GAME, NULL);
 
-  // Event pour la détection des entrées (clavier, souris)
-  SDL_Event event;
-
-  // Boucle principale
-  while (continuer){
-
-    // On regarde l'event
-    SDL_WaitEvent(&event);
-
-    // En fonction de l'event, on fait des actions
-    switch(event.type)
-    {
-      // Si on clique sur la croix, on fenêtre
-      case SDL_QUIT:
-        continuer = 0;
-    }
-
-    // On remplit la surface screen avec la couleur, ici du bleu (le meilleur bleu qui existe sur cette terre)
-    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 161, 255));
-
-    // On "actualise" le tout
-    SDL_Flip(screen);
-  }
+  // On affiche la bataille navale
+  affichageBatailleNavale(screen);
 
   // On quitte le programme, sans erreur
   return EXIT_SUCCESS;
