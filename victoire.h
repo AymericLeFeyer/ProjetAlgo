@@ -1,0 +1,1 @@
+int victoire(Joueur j);
