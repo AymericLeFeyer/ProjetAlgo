@@ -8,9 +8,9 @@ void sauvegardeNavale(Joueur j)
     f = fopen("partieNavale.txt", "w");
     if(f != NULL)
     {
-        for(i = 0; i <= g.h-1; i++)
+        for(i = 0; i <= j.g.h-1; i++)
         {
-            for(j = 0; j <= g.l-1; j++)
+            for(j = 0; j <= j.g.l-1; j++)
             {
               fprintf(f, "%d ", j.g.tab[i][j]); //sauvegarde la grille du joueur
             }
