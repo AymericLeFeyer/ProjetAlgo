@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
+
 #include "headers/affichage.h"
 #include "headers/constantes.h"
 
-//ceci est un test, rien de plus
-//test
 int main(int argc, char *argv[])
 {
   // Variable de la boucle principale
@@ -29,8 +28,6 @@ int main(int argc, char *argv[])
 
   // On affiche la bataille navale
   affichageBatailleNavale(screen);
-
-  //test guillaume
 
   // On quitte le programme, sans erreur
   return EXIT_SUCCESS;

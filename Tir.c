@@ -1,7 +1,9 @@
+#include "headers/structure.h"
+#include "headers/grille.h"
 //Touché coulé raté bateille Navale
 
 //retourne 1 si c'est possible, 0 si c'est pas possible
- int tcr (int x, int y, Joueur j){ //rajouter une grille dans joueur comme ils ont chacun leurs grille
+int tcr (int x, int y, Joueur j){ //rajouter une grille dans joueur comme ils ont chacun leurs grille
    //si il n'y a pas de bateau :            //le joueur c le joueur adverse, celui qu'on attaque
    if(j.Grille.tab[x][y]==0){
      j.Grille.tab[x][y]=4;
