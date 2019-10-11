@@ -12,6 +12,7 @@ int y;
 //entier PV si a 0 , bateau mort
 //entier taille qui correspondra a la taille du bateau
 //struct coord qui prendra la tête du bateau
+//tete initialisée a -1 -1 si pas placée
 typedef struct{
 int direction;
 int pv;
