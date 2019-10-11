@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
+#include <SDL/SDL_ttf.h>
 
 #include "headers/affichage.h"
 #include "headers/constantes.h"
@@ -15,6 +16,13 @@ int main(int argc, char *argv[])
   {
     fprintf(stderr, "Erreur d'initialisation de la SDL");
     exit(EXIT_FAILURE);
+  }
+
+  // Initialisation de TTF
+  if (TTF_Init() == -1)
+  {
+      fprintf(stderr, "Erreur d'initialisation de TTF");
+      exit(EXIT_FAILURE);
   }
 
   // Création de la surface principale

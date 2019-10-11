@@ -1,17 +1,24 @@
 #include <stdio.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
+#include <SDL/SDL_ttf.h>
 
 #include "headers/shortcuts.h"
 #include "headers/constantes.h"
 #include "headers/structure.h"
 #include "headers/affichage.h"
+#include "headers/interface.h"
+
 
 void affichageBatailleNavale(SDL_Surface* screen)
 {
   // variables pour la boucle principale
   SDL_Event event;
   int continuer = 1;
+
+  // Polices
+  TTF_Font *font = NULL;
+  font = TTF_OpenFont(FONT_UBUNTU, 30);
 
   // Les deux types de cases (couleurs différentes)
   SDL_Surface *case1 = NULL;
@@ -61,6 +68,7 @@ void affichageBatailleNavale(SDL_Surface* screen)
     }
 
     afficherBateaux(screen);
+    afficherInterfaceBatailleNavale(screen, font);
 
     // On actualise l'écran
     SDL_Flip(screen);
