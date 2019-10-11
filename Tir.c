@@ -65,17 +65,41 @@ int tcr (int x, int y, Joueur* j){ //rajouter une grille dans joueur comme ils o
 
 //Initialise la grille de l'interface graphique de la bataille navale
 
-void initGrilleBN (Joueur j){
+void initGrilleBN (Joueur j, SDL_Surface ecran, GrilleSDL gs){
   for (i=0; i<10;i++){
     for (k=0; k<10; k++){
       if(j.g.tab[j][k]==2){ //case touché
         //Faire apparaitre une croix rouge
+         gs.tabS[i][k] = IMG_Load("touche.png");
+         SDL_BlitSurface(gs.tabS[i][k], NULL, ecran, &gs.tabR[i][k]);
       }
       if(j.g.tab[j][k]==4){ //case raté
         //Faire apparaitre une croix blanche
+        gs.tabS[i][k] = IMG_Load("rate.png");
+        SDL_BlitSurface(gs.tabS[i][k], NULL, ecran, &gs.tabR[i][k]);
       }
-      if((j.g.tab[j][k]==3)&&(i==j.tab[i][k].tete.x)&&(k==j.tab[i][k].tete.y)){ //case de la tête du bateau coulé
+      if(j.g.tab[j][k]==3){ //case de la tête du bateau coulé
         //Faire apparaitre le bateaux
+        for(ii=0; ii<5; ii++){
+          if((i==j.tab[ii].tete.x)&&(k==j.tab[ii].tete.y)){ //Cherche un bateau qui a sa tete sur la case
+            if(j.tab[ii].direction==1){ //le bateau se dirige vers le nord
+              SDL_BlitSurface(j.tab[ii].nord, NULL, ecran, &j.tab[ii].r);
+              break;
+            }
+            if(j.tab[ii].direction==2){ // le bateau se dirige vers l'ouest
+              SDL_BlitSurface(j.tab[ii].ouest, NULL, ecran, &j.tab[ii].r);
+              break;
+            }
+            if(j.tab[ii].direction==3){ //le bateau se dirige vers le sud
+              SDL_BlitSurface(j.tab[ii].sud, NULL, ecran, &j.tab[ii].r);
+              break;
+            }
+            if(j.tab[ii].direction==4){ //le bateau se dirige vers l'est
+              SDL_BlitSurface(j.tab[ii].est, NULL, ecran, &j.tab[ii].r);
+              break;
+            }
+          }
+        }
       }
     }
   }
