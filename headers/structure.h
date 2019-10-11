@@ -17,6 +17,10 @@ int direction;
 int pv;
 int taille;
 SDL_Rect r;
+SDL_Surface* nord;
+SDL_Surface* sud;
+SDL_Surface* est;
+SDL_Surface* west;
 Coord tete;
 } Bateau;
 

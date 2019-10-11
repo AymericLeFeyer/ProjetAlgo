@@ -4,8 +4,8 @@
 
 #include "headers/grille.h"
 #include "headers/structure.h"
-//test si bateau sur grille
-int choixBateau (SDL_Rect clic, Joueur j){
+
+int choixBateau (Coord clic, Joueur j){
   if(clic.x>=j.tab[0].r.x && clic.x<=j.tab[0].r.x+j.tab[0].r.w && clic.y>=j.tab[0].r.y && clic.y<=j.tab[0].r.y+j.tab[0].r.h){
     return 0;
   }
@@ -24,7 +24,7 @@ int choixBateau (SDL_Rect clic, Joueur j){
   return -1;
 }
 
-Coord clicGrille ( SDL_Rect clic, int tailleCase, SDL_Rect g){
+Coord clicGrille ( Coord clic, int tailleCase, SDL_Rect g){
   Coord a;
   if(clic.x<g.x || clic.x>g.x+g.w || clic.y<g.y || clic.y>g.y+g.h){
     a.x=-1;
@@ -37,7 +37,7 @@ Coord clicGrille ( SDL_Rect clic, int tailleCase, SDL_Rect g){
 }
 
 //test de si on sort du tableau
-Joueur placementBateau (Coord clic, Joueur j, int nBateau, int tailleCase, SDL_Rect g){
+Joueur placementBateau (Coord clic, Joueur j, int nBateau, int tailleCase, SDL_Rect g,SDL_Surface* screen){
   if(clic.x<0 || clic.x>10 || clic.y<0 || clic.y>10){
     return j;
   }
@@ -196,4 +196,31 @@ Joueur placementBateau (Coord clic, Joueur j, int nBateau, int tailleCase, SDL_R
                         break;
                 }
             }
+}
+//A FINIR !!
+int phasePlacement(SDL_Surface* screen, joueur* j1, joueur* j2,int tailleCase, SDL_Rect g){
+  int nBateau;
+  Coord clic;
+  int tourJoueur=1;
+  while(SDL_PollEvent(&event)){
+                switch(event.type)
+                {case SDL_MOUSEBUTTONDOWN:
+                  if (event.button.button == SDL_BUTTON_LEFT){
+                    clic.x=event.button.x;
+                    clic.y=event.button.y;
+                    if(tourJoueur==1){
+                      nBateau=choixBateau(clic,*j1);
+                      if(nBateau!=-1){
+                        *j1=placementBateau(clicGrille(clic,tailleCase,g),*j1,nBateau,tailleCase,g,screen);
+                      }
+                    }else{
+                      nBateau=choixBateau(clic,*j2);
+                      if(nBateau!=-1){
+                        *j2=placementBateau(clicGrille(clic,tailleCase,g),*j2,nBateau,tailleCase,g,screen);
+                      }
+                    }
+                  }
+                  break;
+                }
+              }
 }
