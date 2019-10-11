@@ -5,6 +5,7 @@
 //retourne 1 si c'est possible, 0 si c'est pas possible
 int tcr (int x, int y, Joueur* j){ //rajouter une grille dans joueur comme ils ont chacun leurs grille
    //si il n'y a pas de bateau :            //le joueur c le joueur adverse, celui qu'on attaque
+   int i;
    if(j->g.tab[x][y]==0){
      j->g.tab[x][y]=4;
      return 1;
@@ -66,6 +67,7 @@ int tcr (int x, int y, Joueur* j){ //rajouter une grille dans joueur comme ils o
 //Initialise la grille de l'interface graphique de la bataille navale
 
 void initGrilleBN (Joueur j, SDL_Surface ecran, GrilleSDL gs){
+  int i, k, ii;
   for (i=0; i<10;i++){
     for (k=0; k<10; k++){
       if(j.g.tab[j][k]==2){ //case touché
