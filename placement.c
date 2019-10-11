@@ -63,7 +63,6 @@ Joueur placementBateau (Coord clic, SDL_Rect[5] positionsB, Joueur j, int nBatea
                               for(i=clic.y;i<=clic.y+(j.tab[nBateau].taille-1);i++){
                                 j.g.tab[clic.x][i]=nBateau+11;
                                 }
-                              }
                               return j;
                             }
                             if(j.tab[nbBateau].direction==2){
@@ -78,7 +77,6 @@ Joueur placementBateau (Coord clic, SDL_Rect[5] positionsB, Joueur j, int nBatea
                               for(i=clic.x;i<=clic.x+(j.tab[nBateau].taille-1);i++){
                                 j.g.tab[i][clic.y]=nBateau+11;
                                 }
-                              }
                               return j;
                             }
                             if(j.tab[nbBateau].direction==3){
@@ -93,7 +91,6 @@ Joueur placementBateau (Coord clic, SDL_Rect[5] positionsB, Joueur j, int nBatea
                               for(i=clic.y;i<=clic.y-(j.tab[nBateau].taille-1);i--){
                                 j.g.tab[clic.x][i]=nBateau+11;
                                 }
-                              }
                               return j;
                             }
                             if(j.tab[nbBateau].direction==4){
@@ -108,7 +105,6 @@ Joueur placementBateau (Coord clic, SDL_Rect[5] positionsB, Joueur j, int nBatea
                               for(i=clic.x;i<=clic.x-(j.tab[nBateau].taille-1);i--){
                                 j.g.tab[i][clic.y]=nBateau+11;
                                 }
-                              }
                               return j;
                             }
 
