@@ -1,4 +1,6 @@
 #include "grille.h"
+#include <SDL/SDL.h>
+
 
 //structure de coordoonnée pour un bateau
 typedef struct{
@@ -14,6 +16,7 @@ typedef struct{
 int direction;
 int pv;
 int taille;
+SDL_Rect r;
 Coord tete;
 } Bateau;
 
