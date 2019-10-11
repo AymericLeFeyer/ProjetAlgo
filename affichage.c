@@ -67,7 +67,10 @@ void affichageBatailleNavale(SDL_Surface* screen)
       }
     }
 
+    // Afficher les bateaux
     afficherBateaux(screen);
+
+    // Afficher les textes pour la bataille navale
     afficherInterfaceBatailleNavale(screen, font);
 
     // On actualise l'écran
@@ -77,29 +80,34 @@ void affichageBatailleNavale(SDL_Surface* screen)
 
 void afficherBateaux(SDL_Surface* screen)
 {
+  // Creation des 5 surfaces de bateaux
   SDL_Surface *bateau1 = NULL;
   SDL_Surface *bateau2 = NULL;
   SDL_Surface *bateau3 = NULL;
   SDL_Surface *bateau4 = NULL;
   SDL_Surface *bateau5 = NULL;
 
-  bateau1 = IMG_Load("assets/batailleNavale/bateau1.png");
-  bateau2 = IMG_Load("assets/batailleNavale/bateau2.png");
-  bateau3 = IMG_Load("assets/batailleNavale/bateau3.png");
-  bateau4 = IMG_Load("assets/batailleNavale/bateau4.png");
-  bateau5 = IMG_Load("assets/batailleNavale/bateau5.png");
+  // Images des 5 bateaux
+  bateau1 = IMG_Load("assets/batailleNavale/bateau1-1.png");
+  bateau2 = IMG_Load("assets/batailleNavale/bateau2-1.png");
+  bateau3 = IMG_Load("assets/batailleNavale/bateau3-1.png");
+  bateau4 = IMG_Load("assets/batailleNavale/bateau4-1.png");
+  bateau5 = IMG_Load("assets/batailleNavale/bateau5-1.png");
 
+  // Positions des bateaux
   SDL_Rect posBateau1 = newRect(10, 10, 0, 0);
   SDL_Rect posBateau2 = newRect(10, 200, 0, 0);
   SDL_Rect posBateau3 = newRect(10, 400, 0, 0);
   SDL_Rect posBateau4 = newRect(100, 10, 0, 0);
   SDL_Rect posBateau5 = newRect(100, 300, 0, 0);
 
+  // Blit des bateaux
   SDL_BlitSurface(bateau1, NULL, screen, &posBateau1);
   SDL_BlitSurface(bateau2, NULL, screen, &posBateau2);
   SDL_BlitSurface(bateau3, NULL, screen, &posBateau3);
   SDL_BlitSurface(bateau4, NULL, screen, &posBateau4);
   SDL_BlitSurface(bateau5, NULL, screen, &posBateau5);
 
+  // Flip
   SDL_Flip(screen);
 }

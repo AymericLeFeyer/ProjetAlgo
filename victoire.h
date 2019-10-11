@@ -1,1 +1,0 @@
-int victoire(Joueur j);
