@@ -2,7 +2,7 @@
 #include <SDL/SDL_image.h>
 
 #include "headers/structure.h"
-
+#include "headers/placement.h"
 #include "headers/affichage.h"
 
 
