@@ -10,7 +10,7 @@
 #include "headers/interface.h"
 
 
-void affichageBatailleNavale(SDL_Surface* screen)
+void affichageBatailleNavale(SDL_Surface* screen, Joueur j)
 {
   // variables pour la boucle principale
   SDL_Event event;
@@ -67,8 +67,7 @@ void affichageBatailleNavale(SDL_Surface* screen)
       }
     }
 
-    // Afficher les bateaux
-    afficherBateaux(screen);
+    afficherBateaux(screen, j);
 
     // Afficher les textes pour la bataille navale
     afficherInterfaceBatailleNavale(screen, font);
@@ -78,7 +77,7 @@ void affichageBatailleNavale(SDL_Surface* screen)
   }
 }
 
-void afficherBateaux(SDL_Surface* screen)
+void afficherBateaux(SDL_Surface* screen, Joueur j)
 {
   // Creation des 5 surfaces de bateaux
   SDL_Surface *bateau1 = NULL;
@@ -101,12 +100,20 @@ void afficherBateaux(SDL_Surface* screen)
   SDL_Rect posBateau4 = newRect(100, 10, 0, 0);
   SDL_Rect posBateau5 = newRect(100, 300, 0, 0);
 
-  // Blit des bateaux
-  SDL_BlitSurface(bateau1, NULL, screen, &posBateau1);
-  SDL_BlitSurface(bateau2, NULL, screen, &posBateau2);
-  SDL_BlitSurface(bateau3, NULL, screen, &posBateau3);
-  SDL_BlitSurface(bateau4, NULL, screen, &posBateau4);
-  SDL_BlitSurface(bateau5, NULL, screen, &posBateau5);
+  for(int i=0;i<=4;i++){
+    if(j.tab[i].direction==1){
+      SDL_BlitSurface(j.tab[i].nord, NULL, screen, &j.tab[i].r);
+    }
+    if(j.tab[i].direction==2){
+      SDL_BlitSurface(j.tab[i].west, NULL, screen, &j.tab[i].r);
+    }
+    if(j.tab[i].direction==3){
+      SDL_BlitSurface(j.tab[i].sud, NULL, screen, &j.tab[i].r);
+    }
+    if(j.tab[i].direction==4){
+      SDL_BlitSurface(j.tab[i].est, NULL, screen, &j.tab[i].r);
+    }
+  }
 
   // Flip
   SDL_Flip(screen);

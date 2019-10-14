@@ -12,11 +12,16 @@ int y;
 //entier PV si a 0 , bateau mort
 //entier taille qui correspondra a la taille du bateau
 //struct coord qui prendra la tête du bateau
+//tete initialisée a -1 -1 si pas placée
 typedef struct{
 int direction;
 int pv;
 int taille;
 SDL_Rect r;
+SDL_Surface* nord;
+SDL_Surface* sud;
+SDL_Surface* est;
+SDL_Surface* west;
 Coord tete;
 } Bateau;
 
