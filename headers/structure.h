@@ -1,5 +1,5 @@
 #include "grille.h"
-#include <SDL/SDL.h>
+
 
 
 //structure de coordoonnée pour un bateau

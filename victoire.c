@@ -1,3 +1,5 @@
+#include "headers/structure.h"
+
 int victoire(Joueur j){
   int i;int victoire=1;
   while(i<=4 && victoire==1){

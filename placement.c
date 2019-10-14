@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <SDL/SDL_image.h>
 
-
 #include "headers/structure.h"
+
+#include "headers/affichage.h"
+
 
 int choixBateau (Coord clic, Joueur j){
   if(clic.x>=j.tab[0].r.x && clic.x<=j.tab[0].r.x+j.tab[0].r.w && clic.y>=j.tab[0].r.y && clic.y<=j.tab[0].r.y+j.tab[0].r.h){
@@ -54,7 +56,7 @@ Joueur placementBateau (Coord clic, Joueur j, int* nBateau, int tailleCase, SDL_
   b.r.x=j.tab[*nBateau].r.x;
   b.r.w=j.tab[*nBateau].r.w;
   b.r.h=j.tab[*nBateau].r.h;
-  while(true){
+  while(1){
   while(SDL_PollEvent(&event)){
                 switch(event.type)
                 {
@@ -205,7 +207,7 @@ Joueur placementBateau (Coord clic, Joueur j, int* nBateau, int tailleCase, SDL_
                         break;
                 }
             }
-            affichageBatailleNavale(screen);
+            affichageBatailleNavale(screen,j);
           }
 }
 

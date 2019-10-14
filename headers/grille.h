@@ -1,3 +1,5 @@
+#include <SDL/SDL.h>
+
 typedef struct {
   int h; //hauteur de la grille
   int l; //largeur de la grille
