@@ -79,27 +79,6 @@ void affichageBatailleNavale(SDL_Surface* screen, Joueur j)
 
 void afficherBateaux(SDL_Surface* screen, Joueur j)
 {
-  // Creation des 5 surfaces de bateaux
-  SDL_Surface *bateau1 = NULL;
-  SDL_Surface *bateau2 = NULL;
-  SDL_Surface *bateau3 = NULL;
-  SDL_Surface *bateau4 = NULL;
-  SDL_Surface *bateau5 = NULL;
-
-  // Images des 5 bateaux
-  bateau1 = IMG_Load("assets/batailleNavale/bateau1-1.png");
-  bateau2 = IMG_Load("assets/batailleNavale/bateau2-1.png");
-  bateau3 = IMG_Load("assets/batailleNavale/bateau3-1.png");
-  bateau4 = IMG_Load("assets/batailleNavale/bateau4-1.png");
-  bateau5 = IMG_Load("assets/batailleNavale/bateau5-1.png");
-
-  // Positions des bateaux
-  SDL_Rect posBateau1 = newRect(10, 10, 0, 0);
-  SDL_Rect posBateau2 = newRect(10, 200, 0, 0);
-  SDL_Rect posBateau3 = newRect(10, 400, 0, 0);
-  SDL_Rect posBateau4 = newRect(100, 10, 0, 0);
-  SDL_Rect posBateau5 = newRect(100, 300, 0, 0);
-
   for(int i=0;i<=4;i++){
     if(j.tab[i].direction==1){
       SDL_BlitSurface(j.tab[i].nord, NULL, screen, &j.tab[i].r);
