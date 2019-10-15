@@ -4,11 +4,13 @@
 #include "../headers/structure.h"
 #include "../headers/shortcuts.h"
 
+//permet d'initialiser un joueur pour la bataille navale
 Joueur initJoueur(int nJoueur, int h, int l){
   Joueur j;
   j.score=0;
   j.joueur=nJoueur;
 
+//images des différents bateaux avec leurs directions
   j.tab[0].nord = IMG_Load("assets/batailleNavale/bateau1-1.png");
   j.tab[1].nord = IMG_Load("assets/batailleNavale/bateau2-1.png");
   j.tab[2].nord = IMG_Load("assets/batailleNavale/bateau3-1.png");
@@ -36,6 +38,7 @@ Joueur initJoueur(int nJoueur, int h, int l){
   j.tab[3].r = newRect(100, 10, 256, 64);
   j.tab[4].r = newRect(100, 300, 320, 64);
 
+//tailles correspondant aux bateaux
   j.tab[0].taille = 2;
   j.tab[1].taille = 3;
   j.tab[2].taille = 3;
@@ -48,12 +51,14 @@ Joueur initJoueur(int nJoueur, int h, int l){
   j.tab[3].pv = j.tab[3].taille;
   j.tab[4].pv = j.tab[4].taille;
 
+//vers le nord, direction pas defaut
   j.tab[0].direction = 1;
   j.tab[1].direction = 1;
   j.tab[2].direction = 1;
   j.tab[3].direction = 1;
   j.tab[4].direction = 1;
 
+//position par défaut car pas dans le tableau a la base
   j.tab[0].tete.x=-1;
   j.tab[0].tete.y=-1;
   j.tab[1].tete.x=-1;
@@ -65,6 +70,7 @@ Joueur initJoueur(int nJoueur, int h, int l){
   j.tab[4].tete.x=-1;
   j.tab[4].tete.y=-1;
 
+//initialisation d'une grille vide pour le joueur
   int i;
   int k;
   j.g.h=h;
@@ -75,4 +81,19 @@ Joueur initJoueur(int nJoueur, int h, int l){
     }
   }
   return j;
+}
+
+//permet d'initialiser une grille de surface et de rectangles
+GrilleSDL initGrilleSDL(){
+  GrilleSDL g;
+  int i;
+  int j;
+  for (i = 0; i < 10; i++) {
+    for (j = 0; j < 10; j++) {
+      g.tabS[i][j]=IMG_Load("assets/vide.png");
+      g.tabR[i][j]=newRect(((WIDTH_GAME - 640)/2)+i*64,((HEIGHT_GAME - 640)/2)+i*64,((WIDTH_GAME - 640)/2)+(i*64)+64,((HEIGHT_GAME - 640)/2)+(i*64)+64);
+    }
+  }
+
+
 }
