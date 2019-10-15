@@ -39,8 +39,8 @@ int main(int argc, char *argv[])
 
   // On affiche la bataille navale
   Joueur j;
-  j=initJoueur(1, 10, 10);
-  affichageBatailleNavale(screen,j);
+  j = initJoueur(1, 10, 10);
+  affichageBatailleNavale(screen, j);
 
   // On quitte le programme, sans erreur
   return EXIT_SUCCESS;

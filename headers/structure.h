@@ -34,3 +34,7 @@ typedef struct{
   int joueur;
   Grille g;
 } Joueur;
+
+
+void tournerBateau(Bateau* b);
+void deplacerBateau(Bateau*b, Coord c);

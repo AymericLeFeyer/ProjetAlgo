@@ -30,11 +30,11 @@ Joueur initJoueur(int nJoueur, int h, int l){
   j.tab[3].est = IMG_Load("assets/batailleNavale/bateau4-4.png");
   j.tab[4].est = IMG_Load("assets/batailleNavale/bateau5-4.png");
 
-  j.tab[0].r = newRect(10, 10, 0, 0);
-  j.tab[1].r = newRect(10, 200, 0, 0);
-  j.tab[2].r = newRect(10, 400, 0, 0);
-  j.tab[3].r = newRect(100, 10, 0, 0);
-  j.tab[4].r = newRect(100, 300, 0, 0);
+  j.tab[0].r = newRect(10, 10, 128, 64);
+  j.tab[1].r = newRect(10, 200, 192, 64);
+  j.tab[2].r = newRect(400, 400, 192, 64);
+  j.tab[3].r = newRect(100, 10, 256, 64);
+  j.tab[4].r = newRect(100, 300, 320, 64);
 
   j.tab[0].taille = 2;
   j.tab[1].taille = 3;

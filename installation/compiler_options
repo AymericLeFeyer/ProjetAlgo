@@ -1,1 +1,1 @@
-structure.c grille.c affichage.c shortcuts.c -LC:\SDL-1.2.15\lib -IC:\SDL-1.2.15\include -lmingw32 -lSDLmain -lSDL -lSDL_image -lSDL_ttf
+sources/initialisation.c sources/interface.c sources/structure.c sources/grille.c sources/affichage.c sources/shortcuts.c -LC:\SDL-1.2.15\lib -IC:\SDL-1.2.15\include -lmingw32 -lSDLmain -lSDL -lSDL_image -lSDL_ttf

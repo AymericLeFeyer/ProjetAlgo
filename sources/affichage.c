@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
@@ -8,6 +9,7 @@
 #include "../headers/structure.h"
 #include "../headers/affichage.h"
 #include "../headers/interface.h"
+#include "../headers/placement.h"
 
 
 void affichageBatailleNavale(SDL_Surface* screen, Joueur j)
@@ -40,8 +42,19 @@ void affichageBatailleNavale(SDL_Surface* screen, Joueur j)
     }
   }
 
+  Coord c;
+  int selection = -1;
+  bool enSelection = false;
+
   // Boucle principale
   while (continuer){
+
+    // On affiche le fond blanc
+    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255));
+
+    // Position du curseur
+    c.x = event.button.x;
+    c.y = event.button.y;
 
     // On regarde l'event
     SDL_WaitEvent(&event);
@@ -52,10 +65,43 @@ void affichageBatailleNavale(SDL_Surface* screen, Joueur j)
       // Si on clique sur la croix, on ferme la fenêtre
       case SDL_QUIT:
         continuer = 0;
+      case SDL_KEYDOWN:
+        if (event.key.keysym.sym == SDLK_o) {
+          tournerBateau(&j.tab[2]);
+        }
+      case SDL_MOUSEBUTTONDOWN:
+        if (event.button.button == SDL_BUTTON_LEFT) {
+          selection = choixBateau(c, j);
+
+          if (selection != -1) {
+            deplacerBateau(&j.tab[selection], c);
+            enSelection = true;
+          }
+
+          else if (enSelection) {
+            selection = -1;
+            enSelection = false;
+          }
+        }
+
+
+
+        //debugMessage(screen, font, result );
+
+
+
     }
 
-    // On affiche le fond blanc
-    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255));
+    if (selection != -1) {
+      deplacerBateau(&j.tab[selection], c);
+      if (event.type == SDL_MOUSEBUTTONDOWN) {
+        if (event.button.button == SDL_BUTTON_RIGHT) {
+          tournerBateau(&j.tab[selection]);
+        }
+      }
+
+    }
+
 
     // On affiche toutes les cases
     for(int i = 0; i < 5; i++) {
@@ -79,26 +125,6 @@ void affichageBatailleNavale(SDL_Surface* screen, Joueur j)
 
 void afficherBateaux(SDL_Surface* screen, Joueur j)
 {
-  // Creation des 5 surfaces de bateaux
-  SDL_Surface *bateau1 = NULL;
-  SDL_Surface *bateau2 = NULL;
-  SDL_Surface *bateau3 = NULL;
-  SDL_Surface *bateau4 = NULL;
-  SDL_Surface *bateau5 = NULL;
-
-  // Images des 5 bateaux
-  bateau1 = IMG_Load("assets/batailleNavale/bateau1-1.png");
-  bateau2 = IMG_Load("assets/batailleNavale/bateau2-1.png");
-  bateau3 = IMG_Load("assets/batailleNavale/bateau3-1.png");
-  bateau4 = IMG_Load("assets/batailleNavale/bateau4-1.png");
-  bateau5 = IMG_Load("assets/batailleNavale/bateau5-1.png");
-
-  // Positions des bateaux
-  SDL_Rect posBateau1 = newRect(10, 10, 0, 0);
-  SDL_Rect posBateau2 = newRect(10, 200, 0, 0);
-  SDL_Rect posBateau3 = newRect(10, 400, 0, 0);
-  SDL_Rect posBateau4 = newRect(100, 10, 0, 0);
-  SDL_Rect posBateau5 = newRect(100, 300, 0, 0);
 
   for(int i=0;i<=4;i++){
     if(j.tab[i].direction==1){
