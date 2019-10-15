@@ -71,35 +71,24 @@ void affichageBatailleNavale(SDL_Surface* screen, Joueur j)
         }
       case SDL_MOUSEBUTTONDOWN:
         if (event.button.button == SDL_BUTTON_LEFT) {
-          selection = choixBateau(c, j);
-
-          if (selection != -1) {
-            deplacerBateau(&j.tab[selection], c);
-            enSelection = true;
+          if (!(enSelection)) {
+            selection = choixBateau(c, j);
+            if (selection != -1) enSelection = true;
           }
-
           else if (enSelection) {
             selection = -1;
             enSelection = false;
           }
         }
 
-
-
-        //debugMessage(screen, font, result );
-
-
+        if (event.button.button == SDL_BUTTON_RIGHT) {
+          if (enSelection) tournerBateau(&j.tab[selection]);
+        }
 
     }
 
-    if (selection != -1) {
+    if (enSelection) { // Test si un bateau est touche par le curseur
       deplacerBateau(&j.tab[selection], c);
-      if (event.type == SDL_MOUSEBUTTONDOWN) {
-        if (event.button.button == SDL_BUTTON_RIGHT) {
-          tournerBateau(&j.tab[selection]);
-        }
-      }
-
     }
 
 
@@ -113,6 +102,7 @@ void affichageBatailleNavale(SDL_Surface* screen, Joueur j)
       }
     }
 
+    // On affiche les bateaux
     afficherBateaux(screen, j);
 
     // Afficher les textes pour la bataille navale
@@ -125,22 +115,25 @@ void affichageBatailleNavale(SDL_Surface* screen, Joueur j)
 
 void afficherBateaux(SDL_Surface* screen, Joueur j)
 {
-
+  // On affiche le bateau en fonction de sa direction
   for(int i=0;i<=4;i++){
-    if(j.tab[i].direction==1){
-      SDL_BlitSurface(j.tab[i].nord, NULL, screen, &j.tab[i].r);
+    switch (j.tab[i].direction) {
+      case 1:
+        SDL_BlitSurface(j.tab[i].nord, NULL, screen, &j.tab[i].r);
+        break;
+      case 2:
+        SDL_BlitSurface(j.tab[i].west, NULL, screen, &j.tab[i].r);
+        break;
+      case 3:
+        SDL_BlitSurface(j.tab[i].sud, NULL, screen, &j.tab[i].r);
+        break;
+      case 4:
+        SDL_BlitSurface(j.tab[i].est, NULL, screen, &j.tab[i].r);
+        break;
+      default:
+        break;
+      }
     }
-    if(j.tab[i].direction==2){
-      SDL_BlitSurface(j.tab[i].west, NULL, screen, &j.tab[i].r);
-    }
-    if(j.tab[i].direction==3){
-      SDL_BlitSurface(j.tab[i].sud, NULL, screen, &j.tab[i].r);
-    }
-    if(j.tab[i].direction==4){
-      SDL_BlitSurface(j.tab[i].est, NULL, screen, &j.tab[i].r);
-    }
-  }
-
   // Flip
   SDL_Flip(screen);
 }

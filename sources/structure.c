@@ -7,7 +7,14 @@ void tournerBateau(Bateau* b) {
   b->r.h = temp;
 }
 
-void deplacerBateau(Bateau*b, Coord c) {
+void deplacerBateau(Bateau* b, Coord c) {
   b->r.x = c.x;
   b->r.y = c.y;
+  magnetiserBateau(b);
+}
+
+void magnetiserBateau(Bateau* b) {
+  b->r.x -= (b->r.x % 64);
+  b->r.y -= (b->r.y % 64);
+
 }

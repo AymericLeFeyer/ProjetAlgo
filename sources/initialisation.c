@@ -3,6 +3,7 @@
 #include <SDL/SDL_image.h>
 #include "../headers/structure.h"
 #include "../headers/shortcuts.h"
+#include "../headers/constantes.h"
 
 //permet d'initialiser un joueur pour la bataille navale
 Joueur initJoueur(int nJoueur, int h, int l){

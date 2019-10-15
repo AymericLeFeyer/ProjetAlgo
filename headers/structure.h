@@ -38,3 +38,4 @@ typedef struct{
 
 void tournerBateau(Bateau* b);
 void deplacerBateau(Bateau*b, Coord c);
+void magnetiserBateau(Bateau* b);
