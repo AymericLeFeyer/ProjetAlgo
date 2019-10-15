@@ -5,8 +5,8 @@
 
 #include "headers/structure.h"
 #include "headers/affichage.h"
-#include "headers/constantes.h"
 #include "headers/initialisation.h"
+#include "headers/constantes.h"
 
 
 int main(int argc, char *argv[])

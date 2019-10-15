@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <SDL/SDL_image.h>
 
-#include "headers/structure.h"
-#include "headers/placement.h"
-#include "headers/affichage.h"
+#include "../headers/structure.h"
+#include "../headers/placement.h"
+#include "../headers/affichage.h"
 
 
 int choixBateau (Coord clic, Joueur j){

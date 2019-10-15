@@ -3,8 +3,8 @@
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 
-#include "headers/constantes.h"
-#include "headers/shortcuts.h"
+#include "../headers/constantes.h"
+#include "../headers/shortcuts.h"
 
 SDL_Color blanc = {255, 255, 255, 0};
 SDL_Color noir = {0, 0, 0, 0};

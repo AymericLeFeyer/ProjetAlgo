@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "headers/structure.h"
+#include "../headers/structure.h"
 
 Joueur chargeNavale(int joueur) //on mettra en paramètre l'état du joueur pour lequel on veut charger ses infos
 {

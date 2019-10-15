@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "headers/structure.h"
+#include "../headers/structure.h"
 
 void sauvegardeNavale(Joueur j)
 {

@@ -1,5 +1,5 @@
-#include "headers/structure.h"
-#include "headers/grille.h"
+#include "../headers/structure.h"
+#include "../headers/grille.h"
 //Touché coulé raté bataille Navale
 
 //retourne 1 si c'est possible, 0 si c'est pas possible

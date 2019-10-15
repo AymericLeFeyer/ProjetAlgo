@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
-#include "headers/structure.h"
-#include "headers/shortcuts.h"
+#include "../headers/structure.h"
+#include "../headers/shortcuts.h"
 
 Joueur initJoueur(int nJoueur, int h, int l){
   Joueur j;

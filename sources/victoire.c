@@ -1,4 +1,4 @@
-#include "headers/structure.h"
+#include "../headers/structure.h"
 
 int victoire(Joueur j){
   int i;int victoire=1;

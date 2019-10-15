@@ -3,11 +3,11 @@
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 
-#include "headers/shortcuts.h"
-#include "headers/constantes.h"
-#include "headers/structure.h"
-#include "headers/affichage.h"
-#include "headers/interface.h"
+#include "../headers/shortcuts.h"
+#include "../headers/constantes.h"
+#include "../headers/structure.h"
+#include "../headers/affichage.h"
+#include "../headers/interface.h"
 
 
 void affichageBatailleNavale(SDL_Surface* screen, Joueur j)
