@@ -22,6 +22,8 @@ void affichageBatailleNavale(SDL_Surface* screen, Joueur j)
   TTF_Font *font = NULL;
   font = TTF_OpenFont(FONT_UBUNTU, 30);
 
+  SDL_Color rouge = {255, 0, 0, 0};
+
   // Les deux types de cases (couleurs différentes)
   SDL_Surface *case1 = NULL;
   SDL_Surface *case2 = NULL;
@@ -42,9 +44,11 @@ void affichageBatailleNavale(SDL_Surface* screen, Joueur j)
     }
   }
 
+  // Variables utiles
   Coord c;
   int selection = -1;
   bool enSelection = false;
+  int nbBateauxValides = 0;
 
   // Boucle principale
   while (continuer){
@@ -76,18 +80,22 @@ void affichageBatailleNavale(SDL_Surface* screen, Joueur j)
             if (selection != -1) enSelection = true;
           }
           else if (enSelection) {
+            // On lache le bateau
+            if (bateauxValide(j.tab)) updateGrille(&j);
             selection = -1;
             enSelection = false;
           }
         }
 
         if (event.button.button == SDL_BUTTON_RIGHT) {
+          // Pivot du bateau
           if (enSelection) tournerBateau(&j.tab[selection]);
         }
 
     }
 
-    if (enSelection) { // Test si un bateau est touche par le curseur
+    if (enSelection) {
+      // Deplacement du Bateau
       deplacerBateau(&j.tab[selection], c);
     }
 
@@ -102,11 +110,25 @@ void affichageBatailleNavale(SDL_Surface* screen, Joueur j)
       }
     }
 
+    // On affiche le bouton
+    SDL_Surface *blackButton = NULL;
+    blackButton = IMG_Load("assets/batailleNavale/button1.png");
+    SDL_Rect posButton = newRect(WIDTH_GAME - 128 - 10, HEIGHT_GAME - 64 - 10, 64, 128);
+    if (nbCaseBateau(j) == 17) SDL_BlitSurface(blackButton, NULL, screen, &posButton);
+
+
+
     // On affiche les bateaux
     afficherBateaux(screen, j);
 
     // Afficher les textes pour la bataille navale
     afficherInterfaceBatailleNavale(screen, font);
+
+    char result[50];
+    sprintf(result, "%d", nbCaseBateau(j));
+
+
+    creerTexte(screen, result, newRect(0, 0, 0, 0), rouge, font);
 
     // On actualise l'écran
     SDL_Flip(screen);

@@ -16,10 +16,6 @@ void creerTexte(SDL_Surface* screen, const char *text, SDL_Rect pos, SDL_Color c
   SDL_BlitSurface(a, NULL, screen, &pos);
 }
 
-void afficherTexte(SDL_Surface *a, SDL_Surface* screen, SDL_Rect pos) {
-  SDL_BlitSurface(a, NULL, screen, &pos);
-}
-
 void afficherInterfaceBatailleNavale(SDL_Surface* screen, TTF_Font* font) {
   creerTexte(screen, "Joueur 1", newRect(580, 0, 0, 0), noir, font);
 }

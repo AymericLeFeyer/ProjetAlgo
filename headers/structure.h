@@ -1,12 +1,23 @@
-#include "grille.h"
+#include <SDL/SDL.h>
 
-
+#include <stdbool.h>
 
 //structure de coordoonnée pour un bateau
 typedef struct{
 int x;
 int y;
 } Coord;
+
+typedef struct {
+  int h; //hauteur de la grille
+  int l; //largeur de la grille
+  int tab[10][10]; //grille générique de jeu
+} Grille;
+
+typedef struct{
+  SDL_Surface* tabS[10][10];//grille de surface associées aux case de la grille
+  SDL_Rect tabR[10][10];//grille des rectangles associés aux surfaces
+} GrilleSDL;
 
 //entier direction haut=1 gauche=2 bas=3 droite=4
 //entier PV si a 0 , bateau mort
@@ -36,6 +47,13 @@ typedef struct{
 } Joueur;
 
 
+
+
+
+void updateGrille(Joueur *j);
+int nbCaseBateau(Joueur j);
 void tournerBateau(Bateau* b);
 void deplacerBateau(Bateau*b, Coord c);
 void magnetiserBateau(Bateau* b);
+bool bateauxValide(Bateau* b);
+void effacerBateauxGrille(Joueur *j);
