@@ -35,7 +35,7 @@ Joueur initJoueur(int nJoueur, int h, int l){
 
   j.tab[0].r = newRect(10, 10, 128, 64);
   j.tab[1].r = newRect(10, 200, 192, 64);
-  j.tab[2].r = newRect(400, 400, 192, 64);
+  j.tab[2].r = newRect(10, 400, 192, 64);
   j.tab[3].r = newRect(100, 10, 256, 64);
   j.tab[4].r = newRect(100, 300, 320, 64);
 

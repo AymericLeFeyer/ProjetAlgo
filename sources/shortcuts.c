@@ -2,6 +2,10 @@
 #include <stdbool.h>
 #include <SDL/SDL.h>
 
+#include "../headers/structure.h"
+#include "../headers/shortcuts.h"
+
+
 // Cree un rect rapidement
 SDL_Rect newRect(int x, int y, int h, int w) {
     SDL_Rect r;
@@ -27,6 +31,11 @@ bool inclusion(SDL_Rect a, SDL_Rect b) {
     return false;
   }
   return true;
+}
+
+// retourne true si la pos est sur le rect, false sinon
+bool posInclusion(int x, int y, SDL_Rect b) {
+  return inclusion(newRect(x, y, 1, 1), b);
 }
 
 // Renvoie true si a est partiellement inclus dans b

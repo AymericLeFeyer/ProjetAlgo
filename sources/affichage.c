@@ -11,12 +11,19 @@
 #include "../headers/interface.h"
 #include "../headers/placement.h"
 
-
-void affichageBatailleNavale(SDL_Surface* screen, Joueur j)
+void affichageBatailleNavale(SDL_Surface* screen, Joueur j1, Joueur j2)
 {
   // variables pour la boucle principale
   SDL_Event event;
   int continuer = 1;
+
+  /*  Index de la phase en cours
+  1 : Placement J1
+  2 : Placement J2
+  3 : Tour J1
+  4 : Tour J2
+  */
+  int phase = 1;
 
   // Polices
   TTF_Font *font = NULL;
@@ -24,44 +31,25 @@ void affichageBatailleNavale(SDL_Surface* screen, Joueur j)
 
   SDL_Color rouge = {255, 0, 0, 0};
 
-  // Les deux types de cases (couleurs différentes)
-  SDL_Surface *case1 = NULL;
-  SDL_Surface *case2 = NULL;
 
-  case1 = IMG_Load("assets/batailleNavale/case1.jpg");
-  case2 = IMG_Load("assets/batailleNavale/case2.jpg");
 
   // Position de la grille sur l'écran
   SDL_Rect positionGrille = newRect((WIDTH_GAME - 640)/2, (HEIGHT_GAME - 640)/2, 640, 640);
 
-  // Positions des cases stockées dans ce tableau
-  SDL_Rect positionCases[10][10];
-
-  // Initialisation de ces positions
-  for(int i = 0; i < 10; i++) {
-    for(int j = 0; j < 10; j++) {
-      positionCases[i][j] = newRect(positionGrille.x + 64 * i, positionGrille.y + 64 * j, 64, 64);
-    }
-  }
-
   // Variables utiles
   Coord c;
-  int selection = -1;
-  bool enSelection = false;
+
   int nbBateauxValides = 0;
 
   // Boucle principale
   while (continuer){
-
-    // On affiche le fond blanc
-    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255));
 
     // Position du curseur
     c.x = event.button.x;
     c.y = event.button.y;
 
     // On regarde l'event
-    SDL_WaitEvent(&event);
+    SDL_PollEvent(&event);
 
     // En fonction de l'event, on fait des actions
     switch(event.type)
@@ -69,66 +57,32 @@ void affichageBatailleNavale(SDL_Surface* screen, Joueur j)
       // Si on clique sur la croix, on ferme la fenêtre
       case SDL_QUIT:
         continuer = 0;
-      case SDL_KEYDOWN:
-        if (event.key.keysym.sym == SDLK_o) {
-          tournerBateau(&j.tab[2]);
-        }
-      case SDL_MOUSEBUTTONDOWN:
-        if (event.button.button == SDL_BUTTON_LEFT) {
-          if (!(enSelection)) {
-            selection = choixBateau(c, j);
-            if (selection != -1) enSelection = true;
-          }
-          else if (enSelection) {
-            // On lache le bateau
-            if (bateauxValide(j.tab)) updateGrille(&j);
-            selection = -1;
-            enSelection = false;
-          }
-        }
+        break;
 
-        if (event.button.button == SDL_BUTTON_RIGHT) {
-          // Pivot du bateau
-          if (enSelection) tournerBateau(&j.tab[selection]);
-        }
 
     }
-
-    if (enSelection) {
-      // Deplacement du Bateau
-      deplacerBateau(&j.tab[selection], c);
+    switch (phase) {
+      case 1:
+        phasePlacement(screen, &j1, &continuer);
+        phase++;
+        break;
+      case 2:
+        phasePlacement(screen, &j2, &continuer);
+        phase++;
+        break;
     }
-
-
-    // On affiche toutes les cases
-    for(int i = 0; i < 5; i++) {
-      for(int j = 0; j < 5; j++) {
-        SDL_BlitSurface(case1, NULL, screen, &positionCases[2*i][2*j]);
-        SDL_BlitSurface(case1, NULL, screen, &positionCases[2*i+1][2*j+1]);
-        SDL_BlitSurface(case2, NULL, screen, &positionCases[2*i+1][2*j]);
-        SDL_BlitSurface(case2, NULL, screen, &positionCases[2*i][2*j+1]);
-      }
-    }
-
-    // On affiche le bouton
-    SDL_Surface *blackButton = NULL;
-    blackButton = IMG_Load("assets/batailleNavale/button1.png");
-    SDL_Rect posButton = newRect(WIDTH_GAME - 128 - 10, HEIGHT_GAME - 64 - 10, 64, 128);
-    if (nbCaseBateau(j) == 17) SDL_BlitSurface(blackButton, NULL, screen, &posButton);
-
-
 
     // On affiche les bateaux
-    afficherBateaux(screen, j);
+    //afficherBateaux(screen, j1);
 
     // Afficher les textes pour la bataille navale
     afficherInterfaceBatailleNavale(screen, font);
 
     char result[50];
-    sprintf(result, "%d", nbCaseBateau(j));
+    sprintf(result, "%d", nbCaseBateau(j1));
 
 
-    creerTexte(screen, result, newRect(0, 0, 0, 0), rouge, font);
+
 
     // On actualise l'écran
     SDL_Flip(screen);

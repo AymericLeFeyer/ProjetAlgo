@@ -4,6 +4,9 @@
 #include "../headers/structure.h"
 #include "../headers/placement.h"
 #include "../headers/affichage.h"
+#include "../headers/interface.h"
+#include "../headers/constantes.h"
+#include "../headers/shortcuts.h"
 
 //permet le clic sur un bateau pour le selectionner et retourne son indice dans le tableau de bateau d'un joueur
 int choixBateau (Coord clic, Joueur j){
@@ -39,7 +42,7 @@ Coord clicGrille ( Coord clic, int tailleCase, SDL_Rect g){
 }
 
 //permet de placer un bateau
-Joueur placementBateau (Coord clic, Joueur j, int* nBateau, int tailleCase, SDL_Rect g,SDL_Surface* screen){
+/*Joueur placementBateau (Coord clic, Joueur j, int* nBateau, int tailleCase, SDL_Rect g,SDL_Surface* screen){
   //si on clique en dehors du tableau, pas besoin d'aller plus loin
   if(clic.x<0 || clic.x>10 || clic.y<0 || clic.y>10){
     return j;
@@ -288,7 +291,7 @@ Joueur placementBateau (Coord clic, Joueur j, int* nBateau, int tailleCase, SDL_
 }
 
 //permet de valider le positionnement
-/** le rect et la surface de confirm sont a faire **/
+/** le rect et la surface de confirm sont a faire **
 int clicConfirmerPlacement(Coord clic, SDL_Rect confirm, Joueur j){
   if(clic.x>=confirm.x && clic.x<=confirm.x+confirm.w && clic.y>=confirm.y && clic.y<=confirm.y+confirm.h){
     for(int i=0;i<=4;i++){
@@ -299,48 +302,123 @@ int clicConfirmerPlacement(Coord clic, SDL_Rect confirm, Joueur j){
     return 1;
   }
   return 0;
-}
+}*/
 
 
 //permet de lancer la phase de placement de bateau pour un joueur
 //A TESTER ET MODIFIER SI BESOIN
-int phasePlacement(SDL_Surface* screen, Joueur* j1, Joueur* j2,int tailleCase, SDL_Rect g, int tourJoueur,SDL_Rect confirm){
-  int nBateau;
+void phasePlacement(SDL_Surface* screen, Joueur* j, int* continuer){
+
+  TTF_Font *font = NULL;
+  font = TTF_OpenFont(FONT_UBUNTU, 30);
+  SDL_Color noir = {0, 0, 0, 0};
   Coord clic;
   SDL_Event event;
-  int confirmation=0;
+  int selection = -1;
+  bool enSelection = false;
+
+  SDL_Surface *blackButton = NULL;
+  blackButton = IMG_Load("assets/batailleNavale/button1.png");
+  SDL_Rect posButton = newRect(WIDTH_GAME - 128 - 10, HEIGHT_GAME - 64 - 10, 64, 128);
+
+  // Positions des cases
+  SDL_Rect positionCases[10][10];
+
+  // Position de la grille sur l'écran
+  SDL_Rect positionGrille = newRect((WIDTH_GAME - 640)/2, (HEIGHT_GAME - 640)/2, 640, 640);
+
+  // Initialisation de ces positions
+  for(int i = 0; i < 10; i++) {
+    for(int j = 0; j < 10; j++) {
+      positionCases[i][j] = newRect(positionGrille.x + 64 * i, positionGrille.y + 64 * j, 64, 64);
+    }
+  }
+
+  // Les deux types de cases (couleurs différentes)
+  SDL_Surface *case1 = NULL;
+  SDL_Surface *case2 = NULL;
+
+  case1 = IMG_Load("assets/batailleNavale/case1.jpg");
+  case2 = IMG_Load("assets/batailleNavale/case2.jpg");
+
+  // Creation texte necessaire
+  SDL_Surface *texte = NULL;
+  switch (j->joueur) {
+    case 1:
+      texte = creerTexte(screen, "Joueur 1", noir, font);
+      break;
+    case 2:
+      texte = creerTexte(screen, "Joueur 2", noir, font);
+      break;
+  }
+
+  SDL_Rect posTexte = newRect(580, 0, 0, 0);
+
   //on quitte uniquement si on a confirmé le placement du 2e joueur
-  while(confirmation==0){
+  while(continuer){
+    // On affiche le fond blanc
+    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255));
+
+    afficherGrille(screen, case1, case2, positionCases);
+    if (nbCaseBateau(*j) == 17) SDL_BlitSurface(blackButton, NULL, screen, &posButton);
+
+    SDL_BlitSurface(texte, NULL, screen, &posTexte);
+    afficherBateaux(screen, *j);
+    afficherInterfaceBatailleNavale(screen, font);
+
+    clic.x=event.button.x;
+    clic.y=event.button.y;
+
+
     while(SDL_PollEvent(&event)){
-      switch(event.type)
-        {case SDL_MOUSEBUTTONDOWN:
+      switch(event.type) {
+        case SDL_QUIT:
+          continuer = 0;
+
+          break;
+        case SDL_MOUSEBUTTONDOWN:
           if (event.button.button == SDL_BUTTON_LEFT){
-            clic.x=event.button.x;
-            clic.y=event.button.y;
-            if(tourJoueur==1){
-              if(nBateau!=-1){
-                *j1=placementBateau(clicGrille(clic,tailleCase,g),*j1,&nBateau,tailleCase,g,screen);
-              }else{
-                nBateau=choixBateau(clic,*j1);
-                confirmation=clicConfirmerPlacement(clic,confirm,*j1);
-              }
-            }else{
-              if(nBateau!=-1){
-                *j2=placementBateau(clicGrille(clic,tailleCase,g),*j2,&nBateau,tailleCase,g,screen);
-              }else{
-                nBateau=choixBateau(clic,*j2);
-                confirmation=clicConfirmerPlacement(clic,confirm,*j2);
+            if (nbCaseBateau(*j) == 17) {
+              if (posInclusion(clic.x, clic.y, posButton)) {
+                continuer = 0;
               }
             }
+
+
+            if (!(enSelection)) {
+              selection = choixBateau(clic, *j);
+              if (selection != -1) enSelection = true;
+            }
+            else if (enSelection) {
+              // On lache le bateau
+              updateGrille(j);
+              selection = -1;
+              enSelection = false;
+            }
+
+
+          }
+          if (event.button.button == SDL_BUTTON_RIGHT) {
+            // Pivot du bateau
+            if (enSelection) tournerBateau(&j->tab[selection]);
           }
           break;
         }
     }
-    //passage au tour du joueur 2
-    if(tourJoueur==1 && confirmation==1){
-      tourJoueur=2;
-      confirmation=0;
+
+    if (enSelection) {
+      // Deplacement du Bateau
+      deplacerBateau(&j->tab[selection], clic);
     }
+
+
+
+
+    // On affiche le bouton
+
+
+
+    SDL_Flip(screen);
+
   }
-  return confirmation;
 }
