@@ -10,6 +10,7 @@
 #include "../headers/affichage.h"
 #include "../headers/interface.h"
 #include "../headers/placement.h"
+#include "../headers/tir.h"
 
 void affichageBatailleNavale(SDL_Surface* screen, Joueur j1, Joueur j2)
 {
@@ -70,6 +71,14 @@ void affichageBatailleNavale(SDL_Surface* screen, Joueur j1, Joueur j2)
         phasePlacement(screen, &j2, &continuer);
         phase++;
         break;
+      case 3:
+        aToiDeJouer(screen, &j1);
+        phase = 4;
+        break;
+      case 4:
+        aToiDeJouer(screen, &j2);
+        phase = 3;
+        break;
     }
 
     // On affiche les bateaux
@@ -112,4 +121,7 @@ void afficherBateaux(SDL_Surface* screen, Joueur j)
     }
   // Flip
   SDL_Flip(screen);
+}
+void ciblerCase(SDL_Surface* screen, SDL_Surface* c, SDL_Rect pos) {
+  SDL_BlitSurface(c, NULL, screen, &pos);
 }

@@ -1,6 +1,101 @@
+#include <stdio.h>
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include <SDL/SDL_ttf.h>
+
 #include "../headers/structure.h"
+#include "../headers/shortcuts.h"
+#include "../headers/constantes.h"
+#include "../headers/affichage.h"
+#include "../headers/interface.h"
+#include "../headers/placement.h"
 
 //Touché coulé raté bataille Navale
+
+void aToiDeJouer(SDL_Surface* screen, Joueur* j) {
+  // Case cible
+  SDL_Surface* caseCible = NULL;
+  caseCible = IMG_Load("assets/batailleNavale/case3.jpg");
+  SDL_Rect posCaseCible = newRect(0, 0, 0, 0);
+  // Les deux types de cases (couleurs différentes)
+  SDL_Surface *case1 = NULL;
+  SDL_Surface *case2 = NULL;
+  case1 = IMG_Load("assets/batailleNavale/case1.jpg");
+  case2 = IMG_Load("assets/batailleNavale/case2.jpg");
+  // Police pour les textes, couleurs
+  TTF_Font *font = NULL;
+  font = TTF_OpenFont(FONT_UBUNTU, 30);
+  SDL_Color noir = {0, 0, 0, 0};
+  SDL_Surface* texte = NULL;
+  // Variables importantes
+  Coord clic;
+  SDL_Event event;
+  int continuer = 1;
+  Coord temp;
+
+  // Positions des cases
+  SDL_Rect positionCases[10][10];
+  // Position de la grille sur l'écran
+  SDL_Rect positionGrille = newRect((WIDTH_GAME - 640)/2, (HEIGHT_GAME - 640)/2, 640, 640);
+
+  // Initialisation de ces positions
+  for(int i = 0; i < 10; i++) {
+    for(int j = 0; j < 10; j++) {
+      positionCases[i][j] = newRect(positionGrille.x + 64 * i, positionGrille.y + 64 * j, 64, 64);
+    }
+  }
+
+  // Afficher le texte correspondant au Joueur
+  switch (j->joueur) {
+    case 1:
+      texte = creerTexte(screen, "Au tour du joueur 1", noir, font);
+      break;
+    case 2:
+      texte = creerTexte(screen, "Au tour du joueur 2", noir, font);
+      break;
+  }
+  SDL_Rect posTexte = newRect(500, 0, 0, 0);
+
+  while(continuer){
+    // On affiche le fond blanc
+    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255));
+
+    afficherGrille(screen, case1, case2, positionCases);
+
+    SDL_BlitSurface(texte, NULL, screen, &posTexte);
+    //afficherBateaux(screen, *j);
+    afficherInterfaceBatailleNavale(screen, font);
+
+    clic.x=event.button.x;
+    clic.y=event.button.y;
+
+    // Surligner la case pointee
+    if (posInclusion(clic.x, clic.y, positionGrille)) {
+      posCaseCible.x = clic.x - clic.x % 64;
+      posCaseCible.y = clic.y - (clic.y - 40) % 64;
+
+      ciblerCase(screen, caseCible, posCaseCible);
+    }
+
+    while(SDL_PollEvent(&event)){
+      switch(event.type) {
+        case SDL_QUIT:
+          continuer = 0;
+
+          break;
+        case SDL_MOUSEBUTTONDOWN:
+          if (event.button.button == SDL_BUTTON_LEFT){
+
+          }
+          if (event.button.button == SDL_BUTTON_RIGHT) {
+
+          }
+          break;
+        }
+    }
+    SDL_Flip(screen);
+  }
+}
 
 //retourne 1 si c'est possible, 0 si c'est pas possible
 int tcr (int x, int y, Joueur* j){ //rajouter une grille dans joueur comme ils ont chacun leurs grille

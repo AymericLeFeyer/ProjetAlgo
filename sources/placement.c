@@ -35,9 +35,13 @@ Coord clicGrille ( Coord clic, int tailleCase, SDL_Rect g){
     a.x=-1;
     a.y=-1;
   }else{
-  a.x=(int)(clic.x/tailleCase);
-  a.y=(int)(clic.y/tailleCase);
+  a.x=(int)((clic.x - 320 )/tailleCase);
+  a.y=(int)((clic.y - 40 )/tailleCase);
 }
+  if ((a.x < 0) || (a.y < 0)) {
+    a.x = -1;
+    a.y = -1;
+  }
   return a;
 }
 
@@ -345,14 +349,14 @@ void phasePlacement(SDL_Surface* screen, Joueur* j, int* continuer){
   SDL_Surface *texte = NULL;
   switch (j->joueur) {
     case 1:
-      texte = creerTexte(screen, "Joueur 1", noir, font);
+      texte = creerTexte(screen, "Placement : Joueur 1", noir, font);
       break;
     case 2:
-      texte = creerTexte(screen, "Joueur 2", noir, font);
+      texte = creerTexte(screen, "Placement : Joueur 2", noir, font);
       break;
   }
 
-  SDL_Rect posTexte = newRect(580, 0, 0, 0);
+  SDL_Rect posTexte = newRect(496, 0, 0, 0);
 
   //on quitte uniquement si on a confirmé le placement du 2e joueur
   while(continuer){
