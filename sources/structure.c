@@ -14,14 +14,19 @@ void tournerBateau(Bateau* b) {
 }
 
 void deplacerBateau(Bateau* b, Coord c) {
+  SDL_Rect g = newRect((WIDTH_GAME - 640)/2, (HEIGHT_GAME - 640)/2, 640, 640);
   b->r.x = c.x;
   b->r.y = c.y;
-  magnetiserBateau(b);
+  if (posInclusion(c.x, c.y, g)) magnetiserBateau(b);
+  else {
+    b->r.x = c.x - 32;
+    b->r.y = c.y - 32;
+  }
 }
 
 void magnetiserBateau(Bateau* b) {
-  b->r.x -= (b->r.x % 64);
-  b->r.y -= (b->r.y % 64) - 40;
+  b->r.x -= b->r.x % 64;
+  b->r.y -= (b->r.y - 40) % 64;
 }
 
 bool bateauxValide(Bateau* b) {
@@ -65,7 +70,7 @@ void updateGrille(Joueur *j) {
 }
 
 int nbCaseBateau(Joueur j) {
-  // Retour le nombre de case avec un bateau (10 a 14) pour la validation du placement notamment
+  // Retourne le nombre de case avec un bateau (10 a 14) pour la validation du placement notamment
   int n = 0;
   for (int i = 0; i < 10; i++) {
     for (int k = 0; k < 10; k++) {
@@ -75,7 +80,16 @@ int nbCaseBateau(Joueur j) {
     }
   }
   return n;
+}
 
+int nbCaseNonVide(Grille g) {
+  int n = 0;
+  for (int a = 0; a < g.h; a++) {
+    for (int b = 0; b < g.l; b++) {
+      if (g.tab[a][b] != 0) n++;
+    }
+  }
+  return n;
 }
 
 void effacerBateauxGrille(Joueur *j) {
@@ -87,4 +101,12 @@ void effacerBateauxGrille(Joueur *j) {
       }
     }
   }
+}
+
+int nbBateauxVivant(Joueur j) {
+  int n = 0;
+  for (int a = 0; a < 5; a ++) {
+    if (j.tab[a].pv > 0) n++;
+  }
+  return n;
 }

@@ -9,29 +9,84 @@
 #include "../headers/affichage.h"
 #include "../headers/interface.h"
 #include "../headers/placement.h"
+#include "../headers/tir.h"
 
 //Touché coulé raté bataille Navale
-
-void aToiDeJouer(SDL_Surface* screen, Joueur* j) {
+// Renvoie 1 si on continue de jouer, 0 sinon
+int aToiDeJouer(SDL_Surface* screen, Joueur* j1, Joueur* j2) {
   // Case cible
   SDL_Surface* caseCible = NULL;
   caseCible = IMG_Load("assets/batailleNavale/case3.jpg");
   SDL_Rect posCaseCible = newRect(0, 0, 0, 0);
+  // Images Bateaux allies et ennemis
+  SDL_Surface* bateauAlliesSurface = NULL;
+  bateauAlliesSurface = IMG_Load("assets/batailleNavale/bateauxAllies.png");
+  SDL_Rect posBateauxAllies = newRect(10, 40, 100, 300);
+  SDL_Surface* bateauEnnemisSurface = NULL;
+  bateauEnnemisSurface = IMG_Load("assets/batailleNavale/bateauxEnnemis.png");
+  SDL_Rect posBateauxEnnemis = newRect(WIDTH_GAME - 310, 40, 100, 300);
   // Les deux types de cases (couleurs différentes)
   SDL_Surface *case1 = NULL;
   SDL_Surface *case2 = NULL;
   case1 = IMG_Load("assets/batailleNavale/case1.jpg");
   case2 = IMG_Load("assets/batailleNavale/case2.jpg");
+  // Les deux types de croix
+  SDL_Surface *touche = NULL;
+  SDL_Surface *rate = NULL;
+  touche = IMG_Load("assets/batailleNavale/touche.png");
+  rate = IMG_Load("assets/batailleNavale/rate.png");
+  SDL_Rect posCroix = newRect(0, 0, 64, 64);
   // Police pour les textes, couleurs
   TTF_Font *font = NULL;
+  TTF_Font *fontVictoire = NULL;
   font = TTF_OpenFont(FONT_UBUNTU, 30);
+  fontVictoire = TTF_OpenFont(FONT_UBUNTU, 36);
   SDL_Color noir = {0, 0, 0, 0};
   SDL_Surface* texte = NULL;
+  // Bouton changement de tour
+  SDL_Surface *boutonTourSuivant = NULL;
+  boutonTourSuivant = IMG_Load("assets/batailleNavale/tourSuivant.png");
+  SDL_Rect posButton = newRect(WIDTH_GAME - 300 - 10, HEIGHT_GAME - 200 - 10, 200, 300);
+  // Bouton bouton
+  SDL_Surface *boutonMenu = NULL;
+  boutonMenu = IMG_Load("assets/batailleNavale/boutonMenu.png");
+  SDL_Rect posBoutonMenu = newRect(10, HEIGHT_GAME - 100 - 10, 100, 150);
   // Variables importantes
-  Coord clic;
+  Coord clic; // clic utilisateur
   SDL_Event event;
-  int continuer = 1;
-  Coord temp;
+  int continuer = 1; // boucle principale
+  int indexA, indexB; // pour simplifier la ligne 117/119
+  int valeurTCR; // valeur de la fonction, car on en a besoin 2 fois
+  bool aJoue = false; // bool qui dit si le joueur a deja joue
+  // Ecrans de victoires
+  SDL_Surface *victoire1 = NULL;
+  SDL_Surface *victoire2 = NULL;
+  victoire1 = IMG_Load("assets/batailleNavale/victoire1.png");
+  victoire2 = IMG_Load("assets/batailleNavale/victoire2.png");
+  SDL_Rect posVictoire1 = newRect(0, 0, 0, 0);
+  SDL_Rect posVictoire2 = newRect(0, 0, 0, 0);
+  // Infos victoires
+  SDL_Surface *nbCoupsVictoire = NULL;
+  SDL_Surface *precisionVictoire = NULL;
+  char strCoups[10];
+  char strPrecision[10];
+  SDL_Rect nbCoupsVictoireRect = newRect(446, 336, 0, 0);
+  SDL_Rect precisionVictoireRect = newRect(755, 336, 0, 0);
+
+
+  // Pour debug des variables
+  char debugText[50];
+  SDL_Surface* debugSurface;
+  SDL_Rect debugRect = newRect(0, 0, 0, 0);
+
+  // Numero du tour en cours
+
+  char nbTour[15];
+  SDL_Surface* nbTourSuface;
+  SDL_Rect nbTourRect = newRect(320, 0, 0, 0);
+  sprintf(nbTour, "Tour : %d", nbCaseNonVide(j1->infos) + 1);
+  nbTourSuface = creerTexte(screen, nbTour, noir, font);
+
 
   // Positions des cases
   SDL_Rect positionCases[10][10];
@@ -46,7 +101,7 @@ void aToiDeJouer(SDL_Surface* screen, Joueur* j) {
   }
 
   // Afficher le texte correspondant au Joueur
-  switch (j->joueur) {
+  switch (j1->joueur) {
     case 1:
       texte = creerTexte(screen, "Au tour du joueur 1", noir, font);
       break;
@@ -60,11 +115,31 @@ void aToiDeJouer(SDL_Surface* screen, Joueur* j) {
     // On affiche le fond blanc
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255));
 
+    // Debug zone
+    sprintf(debugText, "%d\n%d\%d\n%d\n%d", j2->tab[0].pv, j2->tab[1].pv, j2->tab[2].pv, j2->tab[3].pv, j2->tab[4].pv);
+    debugSurface = creerTexte(screen, debugText, noir, font);
+    // SDL_BlitSurface(debugSurface, NULL, screen, &debugRect);
+
+    // Affichage du nombre de tour
+    SDL_BlitSurface(nbTourSuface, NULL, screen, &nbTourRect);
+    // Affichage des bateaux (sur le cote)
+    SDL_BlitSurface(bateauAlliesSurface, NULL, screen, &posBateauxAllies);
+    SDL_BlitSurface(bateauEnnemisSurface, NULL, screen, &posBateauxEnnemis);
+    SDL_BlitSurface(boutonMenu, NULL, screen, &posBoutonMenu);
+    afficherBateauxSurLeCote(screen, *j1, *j2);
+
+    // Affichage du bouton si on a joue
+    if (aJoue && (nbBateauxVivant(*j2) > 0)) {
+      SDL_BlitSurface(boutonTourSuivant, NULL, screen, &posButton);
+    }
+
+
     afficherGrille(screen, case1, case2, positionCases);
 
     SDL_BlitSurface(texte, NULL, screen, &posTexte);
     //afficherBateaux(screen, *j);
     afficherInterfaceBatailleNavale(screen, font);
+
 
     clic.x=event.button.x;
     clic.y=event.button.y;
@@ -81,123 +156,169 @@ void aToiDeJouer(SDL_Surface* screen, Joueur* j) {
       switch(event.type) {
         case SDL_QUIT:
           continuer = 0;
+          return 0;
 
           break;
         case SDL_MOUSEBUTTONDOWN:
+          indexA = (clic.x - 320) / 64;
+          indexB = (clic.y - 40) / 64;
           if (event.button.button == SDL_BUTTON_LEFT){
+            if (posInclusion(clic.x, clic.y, posBoutonMenu)) {
+              continuer = 0;
+              return 0;
+            }
+
+              if (!aJoue) {
+                if (posInclusion(clic.x, clic.y, positionGrille)) {
+                  valeurTCR = tcr(indexA, indexB, j2, j1);
+                  if (valeurTCR != 0) {
+                    j1->infos.tab[indexA][indexB] = valeurTCR;
+                    aJoue = true;
+                  }
+                }
+              }
+
+              else {
+                if ((posInclusion(clic.x, clic.y, posButton) && (nbBateauxVivant(*j2) > 0))) {
+                  continuer = 0;
+                  return 1;
+                }
+              }
 
           }
           if (event.button.button == SDL_BUTTON_RIGHT) {
 
+
           }
           break;
         }
     }
+    // Affichage des bateaux coules
+    for (int a = 0; a < 5; a++) {
+      if (j2->tab[a].pv == 0) {
+        switch (j2->tab[a].direction) {
+          case 1:
+            SDL_BlitSurface(j2->tab[a].nord, NULL, screen, &j2->tab[a].r);
+            break;
+          case 2:
+            SDL_BlitSurface(j2->tab[a].west, NULL, screen, &j2->tab[a].r);
+            break;
+          case 3:
+            SDL_BlitSurface(j2->tab[a].sud, NULL, screen, &j2->tab[a].r);
+            break;
+          case 4:
+            SDL_BlitSurface(j2->tab[a].est, NULL, screen, &j2->tab[a].r);
+            break;
+          default:
+            break;
+          }
+        }
+    }
+    // Affichage des coups
+    for (int a = 0; a < 10; a++) {
+      for (int b = 0; b < 10; b++) {
+        posCroix.x = (a*64 + 320);
+        posCroix.y = (b*64 + 40);
+        switch (j1->infos.tab[a][b]) {
+          case 0:
+            break;
+          case 1:
+            SDL_BlitSurface(touche, NULL, screen, &posCroix);
+            break;
+          case 2:
+            SDL_BlitSurface(rate, NULL, screen, &posCroix);
+            break;
+          defaut:
+            break;
+        }
+
+      }
+    }
+
+    // Affichage des ecrans de victoire
+    if (nbBateauxVivant(*j1) == 0) {
+      SDL_BlitSurface(victoire2, NULL, screen, &posVictoire2);
+      sprintf(strCoups, "%d", nbCaseNonVide(j2->infos));
+      sprintf(strPrecision, "%d%%", (int) (100 * ((float) ((float) 17 / (float) nbCaseNonVide(j2->infos)))));
+      nbCoupsVictoire = creerTexte(screen, strCoups, noir, fontVictoire);
+      precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
+      SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
+      SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
+    }
+    else if (nbBateauxVivant(*j2) == 0) {
+      SDL_BlitSurface(victoire1, NULL, screen, &posVictoire1);
+      sprintf(strCoups, "%d", nbCaseNonVide(j1->infos));
+      sprintf(strPrecision, "%d%%", (int) (100 * ((float) ((float) 17 / (float) nbCaseNonVide(j2->infos)))));
+      nbCoupsVictoire = creerTexte(screen, strCoups, noir, fontVictoire);
+      precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
+      SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
+      SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
+    }
+
     SDL_Flip(screen);
   }
 }
 
-//retourne 1 si c'est possible, 0 si c'est pas possible
-int tcr (int x, int y, Joueur* j){ //rajouter une grille dans joueur comme ils ont chacun leurs grille
+//retourne 1 ou 2 si c'est possible, 0 si c'est pas possible
+int tcr (int x, int y, Joueur* victime, Joueur* attaquant){ //rajouter une grille dans joueur comme ils ont chacun leurs grille
    //si il n'y a pas de bateau :            //le joueur c le joueur adverse, celui qu'on attaque
-   int i;
-   if(j->g.tab[x][y]==0){
-     j->g.tab[x][y]=4;
-     return 1;
-   }
-   //Si la case contient un bateau et a deja été touché (mais pas coulé) :
-   if(j->g.tab[x][y]==2){
-     return 0; //On ne peut pas choisir la même case 2 fois
-   }
-   //Si la case contient un bâteau qui a déjà été coulé :
-   if(j->g.tab[x][y]==3){
+   switch(victime->g.tab[x][y]) {
+     // Si on retourne 0, le coup est invalide
+     case 0:
+      // Il n'y a rien dans cette case
+      if (attaquant->infos.tab[x][y] == 2) {
+        // Dans ce cas, le joueur avait deja essaye, c'est toujours rate
+        return 0;
+      }
+      return 2;
+      break;
+    case 10:
+      // On touche le bateau 1
+      if (attaquant->infos.tab[x][y] == 1) {
+        // Dans ce cas, le joueur avait deja essaye, c'est toujours touche
+        return 0;
+      }
+      victime->tab[0].pv--;
+      return 1;
+      break;
+    case 11:
+      // On touche le bateau 1
+      if (attaquant->infos.tab[x][y] == 1) {
+        // Dans ce cas, le joueur avait deja essaye, c'est toujours touche
+        return 0;
+      }
+      victime->tab[1].pv--;
+      return 1;
+      break;
+    case 12:
+      // On touche le bateau 1
+      if (attaquant->infos.tab[x][y] == 1) {
+        // Dans ce cas, le joueur avait deja essaye, c'est toujours touche
+        return 0;
+      }
+      victime->tab[2].pv--;
+      return 1;
+      break;
+    case 13:
+      // On touche le bateau 1
+      if (attaquant->infos.tab[x][y] == 1) {
+        // Dans ce cas, le joueur avait deja essaye, c'est toujours touche
+        return 0;
+      }
+      victime->tab[3].pv--;
+      return 1;
+      break;
+    case 14:
+      // On touche le bateau 1
+      if (attaquant->infos.tab[x][y] == 1) {
+        // Dans ce cas, le joueur avait deja essaye, c'est toujours touche
+        return 0;
+      }
+      victime->tab[4].pv--;
+      return 1;
+      break;
+    defaut:
      return 0;
-   }
-   //Si la case ne contient pas de bâteau et a déjà été raté :
-   if(j->g.tab[x][y]==4){
-     return 0;
-   }
-   //Si il y a un bateau :
-   if((j->g.tab[x][y]<=15)&&(j->g.tab[x][y]>=11)){
-     if(j->tab[j->g.tab[x][y]-11].pv==0){
-       return -1; //(dans ce cas il y a un probleme dans le programme parce que les pv du bateau ne peuvent pas être a 0 si une case n'a pas été touché)
-     }
-     j->tab[j->g.tab[x][y]-11].pv=j->tab[j->g.tab[x][y]-11].pv-1;
-     //Si le bâteau est juste touché mais pas coulé :
-     if(j->tab[j->g.tab[x][y]-11].pv!=0){
-       j->g.tab[x][y]=2;
-       return 1;
-     }
-     //on viens de couler le bâteau :
-     else{
-       if(j->tab[j->g.tab[x][y]-11].direction==1){ //bateau a la vertical tête en haut
-          for(i=j->tab[j->g.tab[x][y]-11].tete.y; i<j->tab[j->g.tab[x][y]-11].tete.y+j->tab[j->g.tab[x][y]-11].taille; i++){
-            j->g.tab[x][i]=3;
-          }
-          return 1;
-       }
-       if(j->tab[j->g.tab[x][y]-11].direction==2){ //bateau a l'horizontal tête à gauche
-          for(i=j->tab[j->g.tab[x][y]-11].tete.x; i<j->tab[j->g.tab[x][y]-11].tete.x+j->tab[j->g.tab[x][y]-11].taille; i++){
-            j->g.tab[i][y]=3;
-          }
-          return 1;
-       }
-       if(j->tab[j->g.tab[x][y]-11].direction==3){ //bateau a la vertical tête en bas
-          for(i=j->tab[j->g.tab[x][y]-11].tete.y; i<j->tab[j->g.tab[x][y]-11].tete.y-j->tab[j->g.tab[x][y]-11].taille; i--){
-            j->g.tab[x][i]=3;
-          }
-          return 1;
-       }
-       if(j->tab[j->g.tab[x][y]-11].direction==4){ //bateau a l'horizontal tête à droite
-          for(i=j->tab[j->g.tab[x][y]-11].tete.x; i<j->tab[j->g.tab[x][y]-11].tete.x-j->tab[j->g.tab[x][y]-11].taille; i--){
-            j->g.tab[i][y]=3;
-          }
-          return 1;
-       }
-     }
-   }
+     break;
  }
-
-
-//Initialise la grille de l'interface graphique de la bataille navale
-
-/*void initGrilleBN (Joueur j, SDL_Surface ecran, GrilleSDL gs){
-  int i, k, ii;
-  for (i=0; i<10;i++){
-    for (k=0; k<10; k++){
-      if(j.g.tab[j][k]==2){ //case touché
-        //Faire apparaitre une croix rouge
-         gs.tabS[i][k] = IMG_Load("touche.png");
-         SDL_BlitSurface(gs.tabS[i][k], NULL, ecran, &gs.tabR[i][k]);
-      }
-      if(j.g.tab[j][k]==4){ //case raté
-        //Faire apparaitre une croix blanche
-        gs.tabS[i][k] = IMG_Load("rate.png");
-        SDL_BlitSurface(gs.tabS[i][k], NULL, ecran, &gs.tabR[i][k]);
-      }
-      if(j.g.tab[j][k]==3){ //case de la tête du bateau coulé
-        //Faire apparaitre le bateaux
-        for(ii=0; ii<5; ii++){
-          if((i==j.tab[ii].tete.x)&&(k==j.tab[ii].tete.y)){ //Cherche un bateau qui a sa tete sur la case
-            if(j.tab[ii].direction==1){ //le bateau se dirige vers le nord
-              SDL_BlitSurface(j.tab[ii].nord, NULL, ecran, &j.tab[ii].r);
-              break;
-            }
-            if(j.tab[ii].direction==2){ // le bateau se dirige vers l'ouest
-              SDL_BlitSurface(j.tab[ii].ouest, NULL, ecran, &j.tab[ii].r);
-              break;
-            }
-            if(j.tab[ii].direction==3){ //le bateau se dirige vers le sud
-              SDL_BlitSurface(j.tab[ii].sud, NULL, ecran, &j.tab[ii].r);
-              break;
-            }
-            if(j.tab[ii].direction==4){ //le bateau se dirige vers l'est
-              SDL_BlitSurface(j.tab[ii].est, NULL, ecran, &j.tab[ii].r);
-              break;
-            }
-          }
-        }
-      }
-    }
-  }
-}*/
+}

@@ -36,19 +36,13 @@ SDL_Surface* west;
 Coord tete;
 } Bateau;
 
-//tableau de structure de bateau qui regroupe tout les bateaux du Joueur
-//entier score qui regroupe le total de point du joueur
-//entier joueur qui definit le joueur ; 1 =j1 , 2=j2, 3=j3 etc.
 typedef struct{
-  Bateau tab[5];
-  int score;
-  int joueur;
-  Grille g;
+  Bateau tab[5]; //tableau de structure de bateau qui regroupe tout les bateaux du Joueur
+  int score; //entier score qui regroupe le total de point du joueur
+  int joueur; //entier joueur qui definit le joueur ; 1 =j1 , 2=j2, 3=j3 etc.
+  Grille g; // grille des bateaux
+  Grille infos; // grille des coups joues
 } Joueur;
-
-
-
-
 
 void updateGrille(Joueur *j);
 int nbCaseBateau(Joueur j);
@@ -57,3 +51,5 @@ void deplacerBateau(Bateau*b, Coord c);
 void magnetiserBateau(Bateau* b);
 bool bateauxValide(Bateau* b);
 void effacerBateauxGrille(Joueur *j);
+int nbCaseNonVide(Grille g);
+int nbBateauxVivant(Joueur j);

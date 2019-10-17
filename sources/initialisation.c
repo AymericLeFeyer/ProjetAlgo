@@ -76,9 +76,12 @@ Joueur initJoueur(int nJoueur, int h, int l){
   int k;
   j.g.h=h;
   j.g.l=l;
+  j.infos.h = h;
+  j.infos.l = l;
   for(i=0;i<h;i++){
-    for(k=0;i<l;i++){
+    for(k=0;k<l;k++){
       j.g.tab[i][k]=0;
+      j.infos.tab[i][k]=0;
     }
   }
   return j;

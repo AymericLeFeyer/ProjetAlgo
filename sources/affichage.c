@@ -64,20 +64,20 @@ void affichageBatailleNavale(SDL_Surface* screen, Joueur j1, Joueur j2)
     }
     switch (phase) {
       case 1:
-        phasePlacement(screen, &j1, &continuer);
-        phase++;
+        if (phasePlacement(screen, &j1, &continuer)) phase = 2;
+        else continuer = 0;
         break;
       case 2:
-        phasePlacement(screen, &j2, &continuer);
-        phase++;
+        if (phasePlacement(screen, &j2, &continuer)) phase = 3;
+        else continuer = 0;
         break;
       case 3:
-        aToiDeJouer(screen, &j1);
-        phase = 4;
+        if (aToiDeJouer(screen, &j1, &j2)) phase = 4;
+        else continuer = 0;
         break;
       case 4:
-        aToiDeJouer(screen, &j2);
-        phase = 3;
+        if (aToiDeJouer(screen, &j2, &j1)) phase = 3;
+        else continuer = 0;
         break;
     }
 
@@ -124,4 +124,31 @@ void afficherBateaux(SDL_Surface* screen, Joueur j)
 }
 void ciblerCase(SDL_Surface* screen, SDL_Surface* c, SDL_Rect pos) {
   SDL_BlitSurface(c, NULL, screen, &pos);
+}
+
+void afficherBateauxSurLeCote(SDL_Surface* screen, Joueur j1, Joueur j2) {
+  SDL_Rect pos10 = newRect(0, 168, 0, 0);
+  SDL_Rect pos11 = newRect(0, 232, 0, 0);
+  SDL_Rect pos12 = newRect(0, 296, 0, 0);
+  SDL_Rect pos13 = newRect(0, 360, 0, 0);
+  SDL_Rect pos14 = newRect(0, 424, 0, 0);
+
+  SDL_Rect pos20 = newRect(1152, 168, 0, 0);
+  SDL_Rect pos21 = newRect(1088, 232, 0, 0);
+  SDL_Rect pos22 = newRect(1088, 296, 0, 0);
+  SDL_Rect pos23 = newRect(1024, 360, 0, 0);
+  SDL_Rect pos24 = newRect(960, 424, 0, 0);
+
+  if (j1.tab[0].pv > 0) SDL_BlitSurface(j1.tab[0].est, NULL, screen, &pos10);
+  if (j1.tab[1].pv > 0) SDL_BlitSurface(j1.tab[1].est, NULL, screen, &pos11);
+  if (j1.tab[2].pv > 0) SDL_BlitSurface(j1.tab[2].est, NULL, screen, &pos12);
+  if (j1.tab[3].pv > 0) SDL_BlitSurface(j1.tab[3].est, NULL, screen, &pos13);
+  if (j1.tab[4].pv > 0) SDL_BlitSurface(j1.tab[4].est, NULL, screen, &pos14);
+
+  if (j2.tab[0].pv > 0) SDL_BlitSurface(j2.tab[0].west, NULL, screen, &pos20);
+  if (j2.tab[1].pv > 0) SDL_BlitSurface(j2.tab[1].west, NULL, screen, &pos21);
+  if (j2.tab[2].pv > 0) SDL_BlitSurface(j2.tab[2].west, NULL, screen, &pos22);
+  if (j2.tab[3].pv > 0) SDL_BlitSurface(j2.tab[3].west, NULL, screen, &pos23);
+  if (j2.tab[4].pv > 0) SDL_BlitSurface(j2.tab[4].west, NULL, screen, &pos24);
+
 }
