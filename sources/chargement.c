@@ -3,9 +3,9 @@
 
 #include "../headers/structure.h"
 
-Joueur chargeNavale(int joueur) //on mettra en paramètre l'état du joueur pour lequel on veut charger ses infos
+JoueurBatailleNavale chargeNavale(int joueur) //on mettra en paramètre l'état du joueur pour lequel on veut charger ses infos
 {
-    Joueur j;
+    JoueurBatailleNavale j;
     int x, y;
     FILE *f;
     if(joueur == 1)
@@ -19,7 +19,6 @@ Joueur chargeNavale(int joueur) //on mettra en paramètre l'état du joueur pour
     if(f != NULL)
     {
       fscanf(f, "%d ", &j.joueur);
-      fscanf(f, "%d ", &j.score);
       for(x = 0; x < 10; x++)
       {
           for(y = 0; y < 10; y++)

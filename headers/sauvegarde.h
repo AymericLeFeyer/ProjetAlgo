@@ -1,1 +1,1 @@
-void sauvegardeNavale(Joueur j);
+void sauvegardeNavale(JoueurBatailleNavale j);

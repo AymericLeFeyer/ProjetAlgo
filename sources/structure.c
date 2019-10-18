@@ -38,7 +38,7 @@ bool bateauxValide(Bateau* b) {
 }
 
 // Met a jour la grille en fonction des bateaux poses
-void updateGrille(Joueur *j) {
+void updateGrille(JoueurBatailleNavale *j) {
   SDL_Rect g = newRect((WIDTH_GAME - 640)/2, (HEIGHT_GAME - 640)/2, 640, 640);
   effacerBateauxGrille(j);
   for (int i = 0; i < 5; i++) {
@@ -69,7 +69,7 @@ void updateGrille(Joueur *j) {
 
 }
 
-int nbCaseBateau(Joueur j) {
+int nbCaseBateau(JoueurBatailleNavale j) {
   // Retourne le nombre de case avec un bateau (10 a 14) pour la validation du placement notamment
   int n = 0;
   for (int i = 0; i < 10; i++) {
@@ -92,7 +92,7 @@ int nbCaseNonVide(Grille g) {
   return n;
 }
 
-void effacerBateauxGrille(Joueur *j) {
+void effacerBateauxGrille(JoueurBatailleNavale *j) {
   // Reset la grille au niveau des bateaux uniquement
   for (int i = 0; i < 10; i++) {
     for (int k = 0; k < 10; k++) {
@@ -103,7 +103,7 @@ void effacerBateauxGrille(Joueur *j) {
   }
 }
 
-int nbBateauxVivant(Joueur j) {
+int nbBateauxVivant(JoueurBatailleNavale j) {
   int n = 0;
   for (int a = 0; a < 5; a ++) {
     if (j.tab[a].pv > 0) n++;

@@ -6,14 +6,14 @@
 #include "../headers/structure.h"
 #include "../headers/shortcuts.h"
 #include "../headers/constantes.h"
-#include "../headers/affichage.h"
+#include "../headers/batailleNavale.h"
 #include "../headers/interface.h"
 #include "../headers/placement.h"
 #include "../headers/tir.h"
 
 //Touché coulé raté bataille Navale
 // Renvoie 1 si on continue de jouer, 0 sinon
-int aToiDeJouer(SDL_Surface* screen, Joueur* j1, Joueur* j2) {
+int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNavale* j2) {
   // Case cible
   SDL_Surface* caseCible = NULL;
   caseCible = IMG_Load("assets/batailleNavale/case3.jpg");
@@ -260,7 +260,7 @@ int aToiDeJouer(SDL_Surface* screen, Joueur* j1, Joueur* j2) {
 }
 
 //retourne 1 ou 2 si c'est possible, 0 si c'est pas possible
-int tcr (int x, int y, Joueur* victime, Joueur* attaquant){ //rajouter une grille dans joueur comme ils ont chacun leurs grille
+int tcr (int x, int y, JoueurBatailleNavale* victime, JoueurBatailleNavale* attaquant){ //rajouter une grille dans joueur comme ils ont chacun leurs grille
    //si il n'y a pas de bateau :            //le joueur c le joueur adverse, celui qu'on attaque
    switch(victime->g.tab[x][y]) {
      // Si on retourne 0, le coup est invalide

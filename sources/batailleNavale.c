@@ -7,12 +7,12 @@
 #include "../headers/shortcuts.h"
 #include "../headers/constantes.h"
 #include "../headers/structure.h"
-#include "../headers/affichage.h"
+#include "../headers/batailleNavale.h"
 #include "../headers/interface.h"
 #include "../headers/placement.h"
 #include "../headers/tir.h"
 
-void affichageBatailleNavale(SDL_Surface* screen, Joueur j1, Joueur j2)
+void affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, JoueurBatailleNavale j2)
 {
   // variables pour la boucle principale
   SDL_Event event;
@@ -98,7 +98,7 @@ void affichageBatailleNavale(SDL_Surface* screen, Joueur j1, Joueur j2)
   }
 }
 
-void afficherBateaux(SDL_Surface* screen, Joueur j)
+void afficherBateaux(SDL_Surface* screen, JoueurBatailleNavale j)
 {
   // On affiche le bateau en fonction de sa direction
   for(int i=0;i<=4;i++){
@@ -126,7 +126,7 @@ void ciblerCase(SDL_Surface* screen, SDL_Surface* c, SDL_Rect pos) {
   SDL_BlitSurface(c, NULL, screen, &pos);
 }
 
-void afficherBateauxSurLeCote(SDL_Surface* screen, Joueur j1, Joueur j2) {
+void afficherBateauxSurLeCote(SDL_Surface* screen, JoueurBatailleNavale j1, JoueurBatailleNavale j2) {
   SDL_Rect pos10 = newRect(0, 168, 0, 0);
   SDL_Rect pos11 = newRect(0, 232, 0, 0);
   SDL_Rect pos12 = newRect(0, 296, 0, 0);

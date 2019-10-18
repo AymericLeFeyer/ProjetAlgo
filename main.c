@@ -4,7 +4,7 @@
 #include <SDL/SDL_ttf.h>
 
 #include "headers/structure.h"
-#include "headers/affichage.h"
+#include "headers/batailleNavale.h"
 #include "headers/initialisation.h"
 #include "headers/constantes.h"
 
@@ -38,9 +38,9 @@ int main(int argc, char *argv[])
 
 
   // On affiche la bataille navale
-  Joueur j1, j2;
-  j1 = initJoueur(1, 10, 10);
-  j2 = initJoueur(2, 10, 10);
+  JoueurBatailleNavale j1, j2;
+  j1 = initJoueurBN(1, 10, 10);
+  j2 = initJoueurBN(2, 10, 10);
   affichageBatailleNavale(screen, j1, j2);
 
   // On quitte le programme, sans erreur

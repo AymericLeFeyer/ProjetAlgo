@@ -3,13 +3,13 @@
 
 #include "../headers/structure.h"
 #include "../headers/placement.h"
-#include "../headers/affichage.h"
+#include "../headers/batailleNavale.h"
 #include "../headers/interface.h"
 #include "../headers/constantes.h"
 #include "../headers/shortcuts.h"
 
 //permet le clic sur un bateau pour le selectionner et retourne son indice dans le tableau de bateau d'un joueur
-int choixBateau (Coord clic, Joueur j){
+int choixBateau (Coord clic, JoueurBatailleNavale j){
   if(clic.x>=j.tab[0].r.x && clic.x<=j.tab[0].r.x+j.tab[0].r.w && clic.y>=j.tab[0].r.y && clic.y<=j.tab[0].r.y+j.tab[0].r.h){
     return 0;
   }
@@ -45,7 +45,7 @@ Coord clicGrille ( Coord clic, int tailleCase, SDL_Rect g){
   return a;
 }
 
-int phasePlacement(SDL_Surface* screen, Joueur* j, int* continuer){
+int phasePlacement(SDL_Surface* screen, JoueurBatailleNavale* j, int* continuer){
 
   TTF_Font *font = NULL;
   font = TTF_OpenFont(FONT_UBUNTU, 30);
