@@ -1,1 +1,1 @@
-int victoire(Joueur j);
+int victoire(JoueurBatailleNavale j);

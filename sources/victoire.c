@@ -1,6 +1,6 @@
 #include "../headers/structure.h"
 
-int victoire(Joueur j){
+int victoire(JoueurBatailleNavale j){
   int i;int victoire=1;
   while(i<=4 && victoire==1){
     if(j.tab[i].pv>0){

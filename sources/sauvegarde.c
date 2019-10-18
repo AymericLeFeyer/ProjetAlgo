@@ -3,7 +3,7 @@
 
 #include "../headers/structure.h"
 
-void sauvegardeNavale(Joueur J)
+void sauvegardeNavale(JoueurBatailleNavale J)
 {
     int i, j;
     FILE *f;
@@ -22,7 +22,6 @@ void sauvegardeNavale(Joueur J)
         {
           fprintf(f, "%d", J.tab[i]); //sauvegarde la grille des bateaux du joueur
         }
-        fprintf(f, "%d\n", J.score);
         fprintf(f, "%d\n", J.joueur); //état du joueur (1 ou 2)
         fclose(f);
     }

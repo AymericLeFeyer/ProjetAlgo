@@ -6,9 +6,8 @@
 #include "../headers/constantes.h"
 
 //permet d'initialiser un joueur pour la bataille navale
-Joueur initJoueur(int nJoueur, int h, int l){
-  Joueur j;
-  j.score=0;
+JoueurBatailleNavale initJoueurBN(int nJoueur, int h, int l){
+  JoueurBatailleNavale j;
   j.joueur=nJoueur;
 
 //images des différents bateaux avec leurs directions
@@ -37,7 +36,7 @@ Joueur initJoueur(int nJoueur, int h, int l){
   j.tab[1].r = newRect(10, 200, 192, 64);
   j.tab[2].r = newRect(10, 400, 192, 64);
   j.tab[3].r = newRect(100, 10, 256, 64);
-  j.tab[4].r = newRect(100, 300, 320, 64);
+  j.tab[4].r = newRect(100, 280, 320, 64);
 
 //tailles correspondant aux bateaux
   j.tab[0].taille = 2;
@@ -85,19 +84,4 @@ Joueur initJoueur(int nJoueur, int h, int l){
     }
   }
   return j;
-}
-
-//permet d'initialiser une grille de surface et de rectangles
-GrilleSDL initGrilleSDL(){
-  GrilleSDL g;
-  int i;
-  int j;
-  for (i = 0; i < 10; i++) {
-    for (j = 0; j < 10; j++) {
-      g.tabS[i][j]=IMG_Load("assets/vide.png");
-      g.tabR[i][j]=newRect(((WIDTH_GAME - 640)/2)+i*64,((HEIGHT_GAME - 640)/2)+i*64,((WIDTH_GAME - 640)/2)+(i*64)+64,((HEIGHT_GAME - 640)/2)+(i*64)+64);
-    }
-  }
-
-
 }
