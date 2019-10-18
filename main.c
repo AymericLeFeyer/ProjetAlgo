@@ -4,7 +4,7 @@
 #include <SDL/SDL_ttf.h>
 
 #include "headers/structure.h"
-#include "headers/affichage.h"
+#include "headers/batailleNavale.h"
 #include "headers/initialisation.h"
 #include "headers/constantes.h"
 

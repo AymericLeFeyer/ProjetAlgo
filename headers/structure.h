@@ -17,13 +17,6 @@ typedef struct {
 */
 
 typedef struct{
-  int joueur;
-  Bateau tab[5]; //tableau de structure de bateau qui regroupe tout les bateaux du Joueur
-  Grille g; // grille des bateaux
-  Grille infos; // grille des coups joues
-} JoueurBatailleNavale;
-
-typedef struct{
 int direction; //entier direction haut=1 gauche=2 bas=3 droite=4
 int pv; //entier PV si a 0 , bateau mort
 int taille; //entier taille qui correspondra a la taille du bateau
@@ -35,16 +28,18 @@ SDL_Surface* west;
 Coord tete; //struct coord qui prendra la tête du bateau //tete initialisée a -1 -1 si pas placée
 } Bateau; // Structure bateau
 
+
+typedef struct{
+  int joueur;
+  Bateau tab[5]; //tableau de structure de bateau qui regroupe tout les bateaux du Joueur
+  Grille g; // grille des bateaux
+  Grille infos; // grille des coups joues
+} JoueurBatailleNavale;
+
 /*
     POKER
 */
 
-typedef struct{
-  int joueur;
-  int argent;
-  Main main;
-  int etat; // encore en jeu ou non
-} JoueurPoker;
 
 typedef struct{
   int couleur; // 1 coeur 2 carreau 3 pik 4 trefle
@@ -63,6 +58,12 @@ typedef struct{
   int mise;
 } CentrePlateau;
 
+typedef struct{
+  int joueur; // id du joueur
+  int argent;
+  Main main;
+  int etat; // encore en jeu ou non
+} JoueurPoker;
 
 /*
     HEADERS

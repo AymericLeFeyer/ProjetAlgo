@@ -3,7 +3,7 @@
 
 #include "../headers/structure.h"
 #include "../headers/placement.h"
-#include "../headers/affichage.h"
+#include "../headers/batailleNavale.h"
 #include "../headers/interface.h"
 #include "../headers/constantes.h"
 #include "../headers/shortcuts.h"
