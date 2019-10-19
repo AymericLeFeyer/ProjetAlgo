@@ -78,3 +78,10 @@ bool bateauxValide(Bateau* b);
 void effacerBateauxGrille(JoueurBatailleNavale *j);
 int nbCaseNonVide(Grille g);
 int nbBateauxVivant(JoueurBatailleNavale j);
+
+
+/*
+  HEADERS POKER
+*/
+void miseTotal(JoueurPoker* j1, JoueurPoker* j2, JoueurPoker* j3, JoueurPoker* j4, JoueurPoker* j5,CentrePlateau* p);
+void miseJeu (JoueurPoker *j, CentrePlateau* p);
