@@ -49,7 +49,7 @@ typedef struct{
 typedef struct{
   Carte carte1;
   Carte carte2;
-} Main;
+} Hand;
 
 typedef struct{
   Carte flop;
@@ -61,7 +61,7 @@ typedef struct{
 typedef struct{
   int joueur; // id du joueur
   int argent;
-  Main main;
+  Hand main;
   int etat; // encore en jeu ou non
 } JoueurPoker;
 
