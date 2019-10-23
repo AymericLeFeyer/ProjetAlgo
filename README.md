@@ -9,8 +9,8 @@ HELIN Steven
 LE FEYER Aymeric  
 
 # Etats des Sprints
-Sprint 1 - 18/10/2019 - Bataille Navale - Reussie
-Sprint 2 - 08/11/2019 - Poker - En cours
+Sprint 1 - 18/10/2019 - Bataille Navale - Reussite  
+Sprint 2 - 08/11/2019 - Poker - En cours  
 
 # GitHub
 https://github.com/AymericLeFeyer/ProjetAlgo
