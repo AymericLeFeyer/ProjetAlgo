@@ -244,6 +244,7 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
       precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
       SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
       SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
+      return 5;
     }
     else if (nbBateauxVivant(*j2) == 0) {
       SDL_BlitSurface(victoire1, NULL, screen, &posVictoire1);
@@ -253,6 +254,7 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
       precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
       SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
       SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
+      return 5;
     }
 
     SDL_Flip(screen);

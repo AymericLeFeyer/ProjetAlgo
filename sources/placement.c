@@ -122,15 +122,14 @@ int phasePlacement(SDL_Surface* screen, JoueurBatailleNavale* j, int* continuer)
           return 0;
 
           break;
+
+        
+
         case SDL_MOUSEBUTTONDOWN:
           if (event.button.button == SDL_BUTTON_LEFT){
-            if (posInclusion(clic.x, clic.y, posBoutonMenu)) {
-              continuer = 0;
-              return 0;
-            }
 
             if (nbCaseBateau(*j) == 17) {
-              if (posInclusion(clic.x, clic.y, posButton)) {
+              if ((posInclusion(clic.x, clic.y, posButton)) && (!enSelection)) {
                 continuer = 0;
                 return 1;
               }
@@ -145,6 +144,10 @@ int phasePlacement(SDL_Surface* screen, JoueurBatailleNavale* j, int* continuer)
               selection = -1;
               enSelection = false;
             }
+            if (posInclusion(clic.x, clic.y, posBoutonMenu) && (!(enSelection))) {
+              continuer = 0;
+              return 0;
+            }
           }
           if (event.button.button == SDL_BUTTON_RIGHT) {
             // Pivot du bateau
@@ -156,6 +159,8 @@ int phasePlacement(SDL_Surface* screen, JoueurBatailleNavale* j, int* continuer)
     if (enSelection) {
       // Deplacement du Bateau
       deplacerBateau(&j->tab[selection], clic);
+      updateGrille(j);
+      if (nbCaseBateau(*j) == 17) SDL_BlitSurface(boutonTourSuivant, NULL, screen, &posButton);
     }
 
     SDL_Flip(screen);

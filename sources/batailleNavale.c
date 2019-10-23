@@ -72,12 +72,13 @@ void affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueu
         else continuer = 0;
         break;
       case 3:
-        if (aToiDeJouer(screen, &j1, &j2)) phase = 4;
-        else continuer = 0;
+        if (aToiDeJouer(screen, &j1, &j2) == 1) phase = 4;
+
+
         break;
       case 4:
-        if (aToiDeJouer(screen, &j2, &j1)) phase = 3;
-        else continuer = 0;
+        if (aToiDeJouer(screen, &j2, &j1) == 1) phase = 3;
+        
         break;
     }
 
