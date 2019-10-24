@@ -1,5 +1,6 @@
-#include "headers/structure.h"
 #include <time.h>
+#include "structure.h"
+
 
 
 void initialisationPioche(Carte *pioche){ //initialise le talon puis le mélange dans la pioche
