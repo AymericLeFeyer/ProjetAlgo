@@ -57,7 +57,16 @@ void afficherSplash(SDL_Surface* screen)
   cachePetitTexte = IMG_Load("assets/cachePetitTexte.jpg");
   SDL_Rect posCachePetitTexte = newRect(290, 250, 100, 700);
 
-  
+  JoueurBatailleNavale j1, j2;
+  j1 = initJoueurBN(1, 10, 10);
+  j2 = initJoueurBN(2, 10, 10);
+
+  // Sons
+  Mix_Music* myMus;
+  Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
+  myMus = Mix_LoadMUS("assets/sounds/batailleNavale.wav");
+
+
   SDL_BlitSurface(guillaume, NULL, screen, &posGuillaume);
   SDL_Flip(screen);
   SDL_Delay(1000);
@@ -117,7 +126,9 @@ void afficherSplash(SDL_Surface* screen)
         continuer = 0;
         break;
       case SDL_KEYDOWN:
-        continuer = afficherMenu(screen);
+        Mix_PlayMusic(myMus, 1);
+        continuer = affichageBatailleNavale(screen, j1, j2);
+        break;
 
         break;
 
