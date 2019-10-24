@@ -7,6 +7,7 @@
 #include "../headers/interface.h"
 #include "../headers/constantes.h"
 #include "../headers/shortcuts.h"
+#include "../headers/mainsPoker.h"
 
 //permet le clic sur un bateau pour le selectionner et retourne son indice dans le tableau de bateau d'un joueur
 int choixBateau (Coord clic, JoueurBatailleNavale j){
@@ -123,7 +124,7 @@ int phasePlacement(SDL_Surface* screen, JoueurBatailleNavale* j, int* continuer)
 
           break;
 
-        
+
 
         case SDL_MOUSEBUTTONDOWN:
           if (event.button.button == SDL_BUTTON_LEFT){

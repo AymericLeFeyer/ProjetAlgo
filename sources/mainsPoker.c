@@ -1,4 +1,6 @@
+#include "../headers/structure.h"
 #include "../headers/mainsPoker.h"
+
 
 
 int valeurMain(JoueurPoker jo, CentrePlateau cp) {
@@ -26,6 +28,8 @@ int valeurMain(JoueurPoker jo, CentrePlateau cp) {
       }
     }
   }
+
+  return max;
 }
 
 int valeurMain2(Carte c1, Carte c2, Carte c3, Carte c4, Carte c5) {
@@ -75,7 +79,7 @@ int valeurMain2(Carte c1, Carte c2, Carte c3, Carte c4, Carte c5) {
 
   if (paire(a, b)) {
     // Une bien belle petite paire de ... cartes
-    return 1000 + 100 * a + c + d + e;
+    return 1000 + 10 * a + c + d + e;
   }
 }
 
@@ -136,4 +140,16 @@ int brelan(int a, int b, int c) {
 int paire(int a, int b) {
   if (a == b) return a;
   return 0;
+}
+
+int testMains() {
+  JoueurPoker j;
+  CentrePlateau cp;
+  j.hand.carte1 = newCarte(1, 13);
+  j.hand.carte2 = newCarte(2, 13);
+  cp.flop = newCarte(3, 8);
+  cp.turn = newCarte(4, 7);
+  cp.river = newCarte(1, 11);
+
+  return valeurMain(j, cp);
 }

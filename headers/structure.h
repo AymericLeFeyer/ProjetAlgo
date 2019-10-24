@@ -42,7 +42,7 @@ typedef struct{
 
 
 typedef struct{
-  int couleur; // 1 coeur 2 carreau 3 pik 4 trefle
+  int couleur; // 1 coeur 2 carreau 3 pique 4 trefle
   int valeur; // 1 a 13, de 2 (1) a As (13)
 } Carte;
 
@@ -69,6 +69,7 @@ typedef struct{
     HEADERS
 */
 
+Carte newCarte(int couleur, int valeur);
 void updateGrille(JoueurBatailleNavale *j);
 int nbCaseBateau(JoueurBatailleNavale j);
 void tournerBateau(Bateau* b);

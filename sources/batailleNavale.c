@@ -12,7 +12,7 @@
 #include "../headers/placement.h"
 #include "../headers/tir.h"
 
-void affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, JoueurBatailleNavale j2)
+int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, JoueurBatailleNavale j2)
 {
   // variables pour la boucle principale
   SDL_Event event;
@@ -58,27 +58,41 @@ void affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueu
       // Si on clique sur la croix, on ferme la fenêtre
       case SDL_QUIT:
         continuer = 0;
+        return 0;
         break;
 
 
     }
+    int t = 0;
     switch (phase) {
       case 1:
         if (phasePlacement(screen, &j1, &continuer)) phase = 2;
         else continuer = 0;
+        return 1;
         break;
       case 2:
         if (phasePlacement(screen, &j2, &continuer)) phase = 3;
         else continuer = 0;
+        return 1;
         break;
       case 3:
-        if (aToiDeJouer(screen, &j1, &j2) == 1) phase = 4;
+        t = 0;
+        if (nbBateauxVivant(j1) > 0)
+          t = aToiDeJouer(screen, &j1, &j2);
+        if (t == 1) phase = 4;
+        else continuer = 0;
+        return 1;
 
 
         break;
       case 4:
-        if (aToiDeJouer(screen, &j2, &j1) == 1) phase = 3;
-        
+        t = 0;
+        if (nbBateauxVivant(j2) > 0)
+          t = aToiDeJouer(screen, &j2, &j1);
+        if (t == 1) phase = 3;
+        else continuer = 0;
+        return 1;
+
         break;
     }
 
