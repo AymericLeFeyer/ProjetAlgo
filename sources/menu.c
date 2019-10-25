@@ -21,6 +21,10 @@ int afficherMenu(SDL_Surface* screen){
   j2 = initJoueurBN(2, 10, 10);
   Coord clic;
 
+  //background
+  SDL_Surface* back = NULL;
+  back = IMG_Load("assets/menu/menuBackground.jpg");
+  SDL_Rect background = newRect(0, 0, 1280, 720);
   //logo
   SDL_Surface* titre = NULL;
   titre = IMG_Load("assets/menu/logoFourFun.png");
@@ -44,6 +48,7 @@ int afficherMenu(SDL_Surface* screen){
 
 //tout afficher
   while(continuer){
+    SDL_BlitSurface(back, NULL, screen, &background);
     SDL_BlitSurface(titre, NULL, screen, &logo);
     SDL_BlitSurface(bataille, NULL, screen, &boutonBN);
     SDL_BlitSurface(poker, NULL, screen, &boutonPoker);
