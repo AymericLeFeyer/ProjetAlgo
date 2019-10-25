@@ -81,7 +81,7 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
         break;
       case 3:
         t = 0;
-        if (nbBateauxVivant(j1) > 0)
+        //if (nbBateauxVivant(j1) > 0)
           t = aToiDeJouer(screen, &j1, &j2);
         if (t == 1) phase = 4;
         else {
@@ -93,7 +93,7 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
         break;
       case 4:
         t = 0;
-        if (nbBateauxVivant(j2) > 0)
+        //if (nbBateauxVivant(j2) > 0)
           t = aToiDeJouer(screen, &j2, &j1);
         if (t == 1) phase = 3;
         else {
@@ -105,7 +105,7 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
     }
 
     // On affiche les bateaux
-    //afficherBateaux(screen, j1);
+    // afficherBateaux(screen, j1);
 
     // Afficher les textes pour la bataille navale
     afficherInterfaceBatailleNavale(screen, font);
