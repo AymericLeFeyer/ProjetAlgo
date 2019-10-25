@@ -15,39 +15,45 @@ void tourPartie(CentrePlateau cp, JoueurPoker* t, int nbJoueurs, int mancheTotal
         for(i = 0; i < 4; i++)
         {
             //Parcourir tableau pour savoir si joueur j suit ou se couche
-            for(j = 0; j < nbJoueurs; j++)
+            /*for(j = 0; j < nbJoueurs; j++)
             {
                 if(t[j].etat != 1)
                 {
                     continuer = 1;
                     while(continuer == 1)
                     {
-                        printf("Joueur %d, voulez vous suivre ? (0: Non, 1: Oui) ", t[j].joueur);
+                        printf("Joueur %d, que voulez-vous faire ? (0: se coucher, 1: suivre ou 2: relance) ", t[j].joueur);
                         scanf("%d", &choix);
                         switch(choix)
                         {
-                            //Non
+                            //Se couche
                             case 0:
                             {
                                 t[j].etat = 1;
                                 continuer = 0;
                                 break;
                             }
-                            //Oui
+                            //Suivre
                             case 1:
                             {
                                 continuer = 0;
                                 break;
                             }
+                            //Relance
+                            case 2:
+                            {
+                              continuer = 0;
+                              break;
+                            }
                             //Choix incorrect
                             default:
                             {
-                                printf("Choix incorrect, veuillez choisir 0 (Non) ou 1 (Oui) !\n");
+                                printf("Choix incorrect, veuillez choisir => 0: se coucher, 1: suivre ou 2: relance !\n");
                             }
                         }
                     }
                 }
-            }
+            }*/
             switch(i)
             {
                 //Tour 1
