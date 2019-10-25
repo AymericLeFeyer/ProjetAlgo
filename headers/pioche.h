@@ -7,3 +7,5 @@ void initialisationPioche(Carte *pioche){ //initialise le talon puis le mélange
     ///entrée: pioche, le tableau de cartes correspondant à la pioche
 void shuffle(Carte* talon,int tailleTalon,Carte* pioche){ //permet de mélanger le talon dans la pioche
     ///entrée: talon, le tableau de Cartes correspondant au talon; tailleTalon , le nombre de cartes présents dans le talon; pioche, le tableau de cartes correspondant à la pioche
+void initialisePoker(JoueurPoker* j, CentrePlateau centre, int nbJoueurs, int argentDepart, int premiereManche, int miseInit);//initialise une partie de poker
+CentrePlateau piocher(Carte *pioche, int* taillePioche, JoueurPoker* j, CentrePlateau centre, int nombreJoueurs);//fait piocher toutes les cartes necessaires a une partie de poker
