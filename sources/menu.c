@@ -14,12 +14,12 @@
 #include "../headers/menu.h"
 
 int afficherMenu(SDL_Surface* screen){
-  int continuer=0;
+  int continuer=1;
   SDL_Event event;
   JoueurBatailleNavale j1, j2;
   j1 = initJoueurBN(1, 10, 10);
   j2 = initJoueurBN(2, 10, 10);
-  coord clic;
+  Coord clic;
 
   //logo
   SDL_Surface* titre = NULL;
@@ -70,13 +70,13 @@ int afficherMenu(SDL_Surface* screen){
                   //lancer bataille navale
                   continuer = affichageBatailleNavale(screen, j1, j2);
                 }
-                if ((posInclusion(clic.x, clic.y, BoutonPoker))) {
+                if ((posInclusion(clic.x, clic.y, boutonPoker))) {
                   //lancer poker
                 }
-                if ((posInclusion(clic.x, clic.y, BoutonLoto))) {
+                if ((posInclusion(clic.x, clic.y, boutonLoto))) {
                   //lancer loto
                 }
-                if ((posInclusion(clic.x, clic.y, BoutonSudoku))) {
+                if ((posInclusion(clic.x, clic.y, boutonSudoku))) {
                   //lancer sudoku
                 }
             }
