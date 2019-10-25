@@ -56,13 +56,14 @@ typedef struct{
   Carte turn;
   Carte river;
   int mise;
+  int miseD; //mise de départ
 } CentrePlateau;
 
 typedef struct{
   int joueur; // id du joueur
   int argent;
   Hand hand;
-  int etat; // encore en jeu ou non
+  int etat; // encore en jeu ou non 0=en jeu 1=couche
 } JoueurPoker;
 
 /*
@@ -84,5 +85,7 @@ int nbBateauxVivant(JoueurBatailleNavale j);
 /*
   HEADERS POKER
 */
-void miseTotal(JoueurPoker* j1, JoueurPoker* j2, JoueurPoker* j3, JoueurPoker* j4, JoueurPoker* j5,CentrePlateau* p);
 void miseJeu (JoueurPoker *j, CentrePlateau* p);
+void tapis (JoueurPoker *j, CentrePlateau *p);
+void relancer(JoueurPoker *j, CentrePlateau *p);
+void suivre (JoueurPoker *j, CentrePlateau *p);
