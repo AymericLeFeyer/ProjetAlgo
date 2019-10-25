@@ -1,0 +1,117 @@
+<classementMains>
+  <quinteFlushRoyale>
+    <combinaison>
+      As Dame Roi Vallet 10 (tous de la meme couleur)
+    </combinaison>
+    <valeur>
+      10000
+    </valeur>
+  </quinteFlushRoyale>
+
+  <quinteFlush>
+    <combinaison>
+      Suite de 5, sans etre une royale (tous de la meme couleur)
+    </combinaison>
+    <valeur>
+      Cela depend de la plus haute carte de la suite
+
+      8000 + 10 * Carte.valeur (la plus haute)
+    </valeur>
+  </quinteFlush>
+
+  <carre>
+    <combinaison>
+      4 cartes de meme rang (couleurs differerentes)
+    </combinaison>
+    <valeur>
+      Cela depend de la valeur de la carte faisant le carre
+
+      7000 + 10 * Carte.valeur
+    </valeur>
+  </carre>
+
+  <full>
+    <combinaison>
+      3 cartes de meme valeur (couleurs differerentes)
+    </combinaison>
+    <valeur>
+      Cela depend de la valeur de la carte faisant le full
+
+      6000 + 10 * Carte.valeur
+    </valeur>
+  </full>
+
+  <flush>
+    <combinaison>
+      5 cartes de meme couleur
+    </combinaison>
+    <valeur>
+      Cela depend de la valeur de la plus haute carte du flush
+      Si ils sont identiques, on regarde le carte d'apres
+      Sinon tant pis
+
+      5000 + 10 * Carte.valeur (la plus haute) + Carte.valeur (la deuxieme plus haute)
+    </valeur>
+  </flush>
+
+  <quinte>
+    <combinaison>
+      5 cartes qui forment une suite (couleurs differerentes)
+    </combinaison>
+    <valeur>
+      Cela depend de la valeur de la plus haute carte faisant la quinte
+      L'As compte pour la plus haute carte
+      Ex: As Roi Dame Vallet 10 est une quinte
+
+      4000 + 10 * Carte.valeur
+    </valeur>
+  </quinte>
+
+  <brelan>
+    <combinaison>
+      3 cartes de meme valeur (couleurs differerentes)
+    </combinaison>
+    <valeur>
+      Cela depend de la valeur de la carte faisant le brelan
+
+      3000 + 10 * Carte.valeur
+    </valeur>
+  </full>
+
+  <deuxPaires>
+    <combinaison>
+      2 paires de cartes de meme valeur (couleurs differerentes)
+    </combinaison>
+    <valeur>
+      Cela depend de la valeur de la carte faisant la plus haute paire
+      Si egale, on regarde la deuxieme paires
+      Si egale, on partage
+
+      2000 + 10 * Carte.valeur (de la premiere paire) + Carte.valeur (de la seconde paire)
+    </valeur>
+  </deuxPaires>
+
+  <unePaire>
+    <combinaison>
+      1 paire de carte de meme valeur (couleurs differerentes)
+    </combinaison>
+    <valeur>
+      Cela depend de la valeur de la carte faisant la plus haute paire
+      Si egale, on regarde celui qui a la plus haute carte dans sa main
+
+      1000 + 10 * Carte.valeur (de la paire) + Carte.valeur (la plus haute)
+    </valeur>
+  </unePaire>
+
+  <highCard>
+    <combinaison>
+      Une seule carte
+    </combinaison>
+    <valeur>
+      On regarde la carte la plus haute
+      Si egale on regarde la suivante et ainsi de suite
+
+      Carte.valeur
+    </valeur>
+  </highCard>
+</classementMains>

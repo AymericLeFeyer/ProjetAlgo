@@ -5,9 +5,9 @@
 
 void sauvegardeNavale(JoueurBatailleNavale J)
 {
-    int x, y;
+    int i, j;
     FILE *f;
-    if(j.joueur == 1)
+    if(J.joueur == 1)
     {
         f = fopen("partieNavale1.txt", "w"); //créer un fichier où toutes les infos du joueur 1
     }

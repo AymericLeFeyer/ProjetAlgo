@@ -110,3 +110,12 @@ int nbBateauxVivant(JoueurBatailleNavale j) {
   }
   return n;
 }
+
+// POKER
+
+Carte newCarte(int couleur, int valeur) {
+  Carte c;
+  c.couleur = couleur;
+  c.valeur = valeur;
+  return c;
+}

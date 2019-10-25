@@ -2,6 +2,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
+#include <SDL/SDL_mixer.h>
 
 #include "../headers/structure.h"
 #include "../headers/shortcuts.h"
@@ -73,6 +74,11 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
   SDL_Rect nbCoupsVictoireRect = newRect(446, 336, 0, 0);
   SDL_Rect precisionVictoireRect = newRect(755, 336, 0, 0);
 
+  // Sons
+  Mix_Music* ploc;
+  Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
+  ploc = Mix_LoadMUS("assets/sounds/ploc.wav");
+
 
   // Pour debug des variables
   char debugText[50];
@@ -86,6 +92,7 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
   SDL_Rect nbTourRect = newRect(320, 0, 0, 0);
   sprintf(nbTour, "Tour : %d", nbCaseNonVide(j1->infos) + 1);
   nbTourSuface = creerTexte(screen, nbTour, noir, font);
+  bool c_fini = false;
 
 
   // Positions des cases
@@ -172,6 +179,7 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
                 if (posInclusion(clic.x, clic.y, positionGrille)) {
                   valeurTCR = tcr(indexA, indexB, j2, j1);
                   if (valeurTCR != 0) {
+                    if (valeurTCR == 2) Mix_PlayMusic(ploc, 1);
                     j1->infos.tab[indexA][indexB] = valeurTCR;
                     aJoue = true;
                   }
@@ -244,6 +252,7 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
       precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
       SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
       SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
+      c_fini = true;
     }
     else if (nbBateauxVivant(*j2) == 0) {
       SDL_BlitSurface(victoire1, NULL, screen, &posVictoire1);
@@ -253,6 +262,7 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
       precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
       SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
       SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
+      c_fini = true;
     }
 
     SDL_Flip(screen);
