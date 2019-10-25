@@ -14,6 +14,7 @@
 #include "../headers/shortcuts.h"
 #include "../headers/mainsPoker.h"
 #include "../headers/menu.h"
+#include "../headers/tutoSDL.h"
 
 void afficherSplash(SDL_Surface* screen)
 {
@@ -128,6 +129,7 @@ void afficherSplash(SDL_Surface* screen)
       case SDL_KEYDOWN:
         Mix_PlayMusic(myMus, 1);
         continuer = affichageBatailleNavale(screen, j1, j2);
+        // continuer = onTestLaSDL(screen);
         break;
 
         break;

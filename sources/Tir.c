@@ -245,27 +245,65 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
 
     // Affichage des ecrans de victoire
     if (nbBateauxVivant(*j1) == 0) {
-      SDL_BlitSurface(victoire2, NULL, screen, &posVictoire2);
-      sprintf(strCoups, "%d", nbCaseNonVide(j2->infos));
-      sprintf(strPrecision, "%d%%", (int) (100 * ((float) ((float) 17 / (float) nbCaseNonVide(j2->infos)))));
-      nbCoupsVictoire = creerTexte(screen, strCoups, noir, fontVictoire);
-      precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
-      SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
-      SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
-      c_fini = true;
+      ecranVictoire(screen, 2, j1);
     }
     else if (nbBateauxVivant(*j2) == 0) {
-      SDL_BlitSurface(victoire1, NULL, screen, &posVictoire1);
-      sprintf(strCoups, "%d", nbCaseNonVide(j1->infos));
-      sprintf(strPrecision, "%d%%", (int) (100 * ((float) ((float) 17 / (float) nbCaseNonVide(j2->infos)))));
-      nbCoupsVictoire = creerTexte(screen, strCoups, noir, fontVictoire);
-      precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
-      SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
-      SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
-      c_fini = true;
+      ecranVictoire(screen, 1, j2);
     }
 
     SDL_Flip(screen);
+  }
+}
+
+void ecranVictoire(SDL_Surface* screen, int i, JoueurBatailleNavale *j) {
+  // Police pour les textes, couleurs
+  TTF_Font *font = NULL;
+  TTF_Font *fontVictoire = NULL;
+  font = TTF_OpenFont(FONT_UBUNTU, 30);
+  fontVictoire = TTF_OpenFont(FONT_UBUNTU, 36);
+  SDL_Color noir = {0, 0, 0, 0};
+  SDL_Surface* texte = NULL;
+
+  // Ecrans de victoires
+  SDL_Surface *victoire1 = NULL;
+  SDL_Surface *victoire2 = NULL;
+  victoire1 = IMG_Load("assets/batailleNavale/victoire1.png");
+  victoire2 = IMG_Load("assets/batailleNavale/victoire2.png");
+  SDL_Rect posVictoire1 = newRect(0, 0, 0, 0);
+  SDL_Rect posVictoire2 = newRect(0, 0, 0, 0);
+  
+  // Infos victoires
+  SDL_Surface *nbCoupsVictoire = NULL;
+  SDL_Surface *precisionVictoire = NULL;
+  char strCoups[10];
+  char strPrecision[10];
+  SDL_Rect nbCoupsVictoireRect = newRect(446, 336, 0, 0);
+  SDL_Rect precisionVictoireRect = newRect(755, 336, 0, 0);
+
+  switch (i) {
+
+    case 1:
+    SDL_BlitSurface(victoire1, NULL, screen, &posVictoire1);
+    sprintf(strCoups, "%d", nbCaseNonVide(j->infos));
+    sprintf(strPrecision, "%d%%", (int) (100 * ((float) ((float) 17 / (float) nbCaseNonVide(j->infos)))));
+    nbCoupsVictoire = creerTexte(screen, strCoups, noir, fontVictoire);
+    precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
+    SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
+    SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
+    break;
+
+    case 2:
+    SDL_BlitSurface(victoire2, NULL, screen, &posVictoire2);
+    sprintf(strCoups, "%d", nbCaseNonVide(j->infos));
+    sprintf(strPrecision, "%d%%", (int) (100 * ((float) ((float) 17 / (float) nbCaseNonVide(j->infos)))));
+    nbCoupsVictoire = creerTexte(screen, strCoups, noir, fontVictoire);
+    precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
+    SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
+    SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
+    break;
+
+    default:
+      break;
   }
 }
 

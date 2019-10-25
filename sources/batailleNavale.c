@@ -67,37 +67,45 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
     switch (phase) {
       case 1:
         if (phasePlacement(screen, &j1, &continuer)) phase = 2;
-        else continuer = 0;
-        return 0;
+        else {
+          continuer = 0;
+          return 0;
+        }
         break;
       case 2:
         if (phasePlacement(screen, &j2, &continuer)) phase = 3;
-        else continuer = 0;
-        return 0;
+        else {
+          continuer = 0;
+          return 0;
+        }
         break;
       case 3:
         t = 0;
-        if (nbBateauxVivant(j1) > 0)
+        //if (nbBateauxVivant(j1) > 0)
           t = aToiDeJouer(screen, &j1, &j2);
         if (t == 1) phase = 4;
-        else continuer = 0;
-        return 0;
+        else {
+          continuer = 0;
+          return 0;
+        }
 
 
         break;
       case 4:
         t = 0;
-        if (nbBateauxVivant(j2) > 0)
+        //if (nbBateauxVivant(j2) > 0)
           t = aToiDeJouer(screen, &j2, &j1);
         if (t == 1) phase = 3;
-        else continuer = 0;
-        return 0;
+        else {
+          continuer = 0;
+          return 0;
+        }
 
         break;
     }
 
     // On affiche les bateaux
-    //afficherBateaux(screen, j1);
+    // afficherBateaux(screen, j1);
 
     // Afficher les textes pour la bataille navale
     afficherInterfaceBatailleNavale(screen, font);
