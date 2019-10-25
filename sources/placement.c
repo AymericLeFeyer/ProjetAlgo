@@ -147,7 +147,7 @@ int phasePlacement(SDL_Surface* screen, JoueurBatailleNavale* j, int* continuer)
             }
             if (posInclusion(clic.x, clic.y, posBoutonMenu) && (!(enSelection))) {
               continuer = 0;
-              return 0;
+              return 1;
             }
           }
           if (event.button.button == SDL_BUTTON_RIGHT) {
