@@ -1,3 +1,5 @@
+#include <time.h>
+#include "../headers/structure.h"
 #include "../headers/pioche.h"
 
 
@@ -40,25 +42,26 @@ for(i=0;i<a;i++){
 }
 
 
-CentrePlateau piocher(Carte *pioche, int* taillePioche, JoueurPoker* j, CentrePlateau centre, int nombreJoueurs){ // permet de piocher une carte
+CentrePlateau piocher(Carte *pioche, int taillePioche, JoueurPoker* j, CentrePlateau centre, int nombreJoueurs){ // permet de piocher une carte
     for (int i = 0; i < nombreJoueurs; i++) { //distribution des premières cartes des joueurs
-      j[i].hand.carte1=pioche[*taillePioche-1];
-      *taillePioche -=1;
+      j[i].hand.carte1=pioche[taillePioche-1];
+      taillePioche -=1;
     }
     for (int i = 0; i < nombreJoueurs; i++) { //distribution des secondes cartes des joueurs
-      j[i].hand.carte2=pioche[*taillePioche-1];
-      *taillePioche -=1;
+      j[i].hand.carte2=pioche[taillePioche-1];
+      taillePioche -=1;
     }
-    centre.flop=pioche[*taillePioche-1];
-    *taillePioche -=1;
-    centre.turn=pioche[*taillePioche-1];
-    *taillePioche -=1;
-    centre.river=pioche[*taillePioche-1];
-    *taillePioche -=1;
+    centre.flop=pioche[taillePioche-1];
+    taillePioche -=1;
+    centre.turn=pioche[taillePioche-1];
+    taillePioche -=1;
+    centre.river=pioche[taillePioche-1];
+    taillePioche -=1;
     return centre;
 }
 
-void initialisePoker(JoueurPoker* j, CentrePlateau centre, int nbJoueurs, int argentDepart, int premiereManche, int miseInit){
+CentrePlateau initialisePoker(JoueurPoker* j, int nbJoueurs, int argentDepart, int premiereManche, int miseInit){
+  CentrePlateau centre;
   Carte pioche[52];
   centre.mise=0;
   initialisationPioche(pioche);
@@ -85,4 +88,5 @@ void initialisePoker(JoueurPoker* j, CentrePlateau centre, int nbJoueurs, int ar
     }
   }
   centre.miseD=miseInit;
+  return centre;
 }

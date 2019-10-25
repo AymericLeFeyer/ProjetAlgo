@@ -4,8 +4,12 @@
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 
+#include "../headers/structure.h"
+#include "../headers/pioche.h"
+
 void poker(){
   JoueurPoker joueurs[5];
-  CentrePlateau centre=initialisePoker(joueurs,centre,2,50,1,5);
-  
+  CentrePlateau centre;
+  centre=initialisePoker(joueurs, 2, 50, 1, 5);
+
 }
