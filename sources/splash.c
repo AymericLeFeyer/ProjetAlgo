@@ -127,7 +127,7 @@ void afficherSplash(SDL_Surface* screen)
         break;
       case SDL_KEYDOWN:
         Mix_PlayMusic(myMus, 1);
-        continuer = affichageBatailleNavale(screen, j1, j2);
+        continuer = afficherMenu(screen);
         break;
 
         break;
