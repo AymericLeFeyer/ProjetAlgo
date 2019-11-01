@@ -11,6 +11,7 @@
 #include "headers/mainsPoker.h"
 #include "headers/menu.h"
 #include "headers/splash.h"
+#include "headers/poker.h"
 
 int main(int argc, char *argv[])
 {
@@ -43,9 +44,8 @@ int main(int argc, char *argv[])
   SDL_WM_SetCaption(TITLE_GAME, NULL);
 
   // On affiche le MENU
-  afficherSplash(screen);
-
-
+  //afficherSplash(screen);
+  poker();
   // On quitte le programme, sans erreur
   return EXIT_SUCCESS;
 }

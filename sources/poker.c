@@ -10,6 +10,15 @@
 void poker(){
   JoueurPoker joueurs[5];
   CentrePlateau centre;
-  centre=initialisePoker(joueurs, 2, 50, 1, 5);
+  int nbJoueurs;
+  int miseDepart;
+  int nbTours;
+  int argentDepart;
+  scanf("%d\n", &nbJoueurs);
+  scanf("%d\n", &miseDepart);
+  scanf("%d\n", &nbTours);
+  scanf("%d\n", &argentDepart);
+  tourPartie(centre, joueurs,nbJoueurs,nbTours);
+  centre=initialisePoker(joueurs, nbJoueurs, argentDepart, 1, miseDepart);
 
 }
