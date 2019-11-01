@@ -11,8 +11,8 @@ void initialisationPioche(Carte *pioche){ //initialise le talon puis le mélange
 
     //Initialisation de toutes les cartes dans un tableau de cartes temporaire
     int i, j, k=0;
-    for (i = 1; i < 4; i++) {
-      for (j = 1; j < 13; j++) {
+    for (i = 1; i <= 4; i++) {
+      for (j = 1; j <= 13; j++) {
         talon[k].couleur=i;
         talon[k].valeur=j;
         talon[k].visible=0;
@@ -41,8 +41,8 @@ for(i=0;i<a;i++){
     }
 }
 
-
-CentrePlateau piocher(Carte *pioche, int taillePioche, JoueurPoker* j, CentrePlateau centre, int nombreJoueurs){ // permet de piocher une carte
+//fais piocher toutes les cartes necessaires au deroulement d'une manche
+CentrePlateau piocher(Carte *pioche, int taillePioche, JoueurPoker* j, CentrePlateau centre, int nombreJoueurs){
     for (int i = 0; i < nombreJoueurs; i++) { //distribution des premières cartes des joueurs
       j[i].hand.carte1=pioche[taillePioche-1];
       taillePioche -=1;
@@ -60,6 +60,7 @@ CentrePlateau piocher(Carte *pioche, int taillePioche, JoueurPoker* j, CentrePla
     return centre;
 }
 
+//initialise tout pour une partie de poker, a refaire a chaque manche
 CentrePlateau initialisePoker(JoueurPoker* j, int nbJoueurs, int argentDepart, int premiereManche, int miseInit){
   CentrePlateau centre;
   Carte pioche[52];
@@ -72,7 +73,7 @@ CentrePlateau initialisePoker(JoueurPoker* j, int nbJoueurs, int argentDepart, i
   for (int i = 0; i < nbJoueurs; i++) {
     j[i].amiser=0;
   }
-  if (premiereManche) {
+  if (premiereManche==0) {
     for (int i = 0; i < nbJoueurs; i++) {
       j[i].argent=argentDepart-miseInit;
     }
