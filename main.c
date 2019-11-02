@@ -44,8 +44,8 @@ int main(int argc, char *argv[])
   SDL_WM_SetCaption(TITLE_GAME, NULL);
 
   // On affiche le MENU
-  //afficherSplash(screen);
-  poker();
+  afficherSplash(screen);
+  
   // On quitte le programme, sans erreur
   return EXIT_SUCCESS;
 }

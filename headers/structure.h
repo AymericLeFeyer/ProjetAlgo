@@ -68,6 +68,11 @@ typedef struct{
   int amiser; //0 = on n'a pas misé, 1 = misé
 } JoueurPoker;
 
+typedef struct{
+  SDL_Rect pos;
+  int valeur;
+} choixRegles;
+
 /*
     HEADERS
 */
