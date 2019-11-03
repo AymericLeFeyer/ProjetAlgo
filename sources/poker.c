@@ -30,7 +30,7 @@ void poker(){
   scanf("%d", &nbTours);
   printf("jetons au depart pour les joueurs ? ");
   scanf("%d", &argentDepart);
-  tourPartie(centre, joueurs,nbJoueurs,nbTours,argentDepart,miseDepart);
+  //tourPartie(centre, joueurs,nbJoueurs,nbTours,argentDepart,miseDepart);
 }
 
 // poker en graphique
@@ -99,6 +99,9 @@ int affichagePoker(SDL_Surface* screen) {
   choix[3][3].pos = newRect(974, 625, 70, 250);
   choix[3][3].valeur = 200;
 
+  srand(time(NULL));
+  JoueurPoker joueurs[5];
+  CentrePlateau centre;
   int nbJoueurs = 5, miseDepart = 5, nbTours = 3, argentDepart = 50;
   Coord c;
 
@@ -160,10 +163,10 @@ int affichagePoker(SDL_Surface* screen) {
             continuer = 0;
             return 1;
           }
-          // Cmmencer la partie
+          // Commencer la partie
           if (posInclusion(c.x, c.y, posNextButton)) {
-            continuer = 0;
-            return 0;
+            continuer = tourPartie(screen, centre, joueurs, nbJoueurs, nbTours, argentDepart, miseDepart);
+            return continuer;
           }
 
 
@@ -187,5 +190,16 @@ int affichagePoker(SDL_Surface* screen) {
   SDL_FreeSurface(whiteSelection);
   SDL_FreeSurface(buttonSelection);
 
+
+}
+
+void afficherCarte(SDL_Surface*screen, Carte c, SDL_Rect pos) {
+  if (c.visible) {
+    SDL_BlitSurface(c.skin, NULL, screen, &pos);
+  }
+  else {
+    SDL_BlitSurface(c.dos, NULL, screen, &pos);
+  }
+  SDL_Flip(screen);
 
 }

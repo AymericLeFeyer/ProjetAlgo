@@ -1,1 +1,184 @@
-1156
+1156manche numero 1 
+
+tour numero 1
+tour du joueur 1 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+3 12 | 2 13
+tour du joueur 2 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+3 11 | 1 4
+tour du joueur 3 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+1 2 | 2 12
+tour du joueur 4 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+1 11 | 1 1
+tour du joueur 5 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+4 9 | 3 2
+tour numero 2
+flop: 4 5
+tour du joueur 1 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+3 12 | 2 13
+flop: 4 5
+tour du joueur 2 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+3 11 | 1 4
+flop: 4 5
+tour du joueur 3 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+1 2 | 2 12
+flop: 4 5
+tour du joueur 4 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+1 11 | 1 1
+flop: 4 5
+tour du joueur 5 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+4 9 | 3 2
+tour numero 3
+flop: 4 5
+turn: 4 6
+tour du joueur 1 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+3 12 | 2 13
+flop: 4 5
+turn: 4 6
+tour du joueur 2 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+3 11 | 1 4
+flop: 4 5
+turn: 4 6
+tour du joueur 3 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+1 2 | 2 12
+flop: 4 5
+turn: 4 6
+tour du joueur 4 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+1 11 | 1 1
+flop: 4 5
+turn: 4 6
+tour du joueur 5 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+4 9 | 3 2
+tour numero 4
+flop: 4 5
+turn: 4 6
+river: 2 8
+tour du joueur 1 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+3 12 | 2 13
+flop: 4 5
+turn: 4 6
+river: 2 8
+tour du joueur 2 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+3 11 | 1 4
+flop: 4 5
+turn: 4 6
+river: 2 8
+tour du joueur 3 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+1 2 | 2 12
+flop: 4 5
+turn: 4 6
+river: 2 8
+tour du joueur 4 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+1 11 | 1 1
+flop: 4 5
+turn: 4 6
+river: 2 8
+tour du joueur 5 
+mise actuelle : 5 
+argent possede par le joueur actuel : 45 
+cartes possedees : 
+4 9 | 3 2
+le joueur 5 remporte cette manche !manche numero 2 
+
+tour numero 1
+tour du joueur 1 
+mise actuelle : 5 
+argent possede par le joueur actuel : 40 
+cartes possedees : 
+1 7 | 4 12
+tour du joueur 2 
+mise actuelle : 5 
+argent possede par le joueur actuel : 40 
+cartes possedees : 
+2 2 | 1 4
+tour du joueur 3 
+mise actuelle : 5 
+argent possede par le joueur actuel : 40 
+cartes possedees : 
+2 9 | 1 12
+tour du joueur 4 
+mise actuelle : 5 
+argent possede par le joueur actuel : 40 
+cartes possedees : 
+2 3 | 3 8
+tour du joueur 5 
+mise actuelle : 5 
+argent possede par le joueur actuel : 40 
+cartes possedees : 
+4 3 | 4 5
+tour numero 2
+flop: 1 10
+tour du joueur 1 
+mise actuelle : 5 
+argent possede par le joueur actuel : 40 
+cartes possedees : 
+1 7 | 4 12
+flop: 1 10
+tour du joueur 2 
+mise actuelle : 5 
+argent possede par le joueur actuel : 40 
+cartes possedees : 
+2 2 | 1 4
+flop: 1 10
+tour du joueur 3 
+mise actuelle : 5 
+argent possede par le joueur actuel : 40 
+cartes possedees : 
+2 9 | 1 12
+flop: 1 10

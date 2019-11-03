@@ -1,4 +1,8 @@
 #include <time.h>
+#include <stdio.h>
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include <SDL/SDL_ttf.h>
 #include "../headers/structure.h"
 #include "../headers/pioche.h"
 
@@ -19,6 +23,67 @@ void initialisationPioche(Carte *pioche){ //initialise le talon puis le mélange
         k++;
       }
     }
+    // Initialisation des skins des cartes
+    for (i = 0; i < 52; i++) {
+      talon[i].dos = IMG_Load("assets/poker/cartes/dos.jpg");
+    }
+
+    talon[0].skin = IMG_Load("assets/poker/cartes/2coeur.jpg");
+    talon[1].skin = IMG_Load("assets/poker/cartes/3coeur.jpg");
+    talon[2].skin = IMG_Load("assets/poker/cartes/4coeur.jpg");
+    talon[3].skin = IMG_Load("assets/poker/cartes/5coeur.jpg");
+    talon[4].skin = IMG_Load("assets/poker/cartes/6coeur.jpg");
+    talon[5].skin = IMG_Load("assets/poker/cartes/7coeur.jpg");
+    talon[6].skin = IMG_Load("assets/poker/cartes/8coeur.jpg");
+    talon[7].skin = IMG_Load("assets/poker/cartes/9coeur.jpg");
+    talon[8].skin = IMG_Load("assets/poker/cartes/10coeur.jpg");
+    talon[9].skin = IMG_Load("assets/poker/cartes/valletCoeur.jpg");
+    talon[10].skin = IMG_Load("assets/poker/cartes/dameCoeur.jpg");
+    talon[11].skin = IMG_Load("assets/poker/cartes/roiCoeur.jpg");
+    talon[12].skin = IMG_Load("assets/poker/cartes/asCoeur.jpg");
+
+    talon[13].skin = IMG_Load("assets/poker/cartes/2carreau.jpg");
+    talon[14].skin = IMG_Load("assets/poker/cartes/3carreau.jpg");
+    talon[15].skin = IMG_Load("assets/poker/cartes/4carreau.jpg");
+    talon[16].skin = IMG_Load("assets/poker/cartes/5carreau.jpg");
+    talon[17].skin = IMG_Load("assets/poker/cartes/6carreau.jpg");
+    talon[18].skin = IMG_Load("assets/poker/cartes/7carreau.jpg");
+    talon[19].skin = IMG_Load("assets/poker/cartes/8carreau.jpg");
+    talon[20].skin = IMG_Load("assets/poker/cartes/9carreau.jpg");
+    talon[21].skin = IMG_Load("assets/poker/cartes/10carreau.jpg");
+    talon[22].skin = IMG_Load("assets/poker/cartes/valletCarreau.jpg");
+    talon[23].skin = IMG_Load("assets/poker/cartes/dameCarreau.jpg");
+    talon[24].skin = IMG_Load("assets/poker/cartes/roiCarreau.jpg");
+    talon[25].skin = IMG_Load("assets/poker/cartes/asCarreau.jpg");
+
+    talon[26].skin = IMG_Load("assets/poker/cartes/2pique.jpg");
+    talon[27].skin = IMG_Load("assets/poker/cartes/3pique.jpg");
+    talon[28].skin = IMG_Load("assets/poker/cartes/4pique.jpg");
+    talon[29].skin = IMG_Load("assets/poker/cartes/5pique.jpg");
+    talon[30].skin = IMG_Load("assets/poker/cartes/6pique.jpg");
+    talon[31].skin = IMG_Load("assets/poker/cartes/7pique.jpg");
+    talon[32].skin = IMG_Load("assets/poker/cartes/8pique.jpg");
+    talon[33].skin = IMG_Load("assets/poker/cartes/9pique.jpg");
+    talon[34].skin = IMG_Load("assets/poker/cartes/10pique.jpg");
+    talon[35].skin = IMG_Load("assets/poker/cartes/valletPique.jpg");
+    talon[36].skin = IMG_Load("assets/poker/cartes/damePique.jpg");
+    talon[37].skin = IMG_Load("assets/poker/cartes/roiPique.jpg");
+    talon[38].skin = IMG_Load("assets/poker/cartes/asPique.jpg");
+
+    talon[39].skin = IMG_Load("assets/poker/cartes/2trefle.jpg");
+    talon[40].skin = IMG_Load("assets/poker/cartes/3trefle.jpg");
+    talon[41].skin = IMG_Load("assets/poker/cartes/4trefle.jpg");
+    talon[42].skin = IMG_Load("assets/poker/cartes/5trefle.jpg");
+    talon[43].skin = IMG_Load("assets/poker/cartes/6trefle.jpg");
+    talon[44].skin = IMG_Load("assets/poker/cartes/7trefle.jpg");
+    talon[45].skin = IMG_Load("assets/poker/cartes/8trefle.jpg");
+    talon[46].skin = IMG_Load("assets/poker/cartes/9trefle.jpg");
+    talon[47].skin = IMG_Load("assets/poker/cartes/10trefle.jpg");
+    talon[48].skin = IMG_Load("assets/poker/cartes/valletTrefle.jpg");
+    talon[49].skin = IMG_Load("assets/poker/cartes/dameTrefle.jpg");
+    talon[50].skin = IMG_Load("assets/poker/cartes/roiTrefle.jpg");
+    talon[51].skin = IMG_Load("assets/poker/cartes/asTrefle.jpg");
+
     //mélange des cartes dans la vraie pioche
     shuffle(talon,52,pioche);
 }
@@ -45,10 +110,12 @@ for(i=0;i<a;i++){
 CentrePlateau piocher(Carte *pioche, int taillePioche, JoueurPoker* j, CentrePlateau centre, int nombreJoueurs){
     for (int i = 0; i < nombreJoueurs; i++) { //distribution des premières cartes des joueurs
       j[i].hand.carte1=pioche[taillePioche-1];
+      j[i].hand.carte1.visible = 1;
       taillePioche -=1;
     }
     for (int i = 0; i < nombreJoueurs; i++) { //distribution des secondes cartes des joueurs
       j[i].hand.carte2=pioche[taillePioche-1];
+      j[i].hand.carte2.visible = 1;
       taillePioche -=1;
     }
     centre.flop=pioche[taillePioche-1];

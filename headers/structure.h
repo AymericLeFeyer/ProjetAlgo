@@ -45,6 +45,8 @@ typedef struct{
   int couleur; // 1 coeur 2 carreau 3 pique 4 trefle
   int valeur; // 1 a 13, de 2 (1) a As (13)
   int visible; //0 = caché, 1 = visible
+  SDL_Surface* dos;
+  SDL_Surface* skin;
 } Carte;
 
 typedef struct{
