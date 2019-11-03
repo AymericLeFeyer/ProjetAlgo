@@ -85,3 +85,12 @@ JoueurBatailleNavale initJoueurBN(int nJoueur, int h, int l){
   }
   return j;
 }
+
+void freeJoueurBN(JoueurBatailleNavale *j) {
+  for (int i = 0; i < 5; i++) {
+    SDL_FreeSurface(j->tab[i].nord);
+    SDL_FreeSurface(j->tab[i].sud);
+    SDL_FreeSurface(j->tab[i].west);
+    SDL_FreeSurface(j->tab[i].est);
+  }
+}

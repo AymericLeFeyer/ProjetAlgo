@@ -181,6 +181,11 @@ int affichagePoker(SDL_Surface* screen) {
 
     SDL_Flip(screen);
   }
+  // Liberation
+  SDL_FreeSurface(rulesBoard);
+  SDL_FreeSurface(greenSelection);
+  SDL_FreeSurface(whiteSelection);
+  SDL_FreeSurface(buttonSelection);
 
 
 }

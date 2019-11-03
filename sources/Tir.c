@@ -258,6 +258,19 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
 
     SDL_Flip(screen);
   }
+  // Liberation
+  SDL_FreeSurface(caseCible);
+  SDL_FreeSurface(bateauAlliesSurface);
+  SDL_FreeSurface(bateauEnnemisSurface);
+  SDL_FreeSurface(case1);
+  SDL_FreeSurface(case2);
+  SDL_FreeSurface(touche);
+  SDL_FreeSurface(rate);
+  SDL_FreeSurface(boutonTourSuivant);
+  SDL_FreeSurface(boutonMenu);
+  SDL_FreeSurface(texte);
+  TTF_CloseFont(font);
+  TTF_CloseFont(fontVictoire);
 }
 
 //retourne 1 ou 2 si c'est possible, 0 si c'est pas possible

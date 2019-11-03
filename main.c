@@ -45,7 +45,13 @@ int main(int argc, char *argv[])
 
   // On affiche le MENU
   afficherSplash(screen);
-  
+
+  // Liberation
+  SDL_FreeSurface(screen);
+
+  SDL_Quit();
+  TTF_Quit();
+
   // On quitte le programme, sans erreur
   return EXIT_SUCCESS;
 }

@@ -129,4 +129,13 @@ void afficherSplash(SDL_Surface* screen)
     // On actualise l'écran
     SDL_Flip(screen);
   }
+
+  SDL_FreeSurface(aymeric);
+  SDL_FreeSurface(dylan);
+  SDL_FreeSurface(angele);
+  SDL_FreeSurface(steven);
+  SDL_FreeSurface(guillaume);
+  SDL_FreeSurface(menuLogo);
+  SDL_FreeSurface(petitTexte);
+  SDL_FreeSurface(cachePetitTexte);
 }

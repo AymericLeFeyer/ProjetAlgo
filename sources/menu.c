@@ -81,6 +81,9 @@ int afficherMenu(SDL_Surface* screen){
                   //lancer bataille navale
                   Mix_PlayMusic(myMus, 1);
                   continuer = affichageBatailleNavale(screen, j1, j2);
+                  // Liberation bataille Navale
+                  freeJoueurBN(&j1);
+                  freeJoueurBN(&j2);
                 }
                 if ((posInclusion(clic.x, clic.y, boutonPoker))) {
                   continuer = affichagePoker(screen);
@@ -100,4 +103,13 @@ int afficherMenu(SDL_Surface* screen){
 
 
   }
+  // Liberation
+  SDL_FreeSurface(back);
+  SDL_FreeSurface(titre);
+  SDL_FreeSurface(bataille);
+  SDL_FreeSurface(poker);
+  SDL_FreeSurface(loto);
+  SDL_FreeSurface(sudoku);
+  Mix_FreeMusic(myMus);
+  Mix_CloseAudio();
 }

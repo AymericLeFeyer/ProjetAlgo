@@ -207,6 +207,14 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
     // On actualise l'écran
     SDL_Flip(screen);
   }
+  // Liberation
+  TTF_CloseFont(font);
+  TTF_CloseFont(fontVictoire);
+  SDL_FreeSurface(boutonMenu);
+  SDL_FreeSurface(victoire1);
+  SDL_FreeSurface(victoire2);
+  SDL_FreeSurface(nbCoupsVictoire);
+  SDL_FreeSurface(precisionVictoire);
 }
 
 void afficherBateaux(SDL_Surface* screen, JoueurBatailleNavale j)
