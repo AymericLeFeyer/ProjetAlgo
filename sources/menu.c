@@ -87,7 +87,8 @@ int afficherMenu(SDL_Surface* screen){
                 }
                 if ((posInclusion(clic.x, clic.y, boutonPoker))) {
                   continuer = affichagePoker(screen);
-                  if (!continuer) return 0;
+                  if (continuer == 0) return 0;
+                  
                 }
                 if ((posInclusion(clic.x, clic.y, boutonLoto))) {
                   //lancer loto

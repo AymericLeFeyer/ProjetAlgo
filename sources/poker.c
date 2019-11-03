@@ -200,6 +200,4 @@ void afficherCarte(SDL_Surface*screen, Carte c, SDL_Rect pos) {
   else {
     SDL_BlitSurface(c.dos, NULL, screen, &pos);
   }
-  SDL_Flip(screen);
-
 }
