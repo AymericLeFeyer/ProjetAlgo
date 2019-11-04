@@ -2,12 +2,10 @@
 
 
 //mise au jeu , suivre=memesomme , relance= mindouble de la memesomme, coucher=etat a 1
-void miseJeu (JoueurPoker *j, CentrePlateau* p){
-  int choix =0; //1=suivre; 2=relance; 3= se coucher
+void miseJeu (JoueurPoker *j, CentrePlateau* p, int choix){
   int a=0;
   while(a==0){
   printf("Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis\n");
-  scanf("%d",&choix );
 switch (choix){
   case 1: //Suivre
     if (j->argent >= p->miseD){

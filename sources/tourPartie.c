@@ -9,6 +9,8 @@
 #include "../headers/pioche.h"
 #include "../headers/mainsPoker.h"
 #include "../headers/poker.h"
+#include "../headers/interface.h"
+#include "../headers/constantes.h"
 
 // en textuel
 int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoueurs, int mancheTotale,int argentDepart, int miseDepart)
@@ -75,7 +77,7 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
 
 
 
-                        continuer = tourPoker(screen, &t[j], &cp);
+                        continuer = tourPoker(screen, &t[j], &cp, nbNonCouche(t, nbJoueurs));
                         if (continuer != 1) return continuer;
 
 
@@ -140,7 +142,7 @@ int nbNonCouche(JoueurPoker *t,int nbJoueurs){
 }
 
 //tour Poker
-int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp) {
+int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int enJeu) {
   int continuer = 1;
   SDL_Event event;
 
@@ -170,6 +172,25 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp) {
   affichageRelance = IMG_Load("assets/poker/table/affichageRelance.png");
   boutonNext = IMG_Load("assets/poker/table/boutonNext.png");
 
+  // Textes
+  SDL_Surface* texteJetonsPersos = NULL;
+  SDL_Surface* texteJetonsGlobal = NULL;
+  SDL_Surface* texteCurrentJoueur = NULL;
+  SDL_Surface* texteNbJoueursEnJeu = NULL;
+  SDL_Surface* texteMontantRemise = NULL;
+  char valeurTexteJetonsPersos[5];
+  char valeurTexteJetonsGlobal[5];
+  char valeurTexteCurrentJoueur[20];
+  char valeurTexteNbJoueursEnJeu[30];
+  char valeurTexteMontantRemise[10];
+
+  SDL_Color noir = {0, 0, 0, 0};
+
+  TTF_Font *font = NULL;
+  font = TTF_OpenFont(FONT_UBUNTU, 30);
+
+  TTF_Font *font2 = NULL;
+  font2 = TTF_OpenFont(FONT_UBUNTU, 20);
 
   // Positions
   SDL_Rect fullscreen = newRect(0, 0, 720, 1280);
@@ -201,9 +222,27 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp) {
   SDL_Rect posTurn = newRect(576, 262, 196, 128);
   SDL_Rect posRiver = newRect(736, 262, 196, 128);
 
+  // Positions des Textes
+  SDL_Rect posTextCurrentJoueur = newRect(30, 520, 45, 180);
+  SDL_Rect posTextJoueursEnJeu = newRect(30, 600, 45, 180);
+  SDL_Rect posTextMiseRelance = newRect(32, 186, 36, 186);
+
   // Variables
   int choix = 0; // 1 = suivre, 2 = tapis, 3 = relance, 4 = passer
   Coord c;
+  int relanceMise = cp->miseD * 2;
+
+  sprintf(valeurTexteJetonsPersos, "%d", j->argent);
+  texteJetonsPersos = creerTexte(screen, valeurTexteJetonsPersos, noir, font);
+
+  sprintf(valeurTexteJetonsGlobal, "%d", cp->mise);
+  texteJetonsGlobal = creerTexte(screen, valeurTexteJetonsGlobal, noir, font);
+
+  sprintf(valeurTexteCurrentJoueur, "Joueur %d", j->joueur);
+  texteCurrentJoueur = creerTexte(screen, valeurTexteCurrentJoueur, noir, font2);
+
+  sprintf(valeurTexteNbJoueursEnJeu, "%d Joueurs restants", enJeu);
+  texteNbJoueursEnJeu = creerTexte(screen, valeurTexteNbJoueursEnJeu, noir, font2);
 
   // Boucle Principale
   while(continuer) {
@@ -215,6 +254,12 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp) {
     afficherCarte(screen, cp->flop, posFlop);
     afficherCarte(screen, cp->turn, posTurn);
     afficherCarte(screen, cp->river, posRiver);
+
+    // Affichage des infos de partie
+    SDL_BlitSurface(texteCurrentJoueur, NULL, screen, &posTextCurrentJoueur);
+    SDL_BlitSurface(texteNbJoueursEnJeu, NULL, screen, &posTextJoueursEnJeu);
+
+
 
     c.x = event.button.x;
     c.y = event.button.y;
@@ -239,18 +284,37 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp) {
           choix = 1;
         }
         if (posInclusion(c.x, c.y, posTapisButton)) {
-          choix = 2;
+          choix = 4;
         }
         if (posInclusion(c.x, c.y, posRelanceButton)) {
-          choix = 3;
+          choix = 2;
         }
         if (posInclusion(c.x, c.y, posPasserButton)) {
-          choix = 4;
+          choix = 3;
         }
         if (choix) {
           if (posInclusion(c.x, c.y, posNextButton)) {
             continuer = 0;
+            miseJeu(j, cp, choix);
             return 1;
+          }
+        }
+        if (choix == 2) {
+          if (posInclusion(c.x, c.y, posPlus5Relance)) {
+            // On ajoute 5
+
+          }
+          if (posInclusion(c.x, c.y, posPlus10Relance)) {
+            // On ajoute 10
+
+          }
+          if (posInclusion(c.x, c.y, posFois2Relance)) {
+            // On double
+
+          }
+          if (posInclusion(c.x, c.y, posResetRelance)) {
+            // On reset
+          
           }
         }
         break;
@@ -260,10 +324,13 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp) {
     if (posInclusion(c.x, c.y, posZoneJetonsPersos)) {
       SDL_BlitSurface(affichageJetonsPersos, NULL, screen, &fullscreen);
       // Afficher le montant des jetons perso
+      SDL_BlitSurface(texteJetonsPersos, NULL, screen, &posAffichageJetonsPersos);
+
     }
     if (posInclusion(c.x, c.y, posZoneJetonsGlobal)) {
       SDL_BlitSurface(affichageJetonsGlobal, NULL, screen, &fullscreen);
       // Afficher le montant des jetons globaux
+      SDL_BlitSurface(texteJetonsGlobal, NULL, screen, &posAffichageJetonsGlobal);
     }
     if (posInclusion(c.x, c.y, posMenuButton)) {
       SDL_BlitSurface(nextSelection, NULL, screen, &posMenuButton);
@@ -291,15 +358,28 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp) {
       case 1:
         SDL_BlitSurface(troisOptionsGreenSelection, NULL, screen, &posSuivreButton);
         break;
-      case 2:
+      case 4:
         SDL_BlitSurface(troisOptionsGreenSelection, NULL, screen, &posTapisButton);
         break;
-      case 3:
+      case 2:
         SDL_BlitSurface(troisOptionsGreenSelection, NULL, screen, &posRelanceButton);
+        SDL_BlitSurface(affichageRelance, NULL, screen, &fullscreen);
         break;
-      case 4:
+      case 3:
         SDL_BlitSurface(troisOptionsGreenSelection, NULL, screen, &posPasserButton);
         break;
+    }
+
+    if (choix == 2) {
+      if (posInclusion(c.x, c.y, posPlus5Relance)) SDL_BlitSurface(relanceWhiteSelection, NULL, screen, &posPlus5Relance);
+      if (posInclusion(c.x, c.y, posPlus10Relance)) SDL_BlitSurface(relanceWhiteSelection, NULL, screen, &posPlus10Relance);
+      if (posInclusion(c.x, c.y, posFois2Relance)) SDL_BlitSurface(relanceWhiteSelection, NULL, screen, &posFois2Relance);
+      if (posInclusion(c.x, c.y, posResetRelance)) SDL_BlitSurface(relanceWhiteSelection, NULL, screen, &posResetRelance);
+      if (posInclusion(c.x, c.y, posZoneOkRelance)) SDL_BlitSurface(okWhiteSelection, NULL, screen, &posZoneOkRelance);
+      // Relance
+      sprintf(valeurTexteMontantRemise, "%d", relanceMise);
+      texteMontantRemise = creerTexte(screen, valeurTexteMontantRemise, noir, font2);
+      SDL_BlitSurface(texteMontantRemise, NULL, screen, &posTextMiseRelance);
     }
 
     if (choix) {

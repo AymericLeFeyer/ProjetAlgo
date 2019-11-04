@@ -94,7 +94,7 @@ int nbBateauxVivant(JoueurBatailleNavale j);
 /*
   HEADERS POKER
 */
-void miseJeu (JoueurPoker *j, CentrePlateau* p);
+void miseJeu (JoueurPoker *j, CentrePlateau* p, int choix);
 void tapis (JoueurPoker *j, CentrePlateau *p);
 void relancer(JoueurPoker *j, CentrePlateau *p);
 void suivre (JoueurPoker *j, CentrePlateau *p);

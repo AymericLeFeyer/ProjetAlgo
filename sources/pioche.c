@@ -109,6 +109,7 @@ for(i=0;i<a;i++){
 //fais piocher toutes les cartes necessaires au deroulement d'une manche
 CentrePlateau piocher(Carte *pioche, int taillePioche, JoueurPoker* j, CentrePlateau centre, int nombreJoueurs){
     for (int i = 0; i < nombreJoueurs; i++) { //distribution des premières cartes des joueurs
+      j[i].joueur = i + 1;
       j[i].hand.carte1=pioche[taillePioche-1];
       j[i].hand.carte1.visible = 1;
       taillePioche -=1;
