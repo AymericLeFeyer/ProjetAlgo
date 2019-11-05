@@ -47,6 +47,7 @@ typedef struct{
   int visible; //0 = caché, 1 = visible
   SDL_Surface* dos;
   SDL_Surface* skin;
+  SDL_Surface* petit;
 } Carte;
 
 typedef struct{
@@ -94,7 +95,7 @@ int nbBateauxVivant(JoueurBatailleNavale j);
 /*
   HEADERS POKER
 */
-void miseJeu (JoueurPoker *j, CentrePlateau* p, int choix);
+void miseJeu (JoueurPoker *j, CentrePlateau* p, int choix, int value);
 void tapis (JoueurPoker *j, CentrePlateau *p);
-void relancer(JoueurPoker *j, CentrePlateau *p);
+void relancer(JoueurPoker *j, CentrePlateau *p, int value);
 void suivre (JoueurPoker *j, CentrePlateau *p);

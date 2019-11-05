@@ -166,6 +166,10 @@ int affichagePoker(SDL_Surface* screen) {
           // Commencer la partie
           if (posInclusion(c.x, c.y, posNextButton)) {
             continuer = tourPartie(screen, centre, joueurs, nbJoueurs, nbTours, argentDepart, miseDepart);
+            if (continuer == 2) {
+              continuer = 0;
+              return 1;
+            }
             return continuer;
           }
 

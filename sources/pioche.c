@@ -28,6 +28,7 @@ void initialisationPioche(Carte *pioche){ //initialise le talon puis le mélange
       talon[i].dos = IMG_Load("assets/poker/cartes/dos.jpg");
     }
 
+    // Skins en grand
     talon[0].skin = IMG_Load("assets/poker/cartes/2coeur.jpg");
     talon[1].skin = IMG_Load("assets/poker/cartes/3coeur.jpg");
     talon[2].skin = IMG_Load("assets/poker/cartes/4coeur.jpg");
@@ -83,6 +84,63 @@ void initialisationPioche(Carte *pioche){ //initialise le talon puis le mélange
     talon[49].skin = IMG_Load("assets/poker/cartes/dameTrefle.jpg");
     talon[50].skin = IMG_Load("assets/poker/cartes/roiTrefle.jpg");
     talon[51].skin = IMG_Load("assets/poker/cartes/asTrefle.jpg");
+
+    // Skins en petit
+    talon[0].petit = IMG_Load("assets/poker/cartes/cartesSmall/2coeur.jpg");
+    talon[1].petit = IMG_Load("assets/poker/cartes/cartesSmall/3coeur.jpg");
+    talon[2].petit = IMG_Load("assets/poker/cartes/cartesSmall/4coeur.jpg");
+    talon[3].petit = IMG_Load("assets/poker/cartes/cartesSmall/5coeur.jpg");
+    talon[4].petit = IMG_Load("assets/poker/cartes/cartesSmall/6coeur.jpg");
+    talon[5].petit = IMG_Load("assets/poker/cartes/cartesSmall/7coeur.jpg");
+    talon[6].petit = IMG_Load("assets/poker/cartes/cartesSmall/8coeur.jpg");
+    talon[7].petit = IMG_Load("assets/poker/cartes/cartesSmall/9coeur.jpg");
+    talon[8].petit = IMG_Load("assets/poker/cartes/cartesSmall/10coeur.jpg");
+    talon[9].petit = IMG_Load("assets/poker/cartes/cartesSmall/valletCoeur.jpg");
+    talon[10].petit = IMG_Load("assets/poker/cartes/cartesSmall/dameCoeur.jpg");
+    talon[11].petit = IMG_Load("assets/poker/cartes/cartesSmall/roiCoeur.jpg");
+    talon[12].petit = IMG_Load("assets/poker/cartes/cartesSmall/asCoeur.jpg");
+
+    talon[13].petit = IMG_Load("assets/poker/cartes/cartesSmall/2carreau.jpg");
+    talon[14].petit = IMG_Load("assets/poker/cartes/cartesSmall/3carreau.jpg");
+    talon[15].petit = IMG_Load("assets/poker/cartes/cartesSmall/4carreau.jpg");
+    talon[16].petit = IMG_Load("assets/poker/cartes/cartesSmall/5carreau.jpg");
+    talon[17].petit = IMG_Load("assets/poker/cartes/cartesSmall/6carreau.jpg");
+    talon[18].petit = IMG_Load("assets/poker/cartes/cartesSmall/7carreau.jpg");
+    talon[19].petit = IMG_Load("assets/poker/cartes/cartesSmall/8carreau.jpg");
+    talon[20].petit = IMG_Load("assets/poker/cartes/cartesSmall/9carreau.jpg");
+    talon[21].petit = IMG_Load("assets/poker/cartes/cartesSmall/10carreau.jpg");
+    talon[22].petit = IMG_Load("assets/poker/cartes/cartesSmall/valletCarreau.jpg");
+    talon[23].petit = IMG_Load("assets/poker/cartes/cartesSmall/dameCarreau.jpg");
+    talon[24].petit = IMG_Load("assets/poker/cartes/cartesSmall/roiCarreau.jpg");
+    talon[25].petit = IMG_Load("assets/poker/cartes/cartesSmall/asCarreau.jpg");
+
+    talon[26].petit = IMG_Load("assets/poker/cartes/cartesSmall/2pique.jpg");
+    talon[27].petit = IMG_Load("assets/poker/cartes/cartesSmall/3pique.jpg");
+    talon[28].petit = IMG_Load("assets/poker/cartes/cartesSmall/4pique.jpg");
+    talon[29].petit = IMG_Load("assets/poker/cartes/cartesSmall/5pique.jpg");
+    talon[30].petit = IMG_Load("assets/poker/cartes/cartesSmall/6pique.jpg");
+    talon[31].petit = IMG_Load("assets/poker/cartes/cartesSmall/7pique.jpg");
+    talon[32].petit = IMG_Load("assets/poker/cartes/cartesSmall/8pique.jpg");
+    talon[33].petit = IMG_Load("assets/poker/cartes/cartesSmall/9pique.jpg");
+    talon[34].petit = IMG_Load("assets/poker/cartes/cartesSmall/10pique.jpg");
+    talon[35].petit = IMG_Load("assets/poker/cartes/cartesSmall/valletPique.jpg");
+    talon[36].petit = IMG_Load("assets/poker/cartes/cartesSmall/damePique.jpg");
+    talon[37].petit = IMG_Load("assets/poker/cartes/cartesSmall/roiPique.jpg");
+    talon[38].petit = IMG_Load("assets/poker/cartes/cartesSmall/asPique.jpg");
+
+    talon[39].petit = IMG_Load("assets/poker/cartes/cartesSmall/2trefle.jpg");
+    talon[40].petit = IMG_Load("assets/poker/cartes/cartesSmall/3trefle.jpg");
+    talon[41].petit = IMG_Load("assets/poker/cartes/cartesSmall/4trefle.jpg");
+    talon[42].petit = IMG_Load("assets/poker/cartes/cartesSmall/5trefle.jpg");
+    talon[43].petit = IMG_Load("assets/poker/cartes/cartesSmall/6trefle.jpg");
+    talon[44].petit = IMG_Load("assets/poker/cartes/cartesSmall/7trefle.jpg");
+    talon[45].petit = IMG_Load("assets/poker/cartes/cartesSmall/8trefle.jpg");
+    talon[46].petit = IMG_Load("assets/poker/cartes/cartesSmall/9trefle.jpg");
+    talon[47].petit = IMG_Load("assets/poker/cartes/cartesSmall/10trefle.jpg");
+    talon[48].petit = IMG_Load("assets/poker/cartes/cartesSmall/valletTrefle.jpg");
+    talon[49].petit = IMG_Load("assets/poker/cartes/cartesSmall/dameTrefle.jpg");
+    talon[50].petit = IMG_Load("assets/poker/cartes/cartesSmall/roiTrefle.jpg");
+    talon[51].petit = IMG_Load("assets/poker/cartes/cartesSmall/asTrefle.jpg");
 
     //mélange des cartes dans la vraie pioche
     shuffle(talon,52,pioche);

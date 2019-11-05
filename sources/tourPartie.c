@@ -11,8 +11,8 @@
 #include "../headers/poker.h"
 #include "../headers/interface.h"
 #include "../headers/constantes.h"
+#include "../headers/victoire.h"
 
-// en textuel
 int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoueurs, int mancheTotale,int argentDepart, int miseDepart)
 {
   // Images
@@ -116,9 +116,11 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
             }
         }
         max=0;
-        printf("le joueur %d remporte cette manche !",k);
-        t[k].argent+=cp.mise;
+        t[maxi].argent+=cp.mise;
         cp.mise=0;
+        continuer = victoirePokerManche(screen, t, &cp, t[maxi], nbJoueurs);
+        if (continuer == 2) return 2;
+
         manche++;
     }
 
@@ -143,6 +145,7 @@ int nbNonCouche(JoueurPoker *t,int nbJoueurs){
 
 //tour Poker
 int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int enJeu) {
+  if (j->argent == 0) return 1;
   int continuer = 1;
   SDL_Event event;
 
@@ -185,6 +188,8 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int enJeu)
   char valeurTexteMontantRemise[10];
 
   SDL_Color noir = {0, 0, 0, 0};
+  SDL_Color rouge = {255, 0, 0, 0};
+  SDL_Color vert = {0, 255, 0, 0};
 
   TTF_Font *font = NULL;
   font = TTF_OpenFont(FONT_UBUNTU, 30);
@@ -231,6 +236,7 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int enJeu)
   int choix = 0; // 1 = suivre, 2 = tapis, 3 = relance, 4 = passer
   Coord c;
   int relanceMise = cp->miseD * 2;
+  int etat = 0; //0: rouge, 1:noir, 2:vert
 
   sprintf(valeurTexteJetonsPersos, "%d", j->argent);
   texteJetonsPersos = creerTexte(screen, valeurTexteJetonsPersos, noir, font);
@@ -292,29 +298,42 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int enJeu)
         if (posInclusion(c.x, c.y, posPasserButton)) {
           choix = 3;
         }
-        if (choix) {
+        if ((choix == 1) || (choix == 3) || (choix == 4) || ((choix == 2) && (etat == 2))) {
           if (posInclusion(c.x, c.y, posNextButton)) {
             continuer = 0;
-            miseJeu(j, cp, choix);
+            miseJeu(j, cp, choix, relanceMise);
             return 1;
           }
         }
         if (choix == 2) {
           if (posInclusion(c.x, c.y, posPlus5Relance)) {
             // On ajoute 5
+            if (relanceMise < 10000 && etat != 2)
+            relanceMise += 5;
 
           }
           if (posInclusion(c.x, c.y, posPlus10Relance)) {
             // On ajoute 10
+            if (relanceMise < 10000 && etat != 2)
+            relanceMise += 10;
 
           }
           if (posInclusion(c.x, c.y, posFois2Relance)) {
             // On double
+            if (relanceMise < 10000 && etat != 2)
+            relanceMise *= 2;
 
           }
           if (posInclusion(c.x, c.y, posResetRelance)) {
             // On reset
-          
+            relanceMise = cp->miseD * 2;
+            etat = 1;
+
+          }
+          if (posInclusion(c.x, c.y, posZoneOkRelance)) {
+            // On poursuit
+            if (relanceMise <= j->argent) if (etat) etat = 2;
+
           }
         }
         break;
@@ -379,15 +398,32 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int enJeu)
       // Relance
       sprintf(valeurTexteMontantRemise, "%d", relanceMise);
       texteMontantRemise = creerTexte(screen, valeurTexteMontantRemise, noir, font2);
+      if (etat != 2) {
+        if (relanceMise <= j->argent) etat = 1;
+        else etat = 0;
+      }
+      switch(etat) {
+        case 0:
+          texteMontantRemise = creerTexte(screen, valeurTexteMontantRemise, rouge, font2);
+          break;
+        case 1:
+          texteMontantRemise = creerTexte(screen, valeurTexteMontantRemise, noir, font2);
+          break;
+        case 2:
+          texteMontantRemise = creerTexte(screen, valeurTexteMontantRemise, vert, font2);
+          break;
+      }
       SDL_BlitSurface(texteMontantRemise, NULL, screen, &posTextMiseRelance);
+
     }
 
-    if (choix) {
+    if ((choix == 1) || (choix == 3) || (choix == 4) || ((choix == 2) && (etat == 2))) {
       SDL_BlitSurface(boutonNext, NULL, screen, &fullscreen);
       if (posInclusion(c.x, c.y, posNextButton)) {
         SDL_BlitSurface(nextSelection, NULL, screen, &posNextButton);
       }
     }
+
 
 
 
