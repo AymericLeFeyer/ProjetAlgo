@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
   {
     fprintf(stderr, "Erreur d'initialisation de la SDL");
     exit(EXIT_FAILURE);
-  }
+  } 
 
   // Initialisation de TTF
   if (TTF_Init() == -1)

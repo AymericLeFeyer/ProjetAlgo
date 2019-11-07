@@ -2,126 +2,155 @@
 
 tour numero 1
 tour du joueur 1 
-mise actuelle : 5 
-argent possede par le joueur actuel : 45 
+mise actuelle : 20 
+argent possede par le joueur actuel : 180 
 cartes possedees : 
-3 11 | 3 6
+3 3 | 1 13
 Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
 tour du joueur 2 
-mise actuelle : 5 
-argent possede par le joueur actuel : 45 
+mise actuelle : 20 
+argent possede par le joueur actuel : 180 
 cartes possedees : 
-1 12 | 3 13
+3 11 | 1 8
 Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
 tour du joueur 3 
-mise actuelle : 5 
-argent possede par le joueur actuel : 45 
+mise actuelle : 20 
+argent possede par le joueur actuel : 180 
 cartes possedees : 
-4 11 | 4 10
+3 6 | 4 11
+Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
+tour du joueur 4 
+mise actuelle : 20 
+argent possede par le joueur actuel : 180 
+cartes possedees : 
+3 9 | 1 1
+Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
+tour du joueur 5 
+mise actuelle : 20 
+argent possede par le joueur actuel : 180 
+cartes possedees : 
+3 1 | 4 10
 Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
 tour numero 2
-flop: 3 8
+flop: 2 2
 tour du joueur 1 
-mise actuelle : 5 
-argent possede par le joueur actuel : 40 
+mise actuelle : 20 
+argent possede par le joueur actuel : 160 
 cartes possedees : 
-3 11 | 3 6
+3 3 | 1 13
+Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
+flop: 2 2
+tour du joueur 2 
+mise actuelle : 20 
+argent possede par le joueur actuel : 160 
+cartes possedees : 
+3 11 | 1 8
+Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
+flop: 2 2
+tour du joueur 3 
+mise actuelle : 20 
+argent possede par le joueur actuel : 160 
+cartes possedees : 
+3 6 | 4 11
+Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
+flop: 2 2
+tour du joueur 4 
+mise actuelle : 20 
+argent possede par le joueur actuel : 160 
+cartes possedees : 
+3 9 | 1 1
+Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
+flop: 2 2
+tour du joueur 5 
+mise actuelle : 20 
+argent possede par le joueur actuel : 160 
+cartes possedees : 
+3 1 | 4 10
 Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
 tour numero 3
-tour numero 4
-manche numero 2 
-
-tour numero 1
+flop: 2 2
+turn: 2 12
 tour du joueur 1 
-mise actuelle : 5 
-argent possede par le joueur actuel : 35 
+mise actuelle : 20 
+argent possede par le joueur actuel : 140 
 cartes possedees : 
-2 1 | 1 6
+3 3 | 1 13
 Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
+flop: 2 2
+turn: 2 12
 tour du joueur 2 
-mise actuelle : 5 
-argent possede par le joueur actuel : 60 
+mise actuelle : 20 
+argent possede par le joueur actuel : 140 
 cartes possedees : 
-3 2 | 3 10
+3 11 | 1 8
 Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
+flop: 2 2
+turn: 2 12
 tour du joueur 3 
-mise actuelle : 5 
-argent possede par le joueur actuel : 40 
+mise actuelle : 20 
+argent possede par le joueur actuel : 140 
 cartes possedees : 
-1 4 | 1 12
+3 6 | 4 11
 Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
-tour numero 2
-flop: 1 3
-tour du joueur 1 
-mise actuelle : 5 
-argent possede par le joueur actuel : 30 
+flop: 2 2
+turn: 2 12
+tour du joueur 4 
+mise actuelle : 20 
+argent possede par le joueur actuel : 140 
 cartes possedees : 
-2 1 | 1 6
+3 9 | 1 1
 Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
-flop: 1 3
-tour du joueur 2 
-mise actuelle : 5 
-argent possede par le joueur actuel : 55 
+flop: 2 2
+turn: 2 12
+tour du joueur 5 
+mise actuelle : 20 
+argent possede par le joueur actuel : 140 
 cartes possedees : 
-3 2 | 3 10
-Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
-flop: 1 3
-tour du joueur 3 
-mise actuelle : 5 
-argent possede par le joueur actuel : 35 
-cartes possedees : 
-1 4 | 1 12
-Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
-tour numero 3
-flop: 1 3
-turn: 2 4
-tour du joueur 1 
-mise actuelle : 5 
-argent possede par le joueur actuel : 25 
-cartes possedees : 
-2 1 | 1 6
-Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
-flop: 1 3
-turn: 2 4
-tour du joueur 2 
-mise actuelle : 5 
-argent possede par le joueur actuel : 50 
-cartes possedees : 
-3 2 | 3 10
-Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
-flop: 1 3
-turn: 2 4
-tour du joueur 3 
-mise actuelle : 5 
-argent possede par le joueur actuel : 30 
-cartes possedees : 
-1 4 | 1 12
+3 1 | 4 10
 Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
 tour numero 4
-flop: 1 3
-turn: 2 4
-river: 3 3
+flop: 2 2
+turn: 2 12
+river: 1 5
 tour du joueur 1 
-mise actuelle : 5 
-argent possede par le joueur actuel : 20 
+mise actuelle : 20 
+argent possede par le joueur actuel : 120 
 cartes possedees : 
-2 1 | 1 6
+3 3 | 1 13
 Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
-flop: 1 3
-turn: 2 4
-river: 3 3
+flop: 2 2
+turn: 2 12
+river: 1 5
 tour du joueur 2 
-mise actuelle : 5 
-argent possede par le joueur actuel : 45 
+mise actuelle : 20 
+argent possede par le joueur actuel : 120 
 cartes possedees : 
-3 2 | 3 10
+3 11 | 1 8
 Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
-flop: 1 3
-turn: 2 4
-river: 3 3
+flop: 2 2
+turn: 2 12
+river: 1 5
 tour du joueur 3 
-mise actuelle : 5 
-argent possede par le joueur actuel : 25 
+mise actuelle : 20 
+argent possede par le joueur actuel : 120 
 cartes possedees : 
-1 4 | 1 12
+3 6 | 4 11
+Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
+flop: 2 2
+turn: 2 12
+river: 1 5
+tour du joueur 4 
+mise actuelle : 20 
+argent possede par le joueur actuel : 120 
+cartes possedees : 
+3 9 | 1 1
+Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
+flop: 2 2
+turn: 2 12
+river: 1 5
+tour du joueur 5 
+mise actuelle : 20 
+argent possede par le joueur actuel : 120 
+cartes possedees : 
+3 1 | 4 10
 Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis
