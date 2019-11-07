@@ -124,8 +124,28 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
         manche++;
     }
 
+    if (manche == mancheTotale)
+    {
+      //determinons le vainqueur final
+      max = 0;
+      for(k=0;k<nbJoueurs;k++){
+          if(t[k].etat==0){
+                  if(t[k].argent>max){
+                      max=t[k].argent;
+                      maxi=k;
+                  }
+          }
+      }
+      continuer = victoirePokerFinale(screen, t[maxi]);
+      if (continuer == 2) return 2;
+    }
+
+
+
     SDL_Flip(screen);
   }
+
+
 
 
 
@@ -181,11 +201,13 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int enJeu)
   SDL_Surface* texteCurrentJoueur = NULL;
   SDL_Surface* texteNbJoueursEnJeu = NULL;
   SDL_Surface* texteMontantRemise = NULL;
+  SDL_Surface* texteMiseMinimumActuelle = NULL;
   char valeurTexteJetonsPersos[5];
   char valeurTexteJetonsGlobal[5];
   char valeurTexteCurrentJoueur[20];
   char valeurTexteNbJoueursEnJeu[30];
   char valeurTexteMontantRemise[10];
+  char valeurTexteMinimumActuelle[50];
 
   SDL_Color noir = {0, 0, 0, 0};
   SDL_Color rouge = {255, 0, 0, 0};
@@ -231,6 +253,7 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int enJeu)
   SDL_Rect posTextCurrentJoueur = newRect(30, 520, 45, 180);
   SDL_Rect posTextJoueursEnJeu = newRect(30, 600, 45, 180);
   SDL_Rect posTextMiseRelance = newRect(32, 186, 36, 186);
+  SDL_Rect posTexteMinimumMise = newRect(475, 210, 36, 320);
 
   // Variables
   int choix = 0; // 1 = suivre, 2 = tapis, 3 = relance, 4 = passer
@@ -250,6 +273,9 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int enJeu)
   sprintf(valeurTexteNbJoueursEnJeu, "%d Joueurs restants", enJeu);
   texteNbJoueursEnJeu = creerTexte(screen, valeurTexteNbJoueursEnJeu, noir, font2);
 
+  sprintf(valeurTexteMinimumActuelle, "Mise minumum : %d", cp->miseD);
+  texteMiseMinimumActuelle = creerTexte(screen, valeurTexteMinimumActuelle, noir, font);
+
   // Boucle Principale
   while(continuer) {
     // Affichage de la table
@@ -265,12 +291,13 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int enJeu)
     SDL_BlitSurface(texteCurrentJoueur, NULL, screen, &posTextCurrentJoueur);
     SDL_BlitSurface(texteNbJoueursEnJeu, NULL, screen, &posTextJoueursEnJeu);
 
-
+    // Affichage de la mise en cours
+    SDL_BlitSurface(texteMiseMinimumActuelle, NULL, screen, &posTexteMinimumMise);
 
     c.x = event.button.x;
     c.y = event.button.y;
 
-    SDL_PollEvent(&event);
+    SDL_WaitEvent(&event);
 
     switch(event.type) {
       case SDL_KEYDOWN:

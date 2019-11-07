@@ -12,6 +12,10 @@ switch (choix){
     suivre(j,p);
     a=1;
     }
+    else {
+      tapis(j, p);
+      a = 1;
+    }
       break;
    case 2: //relance
    if (j->argent >= (p->miseD*2)){
@@ -24,10 +28,10 @@ switch (choix){
       a=1;
     break;
     case 4://tapis
-      if (j->argent >= p->miseD){
+
       tapis(j,p);
       a=1;
-    }
+
       break;
   }
   }
@@ -48,7 +52,8 @@ void relancer(JoueurPoker *j, CentrePlateau *p, int value){
 }
 
 void tapis (JoueurPoker *j, CentrePlateau *p){
-      p->miseD=j->argent;
+      if (p->miseD < j->argent)
+        p->miseD=j->argent;
       p->mise+=j->argent;
       j->argent-=j->argent;
 }

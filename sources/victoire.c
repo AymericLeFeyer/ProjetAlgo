@@ -314,13 +314,100 @@ int detailsVictoirePoker(SDL_Surface* screen, JoueurPoker* t, CentrePlateau cp, 
       SDL_BlitSurface(selection, NULL, screen, &backButton);
     }
 
-
-
-
-
     SDL_Flip(screen);
   }
 
 
+
+}
+
+int victoirePokerFinale(SDL_Surface* screen, JoueurPoker t) {
+  // Variable
+  int continuer = 1;
+  SDL_Event event;
+  Coord c;
+
+  // Images
+  SDL_Surface* ecranVictoireFinale = NULL;
+  SDL_Surface* winJ1 = NULL;
+  SDL_Surface* winJ2 = NULL;
+  SDL_Surface* winJ3 = NULL;
+  SDL_Surface* winJ4 = NULL;
+  SDL_Surface* winJ5 = NULL;
+  SDL_Surface* nextSelection = NULL;
+
+  ecranVictoireFinale = IMG_Load("assets/poker/victoire/ecranVictoireFinale.jpg");
+  winJ1 = IMG_Load("assets/poker/victoire/winJ1.png");
+  winJ2 = IMG_Load("assets/poker/victoire/winJ2.png");
+  winJ3 = IMG_Load("assets/poker/victoire/winJ3.png");
+  winJ4 = IMG_Load("assets/poker/victoire/winJ4.png");
+  winJ5 = IMG_Load("assets/poker/victoire/winJ5.png");
+  nextSelection = IMG_Load("assets/poker/regles/nextSelection.png");
+
+  // textes
+  SDL_Color noir = {0, 0, 0, 0};
+  TTF_Font *font = NULL;
+  font = TTF_OpenFont(FONT_UBUNTU, 50);
+  SDL_Surface* texteArgent = NULL;
+  char valeurTexteArgent[10];
+  sprintf(valeurTexteArgent, "%d", t.argent);
+  texteArgent = creerTexte(screen, valeurTexteArgent, noir, font);
+
+  // Positions
+  SDL_Rect fullscreen = newRect(0, 0, 720, 1280);
+  SDL_Rect posMenuButton = newRect(25, 25, 125, 150);
+  SDL_Rect posArgent = newRect(650, 600, 0, 0);
+
+  while(continuer) {
+    SDL_BlitSurface(ecranVictoireFinale, NULL, screen, &fullscreen);
+    SDL_BlitSurface(texteArgent, NULL, screen, &posArgent);
+
+    c.x = event.button.x;
+    c.y = event.button.y;
+
+
+    SDL_WaitEvent(&event);
+    switch(event.type) {
+      // On quitte
+      case SDL_QUIT:
+        continuer = 0;
+        return 0;
+        break;
+      case SDL_MOUSEBUTTONDOWN:
+        if (posInclusion(c.x, c.y, posMenuButton)) {
+          continuer = 0;
+          return 2;
+        }
+
+    }
+
+    switch(t.joueur) {
+      case 1:
+        SDL_BlitSurface(winJ1, NULL, screen, &fullscreen);
+        break;
+      case 2:
+        SDL_BlitSurface(winJ2, NULL, screen, &fullscreen);
+        break;
+      case 3:
+        SDL_BlitSurface(winJ3, NULL, screen, &fullscreen);
+        break;
+      case 4:
+        SDL_BlitSurface(winJ4, NULL, screen, &fullscreen);
+        break;
+      case 5:
+        SDL_BlitSurface(winJ5, NULL, screen, &fullscreen);
+        break;
+      default:
+        break;
+    }
+
+    // Au survol
+    if (posInclusion(c.x, c.y, posMenuButton)) {
+      SDL_BlitSurface(nextSelection, NULL, screen, &posMenuButton);
+    }
+
+    SDL_Flip(screen);
+
+  }
 
 }
