@@ -13,6 +13,7 @@
 #include "../headers/mainsPoker.h"
 #include "../headers/menu.h"
 #include "../headers/poker.h"
+#include "../headers/affichageSudoku.h"
 
 int afficherMenu(SDL_Surface* screen){
   int continuer=1;
@@ -88,13 +89,14 @@ int afficherMenu(SDL_Surface* screen){
                 if ((posInclusion(clic.x, clic.y, boutonPoker))) {
                   continuer = affichagePoker(screen);
                   if (continuer == 0) return 0;
-                  
+
                 }
                 if ((posInclusion(clic.x, clic.y, boutonLoto))) {
                   //lancer loto
                 }
                 if ((posInclusion(clic.x, clic.y, boutonSudoku))) {
-                  //lancer sudoku
+                  continuer = affichageSudoku(screen);
+
                 }
             }
             break;
