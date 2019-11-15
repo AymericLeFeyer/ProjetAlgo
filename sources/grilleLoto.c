@@ -1,5 +1,4 @@
-#include <time.h>
-#include <stdio.h>
+
 
 //génération d'une grille de loto
 void carteLoto (int t[9][3]){ //grille loto (vide de base)
