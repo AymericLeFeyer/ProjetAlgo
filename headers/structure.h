@@ -76,6 +76,13 @@ typedef struct{
   int valeur;
 } choixRegles;
 
+typedef struct {
+  char* gsb[82];
+  char* gss[82];
+  char* gsa[82];
+}grilleSudokuBrute;
+
+
 /*
     HEADERS
 */
