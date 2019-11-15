@@ -1,11 +1,12 @@
 #include <time.h>
+#include "../headers/bouleLoto.h"
 
-void initialisationLoto(int tasBoules){
+void initialisationLoto(int* tasBoules){
     int talon[90];
     //Initialisation de toutes les cartes dans un tableau de cartes temporaire
     int i;
     for (i = 0; i <= 89; i++) {
-      talon[i]=i+1
+      talon[i]=i+1;
     }
     //mélange des cartes dans la vraie pioche
     shuffleLoto(talon,90,tasBoules);
@@ -31,7 +32,7 @@ int prendreNombre(int *taille,int* tasBoules){
   if(*taille<0){
     return -1;
   }else{
-    return tasBoules[taille];
+    return tasBoules[*taille];
   }
 }
 
