@@ -45,6 +45,9 @@ typedef struct{
   int couleur; // 1 coeur 2 carreau 3 pique 4 trefle
   int valeur; // 1 a 13, de 2 (1) a As (13)
   int visible; //0 = caché, 1 = visible
+  SDL_Surface* dos;
+  SDL_Surface* skin;
+  SDL_Surface* petit;
 } Carte;
 
 typedef struct{
@@ -68,6 +71,11 @@ typedef struct{
   int amiser; //0 = on n'a pas misé, 1 = misé
 } JoueurPoker;
 
+typedef struct{
+  SDL_Rect pos;
+  int valeur;
+} choixRegles;
+
 /*
     HEADERS
 */
@@ -87,7 +95,7 @@ int nbBateauxVivant(JoueurBatailleNavale j);
 /*
   HEADERS POKER
 */
-void miseJeu (JoueurPoker *j, CentrePlateau* p);
+void miseJeu (JoueurPoker *j, CentrePlateau* p, int choix, int value);
 void tapis (JoueurPoker *j, CentrePlateau *p);
-void relancer(JoueurPoker *j, CentrePlateau *p);
+void relancer(JoueurPoker *j, CentrePlateau *p, int value);
 void suivre (JoueurPoker *j, CentrePlateau *p);

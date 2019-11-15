@@ -147,7 +147,7 @@ int phasePlacement(SDL_Surface* screen, JoueurBatailleNavale* j, int* continuer)
             }
             if (posInclusion(clic.x, clic.y, posBoutonMenu) && (!(enSelection))) {
               continuer = 0;
-              return 1;
+              return 2;
             }
           }
           if (event.button.button == SDL_BUTTON_RIGHT) {
@@ -167,4 +167,11 @@ int phasePlacement(SDL_Surface* screen, JoueurBatailleNavale* j, int* continuer)
     SDL_Flip(screen);
 
   }
+  // Liberation
+  SDL_FreeSurface(boutonTourSuivant);
+  TTF_CloseFont(font);
+  SDL_FreeSurface(boutonMenu);
+  SDL_FreeSurface(case1);
+  SDL_FreeSurface(case2);
+  SDL_FreeSurface(texte);
 }

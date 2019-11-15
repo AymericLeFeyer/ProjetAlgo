@@ -11,6 +11,7 @@
 #include "headers/mainsPoker.h"
 #include "headers/menu.h"
 #include "headers/splash.h"
+#include "headers/poker.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,7 +23,7 @@ int main(int argc, char *argv[])
   {
     fprintf(stderr, "Erreur d'initialisation de la SDL");
     exit(EXIT_FAILURE);
-  }
+  } 
 
   // Initialisation de TTF
   if (TTF_Init() == -1)
@@ -45,6 +46,11 @@ int main(int argc, char *argv[])
   // On affiche le MENU
   afficherSplash(screen);
 
+  // Liberation
+  SDL_FreeSurface(screen);
+
+  SDL_Quit();
+  TTF_Quit();
 
   // On quitte le programme, sans erreur
   return EXIT_SUCCESS;

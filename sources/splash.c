@@ -17,6 +17,8 @@
 
 void afficherSplash(SDL_Surface* screen)
 {
+  int delaySplash = 0; // temps normal 1000
+
   // variables pour la boucle principale
   SDL_Event event;
   int continuer = 1;
@@ -61,41 +63,34 @@ void afficherSplash(SDL_Surface* screen)
   j1 = initJoueurBN(1, 10, 10);
   j2 = initJoueurBN(2, 10, 10);
 
-  // Sons
-  Mix_Music* myMus;
-  Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
-  myMus = Mix_LoadMUS("assets/sounds/batailleNavale.wav");
+
 
 
   SDL_BlitSurface(guillaume, NULL, screen, &posGuillaume);
   SDL_Flip(screen);
-  SDL_Delay(1000);
+  SDL_Delay(delaySplash);
 
   SDL_BlitSurface(angele, NULL, screen, &posAngele);
   SDL_Flip(screen);
-  SDL_Delay(1000);
+  SDL_Delay(delaySplash);
 
   SDL_BlitSurface(dylan, NULL, screen, &posDylan);
   SDL_Flip(screen);
-  SDL_Delay(1000);
+  SDL_Delay(delaySplash);
 
   SDL_BlitSurface(steven, NULL, screen, &posSteven);
   SDL_Flip(screen);
-  SDL_Delay(1000);
+  SDL_Delay(delaySplash);
 
   SDL_BlitSurface(aymeric, NULL, screen, &posAymeric);
   SDL_Flip(screen);
-  SDL_Delay(1000);
+  SDL_Delay(delaySplash);
 
   SDL_BlitSurface(menuLogo, NULL, screen, &posMenuLogo);
   SDL_Flip(screen);
 
   // Boucle principale
   while (continuer){
-
-
-
-
     // Clignotement du texte
         tempsIni = SDL_GetTicks();
         if (tempsIni - temps > 500 && aff == 0)
@@ -126,10 +121,7 @@ void afficherSplash(SDL_Surface* screen)
         continuer = 0;
         break;
       case SDL_KEYDOWN:
-        Mix_PlayMusic(myMus, 1);
         continuer = afficherMenu(screen);
-        break;
-
         break;
 
     }
@@ -137,4 +129,13 @@ void afficherSplash(SDL_Surface* screen)
     // On actualise l'écran
     SDL_Flip(screen);
   }
+
+  SDL_FreeSurface(aymeric);
+  SDL_FreeSurface(dylan);
+  SDL_FreeSurface(angele);
+  SDL_FreeSurface(steven);
+  SDL_FreeSurface(guillaume);
+  SDL_FreeSurface(menuLogo);
+  SDL_FreeSurface(petitTexte);
+  SDL_FreeSurface(cachePetitTexte);
 }

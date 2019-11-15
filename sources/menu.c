@@ -12,6 +12,7 @@
 #include "../headers/shortcuts.h"
 #include "../headers/mainsPoker.h"
 #include "../headers/menu.h"
+#include "../headers/poker.h"
 
 int afficherMenu(SDL_Surface* screen){
   int continuer=1;
@@ -46,6 +47,11 @@ int afficherMenu(SDL_Surface* screen){
   sudoku = IMG_Load("assets/menu/poker.png");
   SDL_Rect boutonSudoku = newRect(812, 520, 468, 130);
 
+  // Sons
+  Mix_Music* myMus;
+  Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
+  myMus = Mix_LoadMUS("assets/sounds/batailleNavale.wav");
+
 //tout afficher
   while(continuer){
     SDL_BlitSurface(back, NULL, screen, &background);
@@ -73,10 +79,16 @@ int afficherMenu(SDL_Surface* screen){
                 //conditions des clics
                 if ((posInclusion(clic.x, clic.y, boutonBN))) {
                   //lancer bataille navale
+                  Mix_PlayMusic(myMus, 1);
                   continuer = affichageBatailleNavale(screen, j1, j2);
+                  // Liberation bataille Navale
+                  freeJoueurBN(&j1);
+                  freeJoueurBN(&j2);
                 }
                 if ((posInclusion(clic.x, clic.y, boutonPoker))) {
-                  //lancer poker
+                  continuer = affichagePoker(screen);
+                  if (continuer == 0) return 0;
+                  
                 }
                 if ((posInclusion(clic.x, clic.y, boutonLoto))) {
                   //lancer loto
@@ -92,4 +104,13 @@ int afficherMenu(SDL_Surface* screen){
 
 
   }
+  // Liberation
+  SDL_FreeSurface(back);
+  SDL_FreeSurface(titre);
+  SDL_FreeSurface(bataille);
+  SDL_FreeSurface(poker);
+  SDL_FreeSurface(loto);
+  SDL_FreeSurface(sudoku);
+  Mix_FreeMusic(myMus);
+  Mix_CloseAudio();
 }
