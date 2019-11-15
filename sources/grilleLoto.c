@@ -1,7 +1,7 @@
-
+#include "grilleLoto.h"
 
 //génération d'une grille de loto
-void carteLoto (int t[9][3]){ //grille loto (vide de base)
+void carteLoto (int t[9][3]){ //grille loto (vide de base) de taille 9x3
   int n=0; //nombre de chiffre total
   int i,j,k;
   int nbNombresLigne; //nb de chiffres sur une ligne
