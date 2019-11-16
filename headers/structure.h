@@ -94,6 +94,18 @@ typedef struct{
 } JoueurSudoku;
 
 /*
+    SUDOKU
+*/
+typedef struct
+{
+  Grille g;
+  Grille s;
+  int nbErreurs;
+}JoueurSudoku;
+
+
+
+/*
     HEADERS
 */
 
