@@ -1,6 +1,6 @@
 #include "../headers/structure.h"
 
-int chunk[3][3];
+typedef int chunk[3][3];
 
 int detection(Coord c, JoueurSudoku j);
 int detectionLigne(Coord c, JoueurSudoku j, int n);

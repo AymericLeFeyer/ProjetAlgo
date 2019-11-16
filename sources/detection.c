@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "../headers/detection.h"
 
-int chunk[3][3];
+typedef int chunk[3][3];
 
 int detection(Coord c, JoueurSudoku j)
 {
