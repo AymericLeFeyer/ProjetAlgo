@@ -39,13 +39,12 @@ int afficherMenu(SDL_Surface* screen){
   SDL_Surface* poker = NULL;
   poker = IMG_Load("assets/menu/poker.png");
   SDL_Rect boutonPoker = newRect(812, 260, 468, 130);
-  //jeu loto (image a remplacer)
+
   SDL_Surface* loto = NULL;
-  loto = IMG_Load("assets/menu/batailleNavale.png");
+  loto = IMG_Load("assets/menu/loto.png");
   SDL_Rect boutonLoto = newRect(0, 520, 468, 130);
-  //jeu sudoku (image a remplacer)
   SDL_Surface* sudoku = NULL;
-  sudoku = IMG_Load("assets/menu/poker.png");
+  sudoku = IMG_Load("assets/menu/sudoku.png");
   SDL_Rect boutonSudoku = newRect(812, 520, 468, 130);
 
   // Sons
