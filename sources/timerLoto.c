@@ -5,6 +5,7 @@
 #include <SDL/SDL_ttf.h>
 #include "../headers/shortcuts.h"
 #include "../headers/timerLoto.h"
+#include "../headers/interface.h"
 
 int timerLoto(int FPS,int* temps,int tempsmax,SDL_Rect rectangle, TTF_Font* font,SDL_Color couleur,SDL_Surface* tempsRestant,SDL_Surface* screen){
   double c=(tempsmax*FPS-(*temps))/FPS;

@@ -1,5 +1,3 @@
-#include "../headers/structure.h"
-
 typedef int chunk[3][3];
 
 int detection(Coord c, JoueurSudoku j);

@@ -1,4 +1,7 @@
-#include "affichageLoto.h"
+#include "../headers/affichageLoto.h"
+#include "../headers/interface.h"
+#include "../headers/structure.h"
+#include "../headers/shortcuts.h"
 
 void afficheGrilleLoto(int t[9][3],SDL_Surface* screen, int numJoueur){
   TTF_Font *font = NULL;

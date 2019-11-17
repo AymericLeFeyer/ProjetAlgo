@@ -17,7 +17,7 @@ int i,j,k,a=tailleTalon;
 
 for(i=0;i<a;i++){
 
-        j=rand()%tailleTalon;
+        //j=rand()%tailleTalon;
         tasBoules[i]=talon[j];
         for(k=j;k<tailleTalon-1;k++){
             tasBoules[k]=talon[k+1];

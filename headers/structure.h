@@ -76,32 +76,23 @@ typedef struct{
   int valeur;
 } choixRegles;
 
-typedef struct {
-  char* gsb[82];
-  char* gss[82];
-  char* gsa[82];
-}grilleSudokuBrute;
-
-
-/*
-    SUDOKU
-*/
-
-typedef struct{
-  Grille g;
-  Grille s;
-  int nbErreurs;
-} JoueurSudoku;
 
 /*
     SUDOKU
 */
 typedef struct
 {
-  Grille g;
-  Grille s;
+  Grille g; // grille totale
+  Grille i; // grille initiale
+  Grille s; // grille solution
   int nbErreurs;
-}JoueurSudoku;
+} JoueurSudoku;
+
+typedef struct {
+  char gsb[82];
+  char gss[82];
+  char gsa[82];
+} grilleSudokuBrute;
 
 
 

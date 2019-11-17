@@ -8,6 +8,8 @@
 #include "../headers/shortcuts.h"
 #include "../headers/structure.h"
 #include "../headers/affichageSudoku.h"
+#include "../headers/initGrilleSud.h"
+#include "../headers/detection.h"
 
 int affichageSudoku(SDL_Surface* screen) {
   // Variables
@@ -74,6 +76,9 @@ int affichageSudoku(SDL_Surface* screen) {
           }
           if (posInclusion(c.x, c.y, posNextButton)) {
             continuer = playSudoku(screen);
+            if (continuer == 0) {
+              return 0;
+            }
           }
         }
 
@@ -92,7 +97,7 @@ int affichageSudoku(SDL_Surface* screen) {
     if (posInclusion(c.x, c.y, posDemoniaqueButton) || (choix == 4)) {
       SDL_BlitSurface(hoverDemoniaque, NULL, screen, &fullscreen);
     }
-    if (posInclusion(c.x, c.y, posNextButton)) {
+    if (posInclusion(c.x, c.y, posNextButton) && (choix)) {
       SDL_BlitSurface(nextButtonHover, NULL, screen, &fullscreen);
     }
 
@@ -101,6 +106,8 @@ int affichageSudoku(SDL_Surface* screen) {
 }
 
 int playSudoku(SDL_Surface* screen) {
+
+  JoueurSudoku J;
 
   Coord c;
   SDL_Surface* imageDeFond = NULL;
@@ -112,6 +119,28 @@ int playSudoku(SDL_Surface* screen) {
   SDL_Surface* nbBlancs[9];
   SDL_Surface* nbVerts[9];
   SDL_Surface* nbRouges[9];
+
+  SDL_Surface* newNumArea = NULL;
+  newNumArea = IMG_Load("assets/sudoku/newNumber.png");
+
+  char a;
+  int b;
+  char d;
+  Coord onClicked;
+  int newNum = 0;
+
+  int nouveau = 0;
+
+  grilleSudokuBrute g = initGrilleSudoku(0);
+  for (int i = 0; i < 9; i++) {
+    for (int j = 0; j < 9; j++) {
+      a = g.gsb[i*9 + j];
+      J.i.tab[j][i] = atoi(&a);
+      J.g.tab[j][i] = atoi(&a);
+      a = g.gss[i*9 + j];
+      J.s.tab[j][i] = atoi(&a);
+    }
+  }
 
   SDL_Event event;
 
@@ -148,12 +177,26 @@ int playSudoku(SDL_Surface* screen) {
   nbRouges[8] = IMG_Load("assets/sudoku/numeros/invalide/9.png");
 
   SDL_Rect positionsNumeros[9][9];
+  SDL_Rect positionsNewNumberArea[3][3];
   SDL_Rect fullscreen = newRect(0, 0, 720, 1280);
   SDL_Rect temp = newRect(0, 0, 0, 0);
+  SDL_Rect temp2 = newRect(0, 0, 0, 0);
+
+  Coord cTab;
+
+  int c_fini = 0;
+
+
 
   for (int i = 0; i < 9; i++) {
     for (int j = 0; j < 9; j++) {
       positionsNumeros[i][j] = newRect(372 + (56 + 4)*i, 92 + (56 + 4)*j, 56, 56);
+    }
+  }
+
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      positionsNewNumberArea[i][j] = newRect(1000 + (56 + 4)*i, 272 + (56 + 4)*j, 56, 56);
     }
   }
 
@@ -166,26 +209,98 @@ int playSudoku(SDL_Surface* screen) {
     for (int i = 0; i < 9; i++) {
       for (int j = 0; j < 9; j++) {
         temp = newPos(positionsNumeros[i][j]);
+        temp.w = 60;
+        temp.h = 60;
         if (posInclusion(c.x, c.y, temp)) {
           SDL_BlitSurface(caseHover, NULL, screen, &temp);
         }
       }
     }
+
+    // Affichage des chiffres
+
     for (int i = 0; i < 9; i++) {
-      SDL_BlitSurface(nbBlancs[i], NULL, screen, &positionsNumeros[0][i]);
+      for (int j = 0; j < 9; j++) {
+        if (verification(J))
+        {
+          if (J.i.tab[i][j]) {
+            SDL_BlitSurface(nbBlancs[J.i.tab[i][j]-1], NULL, screen, &positionsNumeros[i][j]);
+          }
+          else if (J.g.tab[i][j]) {
+            cTab.x = i;
+            cTab.y = j;
+            if (detection(cTab, J)) {
+              SDL_BlitSurface(nbVerts[J.g.tab[i][j]-1], NULL, screen, &positionsNumeros[i][j]);
+            }
+            else SDL_BlitSurface(nbRouges[J.g.tab[i][j]-1], NULL, screen, &positionsNumeros[i][j]);
+          }
+        }
+        else {
+          c_fini = 1;
+          SDL_BlitSurface(nbBlancs[J.g.tab[i][j]-1], NULL, screen, &positionsNumeros[i][j]);
+        }
+      }
     }
 
+
+
+
+    if (newNum) {
+      SDL_BlitSurface(newNumArea, NULL, screen, &fullscreen);
+      for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+          if (posInclusion(c.x, c.y, positionsNewNumberArea[i][j])) {
+            temp = newPos(positionsNewNumberArea[i][j]);
+            SDL_BlitSurface(caseHover, NULL, screen, &temp);
+          }
+        }
+      }
+      temp2 = newPos(positionsNumeros[onClicked.x][onClicked.y]);
+      SDL_BlitSurface(caseHover, NULL, screen, &temp2);
+
+
+
+    }
 
     switch(event.type) {
       case SDL_QUIT:
         continuer = 0;
         return 0;
         break;
-      }
+
+      case SDL_MOUSEBUTTONDOWN:
+        if (!c_fini) {
+          for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+              if (posInclusion(c.x, c.y, positionsNumeros[i][j])) {
+                if (J.i.tab[i][j] == 0) {
+                  onClicked.x = i;
+                  onClicked.y = j;
+                  newNum = 1;
+                }
+
+
+              }
+              if (newNum) {
+                for (int i = 0; i < 3; i++) {
+                  for (int j = 0; j < 3; j++) {
+                    if (posInclusion(c.x, c.y, positionsNewNumberArea[i][j])) {
+                      nouveau = (i+j*3) + 1;
+                      J.g.tab[onClicked.x][onClicked.y] = nouveau;
+                      newNum = 0;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+        }
+
+    }
+
 
     SDL_Flip(screen);
-
-
 
   }
 
