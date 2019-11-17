@@ -5,4 +5,4 @@
 
 #include "../headers/constantes.h"
 
-void afficheGrilleLoto(int t[9][3],SDL_Surface* screen, int numJoueur);
+void afficheGrilleLoto(CaseLoto t[9][3],SDL_Surface* screen, int numJoueur);

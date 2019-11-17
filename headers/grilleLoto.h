@@ -1,4 +1,4 @@
 #include <time.h>
 #include <stdio.h>
 
-void carteLoto ();
+void carteLoto (CaseLoto t[9][3]);
