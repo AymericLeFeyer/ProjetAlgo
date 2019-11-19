@@ -48,6 +48,7 @@ Coord clicGrille ( Coord clic, int tailleCase, SDL_Rect g){
 
 int phasePlacement(SDL_Surface* screen, JoueurBatailleNavale* j, int* continuer){
 
+
   TTF_Font *font = NULL;
   font = TTF_OpenFont(FONT_UBUNTU, 30);
   SDL_Color noir = {0, 0, 0, 0};
@@ -97,6 +98,7 @@ int phasePlacement(SDL_Surface* screen, JoueurBatailleNavale* j, int* continuer)
 
   SDL_Rect posTexte = newRect(496, 0, 0, 0);
 
+
   //on quitte uniquement si on a confirmé le placement du 2e joueur
   while(continuer){
     // On affiche le fond blanc
@@ -114,6 +116,7 @@ int phasePlacement(SDL_Surface* screen, JoueurBatailleNavale* j, int* continuer)
 
     clic.x=event.button.x;
     clic.y=event.button.y;
+
 
 
     while(SDL_PollEvent(&event)){

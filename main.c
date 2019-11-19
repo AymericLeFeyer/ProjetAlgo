@@ -32,9 +32,6 @@ int main(int argc, char *argv[])
       exit(EXIT_FAILURE);
   }
 
-
-  printf("%d", testMains());
-
   // Création de la surface principale
   SDL_Surface *screen = NULL;
 

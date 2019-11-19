@@ -78,12 +78,10 @@ int afficherMenu(SDL_Surface* screen){
             if (event.button.button == SDL_BUTTON_LEFT){
                 //conditions des clics
                 if ((posInclusion(clic.x, clic.y, boutonBN))) {
-                  //lancer bataille navale
-                  Mix_PlayMusic(myMus, 1);
+                  //  Mix_PlayMusic(myMus, 1);
                   continuer = affichageBatailleNavale(screen, j1, j2);
-                  // Liberation bataille Navale
-                  freeJoueurBN(&j1);
-                  freeJoueurBN(&j2);
+                  if (continuer == 0) return 0;
+
                 }
                 if ((posInclusion(clic.x, clic.y, boutonPoker))) {
                   continuer = affichagePoker(screen);
@@ -91,10 +89,12 @@ int afficherMenu(SDL_Surface* screen){
 
                 }
                 if ((posInclusion(clic.x, clic.y, boutonLoto))) {
-                  //lancer loto
+                  // continuer = affichageLoto(screen);
+                  // if (continuer == 0) return 0;
                 }
                 if ((posInclusion(clic.x, clic.y, boutonSudoku))) {
                   continuer = affichageSudoku(screen);
+                  if (continuer == 0) return 0;
 
                 }
             }
