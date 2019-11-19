@@ -1,1 +1,1 @@
-void loto(SDL_Surface* screen);
+int afficherLoto(SDL_Surface* screen);

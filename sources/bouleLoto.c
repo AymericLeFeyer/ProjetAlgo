@@ -27,6 +27,7 @@ for(i=0;i<a;i++){
     }
 }
 
+//tire un nombre au hazard dans la pile de nombres
 int prendreNombre(int *taille,int* tasBoules){
   *taille=*taille-1;
   if(*taille<0){
@@ -36,6 +37,7 @@ int prendreNombre(int *taille,int* tasBoules){
   }
 }
 
+//retourne 1 si le nombre tiré est dans la grille, 0 sinon
 int nombreDansGrille(int grille [9][3],int nombre){
   int a=0,i=0,j=0;
   while (a==0 && i<=8) {
