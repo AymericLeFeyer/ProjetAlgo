@@ -94,7 +94,14 @@ typedef struct {
   char gsa[82];
 } grilleSudokuBrute;
 
+/*
+LOTO
+*/
 
+typedef struct{
+  int val; //le nombre dans la case
+  bool jeton; //si il y a un jeton true sinon false
+} CaseLoto;
 
 /*
     HEADERS
