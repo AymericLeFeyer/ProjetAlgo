@@ -77,6 +77,22 @@ typedef struct{
 } choixRegles;
 
 
+/*
+    SUDOKU
+*/
+typedef struct
+{
+  Grille g; // grille totale
+  Grille i; // grille initiale
+  Grille s; // grille solution
+  int nbErreurs;
+} JoueurSudoku;
+
+typedef struct {
+  char gsb[82];
+  char gss[82];
+  char gsa[82];
+} grilleSudokuBrute;
 
 /*
 LOTO
@@ -86,7 +102,6 @@ typedef struct{
   int val; //le nombre dans la case
   bool jeton; //si il y a un jeton true sinon false
 } CaseLoto;
-
 
 /*
     HEADERS

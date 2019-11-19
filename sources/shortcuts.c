@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 
 #include "../headers/structure.h"
 #include "../headers/shortcuts.h"
@@ -54,4 +55,11 @@ bool collision(SDL_Rect a, SDL_Rect b) {
   }
   return false;
 
+}
+
+//regule les FPS, nécessite le nombre de FPS voulu en entrée ainsi que le nombre de ticks au début du jeu
+void regulerFPS(int FPS, Uint32 start){
+  if(1000/FPS > SDL_GetTicks()-start) {
+        SDL_Delay(1000/FPS-(SDL_GetTicks()-start));
+  }
 }

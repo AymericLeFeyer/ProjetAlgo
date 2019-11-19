@@ -12,7 +12,9 @@
 #include "../headers/shortcuts.h"
 #include "../headers/mainsPoker.h"
 #include "../headers/menu.h"
+#include "../headers/loto.h"
 #include "../headers/poker.h"
+#include "../headers/affichageSudoku.h"
 
 int afficherMenu(SDL_Surface* screen){
   int continuer=1;
@@ -38,13 +40,12 @@ int afficherMenu(SDL_Surface* screen){
   SDL_Surface* poker = NULL;
   poker = IMG_Load("assets/menu/poker.png");
   SDL_Rect boutonPoker = newRect(812, 260, 468, 130);
-  //jeu loto (image a remplacer)
+
   SDL_Surface* loto = NULL;
-  loto = IMG_Load("assets/menu/batailleNavale.png");
+  loto = IMG_Load("assets/menu/loto.png");
   SDL_Rect boutonLoto = newRect(0, 520, 468, 130);
-  //jeu sudoku (image a remplacer)
   SDL_Surface* sudoku = NULL;
-  sudoku = IMG_Load("assets/menu/poker.png");
+  sudoku = IMG_Load("assets/menu/sudoku.png");
   SDL_Rect boutonSudoku = newRect(812, 520, 468, 130);
 
   // Sons
@@ -78,23 +79,24 @@ int afficherMenu(SDL_Surface* screen){
             if (event.button.button == SDL_BUTTON_LEFT){
                 //conditions des clics
                 if ((posInclusion(clic.x, clic.y, boutonBN))) {
-                  //lancer bataille navale
-                  Mix_PlayMusic(myMus, 1);
+                  //  Mix_PlayMusic(myMus, 1);
                   continuer = affichageBatailleNavale(screen, j1, j2);
-                  // Liberation bataille Navale
-                  freeJoueurBN(&j1);
-                  freeJoueurBN(&j2);
+                  if (continuer == 0) return 0;
+
                 }
                 if ((posInclusion(clic.x, clic.y, boutonPoker))) {
                   continuer = affichagePoker(screen);
                   if (continuer == 0) return 0;
-                  
+
                 }
                 if ((posInclusion(clic.x, clic.y, boutonLoto))) {
-                  //lancer loto
+                   continuer = afficherLoto(screen);
+                   if (continuer == 0) return 0;
                 }
                 if ((posInclusion(clic.x, clic.y, boutonSudoku))) {
-                  //lancer sudoku
+                  continuer = affichageSudoku(screen);
+                  if (continuer == 0) return 0;
+
                 }
             }
             break;

@@ -107,7 +107,7 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
         if (t == 1) phase = 2;
         else if (t == 2) {
           continuer = 0;
-          return 1;
+          return 2;
         }
         else {
           continuer = 0;
@@ -119,7 +119,7 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
         if (t == 1) phase = 3;
         else if (t == 2) {
           continuer = 0;
-          return 1;
+          return 2;
         }
         else {
           continuer = 0;
@@ -133,7 +133,7 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
         if (t == 1) phase = 4;
         else if (t == 2){
           continuer = 0;
-          return 1;
+          return 2;
         }
         else if (t == 3) {
           phase = 5;

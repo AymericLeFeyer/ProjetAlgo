@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
   {
     fprintf(stderr, "Erreur d'initialisation de la SDL");
     exit(EXIT_FAILURE);
-  } 
+  }
 
   // Initialisation de TTF
   if (TTF_Init() == -1)
@@ -31,9 +31,6 @@ int main(int argc, char *argv[])
       fprintf(stderr, "Erreur d'initialisation de TTF");
       exit(EXIT_FAILURE);
   }
-
-
-  printf("%d", testMains());
 
   // Création de la surface principale
   SDL_Surface *screen = NULL;

@@ -1,4 +1,4 @@
-#include "grilleLoto.h"
+#include "../headers/grilleLoto.h"
 
 //génération d'une grille de loto
 void carteLoto (CaseLoto t[9][3]){ //un tableau de case
@@ -11,8 +11,8 @@ void carteLoto (CaseLoto t[9][3]){ //un tableau de case
     }
   }
   while (n!=15){
-    i=rand()%8;
-    j=rand()%2;
+    //i=rand()%8;
+    //j=rand()%2;
     nbNombresLigne=0; //Pour vériffier si le nombre de chiffre sur la ligne ne dépasse pas 15
     for(k=0;k<9;k++){
       if(t[k][j].val!=-1){
