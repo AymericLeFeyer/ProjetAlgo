@@ -43,3 +43,17 @@ void carteLoto (CaseLoto t[9][3]){ //un tableau de case
   }
 
 }
+
+
+int nbJetons (CaseLoto t[9][3]){
+  int i,j;
+  int nb=0;
+  for(i=0;i<9;i++){
+    for(j=0;j<3;j++){
+      if(t[i][j].jeton==true){
+        nb++;
+      }
+    }
+  }
+  return nb;
+}
