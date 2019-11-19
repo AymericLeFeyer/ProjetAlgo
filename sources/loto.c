@@ -14,8 +14,14 @@
 #include "../headers/bouleLoto.h"
 
 int afficherLoto(SDL_Surface* screen){
-  int grille1[9][3];
-  //carteLoto(grille1);
+  CaseLoto grille1[9][3];
+  CaseLoto grille2[9][3];
+  CaseLoto grille3[9][3];
+  CaseLoto grille4[9][3];
+  carteLoto(grille1);
+  carteLoto(grille2);
+  carteLoto(grille3);
+  carteLoto(grille4);
   long current_time;
   long temps;
   int newNombre=1;
@@ -78,7 +84,7 @@ int afficherLoto(SDL_Surface* screen){
               }
               break;
     }
-    //afficheGrilleLoto(grille1,screen,1);
+
 
     current_time = time(NULL) - temps;
     sprintf(timerText, "%ld", tempsmax-current_time);
@@ -88,6 +94,10 @@ int afficherLoto(SDL_Surface* screen){
     tempsRestant = creerTexte(screen, timerText, blanc, font);
     SDL_BlitSurface(fond, NULL, screen, &position);
     SDL_BlitSurface(tempsRestant, NULL, screen, &positiontimer);
+    afficheGrilleLoto(grille1,screen,1);
+    afficheGrilleLoto(grille2,screen,2);
+    afficheGrilleLoto(grille3,screen,3);
+    afficheGrilleLoto(grille4,screen,4);
     SDL_Flip(screen);
   }
   if(continuer==2){
