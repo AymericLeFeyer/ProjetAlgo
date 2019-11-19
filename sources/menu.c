@@ -12,6 +12,7 @@
 #include "../headers/shortcuts.h"
 #include "../headers/mainsPoker.h"
 #include "../headers/menu.h"
+#include "../headers/loto.h"
 #include "../headers/poker.h"
 #include "../headers/affichageSudoku.h"
 
@@ -89,8 +90,8 @@ int afficherMenu(SDL_Surface* screen){
 
                 }
                 if ((posInclusion(clic.x, clic.y, boutonLoto))) {
-                  // continuer = affichageLoto(screen);
-                  // if (continuer == 0) return 0;
+                   continuer = afficherLoto(screen);
+                   if (continuer == 0) return 0;
                 }
                 if ((posInclusion(clic.x, clic.y, boutonSudoku))) {
                   continuer = affichageSudoku(screen);
