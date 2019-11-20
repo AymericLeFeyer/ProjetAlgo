@@ -3,3 +3,4 @@
 
 void carteLoto (CaseLoto t[9][3]);
 int nbJetons (CaseLoto t[9][3]);
+int maxJeton(int t[4]);

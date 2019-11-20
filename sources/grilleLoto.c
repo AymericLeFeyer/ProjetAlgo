@@ -63,3 +63,15 @@ int nbJetons (CaseLoto t[9][3]){
   }
   return nb;
 }
+
+int maxJeton(int t[4]){ //t[0] : nombre de jeton du joueur 1, t[1] : nombre de jeton du joueur 2 etc...
+  int max=-1;
+  int id=-1;
+  for (i=0;i<4;i++){
+    if(max<t[i]){
+      max=t[i];
+      id=i;
+    }
+  }
+  return id;
+}
