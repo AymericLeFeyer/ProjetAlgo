@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include "../headers/structure.h"
 #include "../headers/grilleLoto.h"
 
@@ -16,7 +17,7 @@ void carteLoto (CaseLoto t[9][3]){ //un tableau de case
   while (n!=15){
     i=rand()%9;
     j=rand()%3;
-    nbNombresLigne=0; //Pour vériffier si le nombre de chiffre sur la ligne ne dépasse pas 15
+    nbNombresLigne=0; //Pour vériffier si le nombre de chiffre sur la ligne ne dépasse pas 5
     for(k=0;k<9;k++){
       if(t[k][j].val!=-1){
          nbNombresLigne++;
@@ -26,19 +27,16 @@ void carteLoto (CaseLoto t[9][3]){ //un tableau de case
       //vérifications pour les chiffre aléatoire :
       if(j==0){
         t[i][j].val=(rand()%(3-1)+1)+10*i;
-        t[i][j].jeton=false;
         n++;
       }
       else{
         if(j==1){
           t[i][j].val=(rand()%(7-4)+4)+10*i;
-          t[i][j].jeton=false;
           n++;
         }
         else{
           if(j==2){
             t[i][j].val=(rand()%(10-8)+8)+10*i;
-            t[i][j].jeton=false;
             n++;
           }
         }
@@ -67,11 +65,30 @@ int nbJetons (CaseLoto t[9][3]){
 int maxJeton(int t[4]){ //t[0] : nombre de jeton du joueur 1, t[1] : nombre de jeton du joueur 2 etc...
   int max=-1;
   int id=-1;
-  for (i=0;i<4;i++){
+  for (int i=0;i<4;i++){
     if(max<t[i]){
       max=t[i];
       id=i;
     }
   }
   return id;
+}
+
+void poserJeton(CaseLoto t[9][3],int nombre){
+  for(int i=0;i<9;i++){
+    for (int j = 0; j < 3; j++) {
+      if(t[i][j].val==nombre){
+        t[i][j].jeton=true;
+      }
+    }
+  }
+}
+
+void grilleVide(CaseLoto t[9][3]){
+  for(int i=0;i<9;i++){
+    for (int j = 0; j < 3; j++) {
+      t[i][j].val=-1;
+      t[i][j].jeton=false;
+    }
+  }
 }
