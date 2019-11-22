@@ -106,3 +106,63 @@ void afficherJeuLoto(SDL_Surface* screen,TTF_Font* font,SDL_Surface* texte,int n
     afficheGrilleLoto(g4,screen,4,font,texte,punition);
   }
 }
+
+//gére le menu de choix de joueur du loto
+int menuChoixJoueur(SDL_Surface* screen){
+  int continuer=1;
+  SDL_Event event;
+  Coord clic;
+  //Affiche l'image du menu de choix
+  SDL_Surface* choix = NULL;
+  choix = IMG_Load("assets/menu/choixJoueurLoto.png");
+  SDL_Rect choixNbJoueur = newRect(0, 0, 1280, 720);
+  //bouton 1 joueur
+  SDL_Rect un = newRect(147, 114, 233, 112);
+  //bouton 2 Joueurs
+  SDL_Rect deux = newRect(899, 114, 233, 112);
+  //bouton 3 joueurs
+  SDL_Rect trois = newRect(147, 454, 233, 112);
+  //bouton 4 joueurs
+  SDL_Rect quatre = newRect(899, 454, 233, 112);
+
+  while(continuer==1){
+    SDL_BlitSurface(choix, NULL, screen, &choixNbJoueur);
+
+    SDL_Flip(screen);
+
+    //evenements
+    clic.x=event.button.x;
+    clic.y=event.button.y;
+    while(SDL_PollEvent(&event)){
+      switch(event.type) {
+        case SDL_QUIT:
+          continuer = 0;
+          return 0;
+
+          break;
+
+          case SDL_MOUSEBUTTONDOWN:
+            if (event.button.button == SDL_BUTTON_LEFT){
+                //conditions des clics
+                if (posInclusion(clic.x, clic.y, un)) {
+                  continuer=afficherLoto(screen, 1);
+                }
+                if (posInclusion(clic.x, clic.y, deux)) {
+
+                }
+                if (posInclusion(clic.x, clic.y, trois)) {
+
+                }
+                if (posInclusion(clic.x, clic.y, quatre)) {
+
+                }
+            }
+            break;
+
+        }
+      }
+  }
+//free les surfaces
+SDL_FreeSurface(choix);
+return continuer;
+}

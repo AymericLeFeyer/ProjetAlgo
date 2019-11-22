@@ -41,10 +41,11 @@ int afficherMenu(SDL_Surface* screen){
   SDL_Surface* poker = NULL;
   poker = IMG_Load("assets/menu/poker.png");
   SDL_Rect boutonPoker = newRect(812, 260, 468, 130);
-
+  //loto
   SDL_Surface* loto = NULL;
   loto = IMG_Load("assets/menu/loto.png");
   SDL_Rect boutonLoto = newRect(0, 520, 468, 130);
+  //sudoku
   SDL_Surface* sudoku = NULL;
   sudoku = IMG_Load("assets/menu/sudoku.png");
   SDL_Rect boutonSudoku = newRect(812, 520, 468, 130);
@@ -91,7 +92,7 @@ int afficherMenu(SDL_Surface* screen){
 
                 }
                 if ((posInclusion(clic.x, clic.y, boutonLoto))) {
-                   continuer = afficherLoto(screen);
+                   continuer = menuChoixJoueur(screen); //raméne au menu de choix de joueur du loto
                    if (continuer == 0) return 0;
                 }
                 if ((posInclusion(clic.x, clic.y, boutonSudoku))) {
@@ -104,8 +105,6 @@ int afficherMenu(SDL_Surface* screen){
 
         }
       }
-
-
   }
   // Liberation
   SDL_FreeSurface(back);
