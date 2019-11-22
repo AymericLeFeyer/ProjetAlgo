@@ -56,7 +56,9 @@ typedef struct{
 } Hand;
 
 typedef struct{
-  Carte flop;
+  Carte flop1;
+  Carte flop2;
+  Carte flop3;
   Carte turn;
   Carte river;
   int mise;

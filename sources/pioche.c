@@ -177,7 +177,11 @@ CentrePlateau piocher(Carte *pioche, int taillePioche, JoueurPoker* j, CentrePla
       j[i].hand.carte2.visible = 1;
       taillePioche -=1;
     }
-    centre.flop=pioche[taillePioche-1];
+    centre.flop1=pioche[taillePioche-1];
+    taillePioche -=1;
+    centre.flop2=pioche[taillePioche-1];
+    taillePioche -=1;
+    centre.flop3=pioche[taillePioche-1];
     taillePioche -=1;
     centre.turn=pioche[taillePioche-1];
     taillePioche -=1;

@@ -62,7 +62,7 @@ int victoirePokerManche(SDL_Surface* screen, JoueurPoker*t, CentrePlateau* cp, J
     SDL_BlitSurface(ecranVictoire, NULL, screen, &fullscreen);
     SDL_BlitSurface(k.hand.carte1.skin, NULL, screen, &posCarte1);
     SDL_BlitSurface(k.hand.carte2.skin, NULL, screen, &posCarte2);
-    SDL_BlitSurface(cp->flop.skin, NULL, screen, &posCarte3);
+    SDL_BlitSurface(cp->flop1.skin, NULL, screen, &posCarte3);
     SDL_BlitSurface(cp->turn.skin, NULL, screen, &posCarte4);
     SDL_BlitSurface(cp->river.skin, NULL, screen, &posCarte5);
 
@@ -155,19 +155,19 @@ int detailsVictoirePoker(SDL_Surface* screen, JoueurPoker* t, CentrePlateau cp, 
 
   // Positions
   SDL_Rect fullscreen = newRect(0, 0, 720, 1280);
-  SDL_Rect posCartes[5][5];
-  for (int i = 0; i < 5; i++) {
+  SDL_Rect posCartes[7][5];
+  for (int i = 0; i < 7; i++) {
     for (int j = 0; j < 5; j++) {
-      posCartes[i][j] = newRect(935 + (59 + 5) * i, 200 + (90 + 5) * j, 59, 90);
+      posCartes[i][j] = newRect(807 + (59 + 5) * i, 200 + (90 + 5) * j, 59, 90);
     }
   }
   SDL_Rect posEtat[5];
   for (int i = 0; i < 5; i++) {
-    posEtat[i] = newRect(745, 200 + (90 + 5) * i, 90, 185);
+    posEtat[i] = newRect(616, 200 + (90 + 5) * i, 90, 185);
   }
   SDL_Rect posArgent[5];
   for (int i = 0; i < 5; i++) {
-    posArgent[i] = newRect(545, 200 + (90 + 5) * i, 90, 195);
+    posArgent[i] = newRect(477, 200 + (90 + 5) * i, 90, 195);
   }
   SDL_Rect posPoints[5];
   for (int i = 0; i < 5; i++) {
@@ -259,9 +259,11 @@ int detailsVictoirePoker(SDL_Surface* screen, JoueurPoker* t, CentrePlateau cp, 
 
       SDL_BlitSurface(t[i].hand.carte1.petit, NULL, screen, &posCartes[0][i]);
       SDL_BlitSurface(t[i].hand.carte2.petit, NULL, screen, &posCartes[1][i]);
-      SDL_BlitSurface(cp.flop.petit, NULL, screen, &posCartes[2][i]);
-      SDL_BlitSurface(cp.turn.petit, NULL, screen, &posCartes[3][i]);
-      SDL_BlitSurface(cp.river.petit, NULL, screen, &posCartes[4][i]);
+      SDL_BlitSurface(cp.flop1.petit, NULL, screen, &posCartes[2][i]);
+      SDL_BlitSurface(cp.flop2.petit, NULL, screen, &posCartes[3][i]);
+      SDL_BlitSurface(cp.flop3.petit, NULL, screen, &posCartes[4][i]);
+      SDL_BlitSurface(cp.turn.petit, NULL, screen, &posCartes[5][i]);
+      SDL_BlitSurface(cp.river.petit, NULL, screen, &posCartes[6][i]);
 
     }
     // Affichage de l'etat

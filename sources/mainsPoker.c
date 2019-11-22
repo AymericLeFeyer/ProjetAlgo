@@ -4,24 +4,30 @@
 
 
 int valeurMain(JoueurPoker jo, CentrePlateau cp) {
-  Carte t[5];
+  Carte t[7];
   t[0] = jo.hand.carte1;
   t[1] = jo.hand.carte2;
-  t[2] = cp.flop;
-  t[3] = cp.turn;
-  t[4] = cp.river;
+  t[2] = cp.flop1;
+  t[3] = cp.flop2;
+  t[4] = cp.flop3;
+  t[5] = cp.turn;
+  t[6] = cp.river;
 
   int max = jo.hand.carte1.valeur;
   int current = 0;
 
-  for (int i = 0; i < 5; i++) {
-    for (int j = 0; j < 5; j++) {
-      for (int k = 0; k < 5; k++) {
-        for (int l = 0; l < 5; l++) {
-          for (int m = 0; m < 5; m++) {
-            if (differents(i, j, k, l, m)) {
-              current = valeurMain2(t[i], t[j], t[k], t[l], t[m]);
-              if (max < current) max = current;
+  for (int i = 0; i < 7; i++) {
+    for (int j = 0; j < 7; j++) {
+      for (int k = 0; k < 7; k++) {
+        for (int l = 0; l < 7; l++) {
+          for (int m = 0; m < 7; m++) {
+            for (int n = 0; n < 7; n++) {
+              for (int o = 0; o < 7; o++) {
+                if (differents(i, j, k, l, m, n, o)) {
+                  current = valeurMain2(t[i], t[j], t[k], t[l], t[m], t[n], t[o]);
+                  if (max < current) max = current;
+                }
+              }
             }
           }
         }
@@ -32,26 +38,28 @@ int valeurMain(JoueurPoker jo, CentrePlateau cp) {
   return max;
 }
 
-int valeurMain2(Carte c1, Carte c2, Carte c3, Carte c4, Carte c5) {
-  int a, b, c, d, e;
+int valeurMain2(Carte c1, Carte c2, Carte c3, Carte c4, Carte c5, Carte c6, Carte c7) {
+  int a, b, c, d, e, f, g;
   a = c1.valeur;
   b = c2.valeur;
   c = c3.valeur;
   d = c4.valeur;
   e = c5.valeur;
+  f = c6.valeur;
+  g = c7.valeur;
   // Retourne la valeur de la main dans cette configuration
-  if (memeCouleur(c1, c2, c3, c4, c5)) {
+  if (memeCouleur(c1, c2, c3, c4, c5, c6, c7)) {
     if (quinte(a, b, c, d, e) == 13) {
       // OMG Trop de chance c'est une QUINTE ROYAL FLUSH
       return 10000;
     }
     else if (quinte(a, b, c, d, e) != 0) {
       // OMG Trop de chance (un peu moins quand meme) c'est une QUINTE FLUSH
-      return 8000 + 10 * maxi(a, b, c, d, e);
+      return 8000 + 10 * maxi(a, b, c, d, e, f, g);
     }
     else {
       // Dans ce jeu on fait gagner ceux qui n'ont qu'une seule couleur, vive la diversite
-      return 5000 + 10 * maxi(a, b, c, d, e) + a;
+      return 5000 + 10 * maxi(a, b, c, d, e, f, g) + a;
     }
   }
   if (carre(a, b, c, d)) {
@@ -63,7 +71,7 @@ int valeurMain2(Carte c1, Carte c2, Carte c3, Carte c4, Carte c5) {
     return 6000 + 10 * a;
   }
   if (quinte(a, b, c, d, e)) {
-    // Une quinte pas piauee des hannetons
+    // Une quinte pas piquee des hannetons
     return 5000 + 10 * e;
   }
 
@@ -83,26 +91,30 @@ int valeurMain2(Carte c1, Carte c2, Carte c3, Carte c4, Carte c5) {
   }
 }
 
-int differents(int i, int j, int k, int l, int m) {
+int differents(int i, int j, int k, int l, int m, int n, int o) {
   // Retourne 1 si toutes les valeurs sont differentes
-  if ((i == j) || (i == k) || (i == l) || (i == m)) return 0;
-  if ((j == k) || (j == l) || (j == m)) return 0;
-  if ((k == l) || (k == m)) return 0;
-  if (l == m) return 0;
+  if ((i == j) || (i == k) || (i == l) || (i == m) || (i == n) || (i == o)) return 0;
+  if ((j == k) || (j == l) || (j == m) || (j == n) || (j == o)) return 0;
+  if ((k == l) || (k == m) || (k == n) || (k == o)) return 0;
+  if ((l == m) || (l == n) || (l == o)) return 0;
+  if ((m == n) || (m == o)) return 0;
+  if (n == o) return 0;
   return 1;
 }
 
-int maxi(int a, int b, int c, int d, int e) {
+int maxi(int a, int b, int c, int d, int e, int f, int g) {
   int max = a;
   if (b > max) max = b;
   if (c > max) max = c;
   if (d > max) max = d;
   if (e > max) max = e;
+  if (f > max) max = f;
+  if (g > max) max = g;
   return max;
 }
 
-int memeCouleur(Carte c1, Carte c2, Carte c3, Carte c4, Carte c5) {
-  return ((c1.couleur == c2.couleur) && (c2.couleur == c3.couleur) && (c3.couleur == c4.couleur));
+int memeCouleur(Carte c1, Carte c2, Carte c3, Carte c4, Carte c5, Carte c6, Carte c7) {
+  return ((c1.couleur == c2.couleur) && (c2.couleur == c3.couleur) && (c3.couleur == c4.couleur) && (c4.couleur == c5.couleur) && (c5.couleur == c6.couleur) && (c6.couleur == c7.couleur));
 }
 
 int quinte(int a, int b, int c, int d, int e) {
@@ -140,16 +152,4 @@ int brelan(int a, int b, int c) {
 int paire(int a, int b) {
   if (a == b) return a;
   return 0;
-}
-
-int testMains() {
-  JoueurPoker j;
-  CentrePlateau cp;
-  j.hand.carte1 = newCarte(1, 13);
-  j.hand.carte2 = newCarte(2, 13);
-  cp.flop = newCarte(3, 8);
-  cp.turn = newCarte(4, 7);
-  cp.river = newCarte(1, 11);
-
-  return valeurMain(j, cp);
 }

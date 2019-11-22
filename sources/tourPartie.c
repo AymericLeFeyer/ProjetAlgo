@@ -61,8 +61,14 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
                     if(nbNonCouche(t,nbJoueurs)!=1){
 
 
-                        if(cp.flop.visible==1){
-                            printf("flop: %d %d\n",cp.flop.couleur,cp.flop.valeur);
+                        if(cp.flop1.visible==1){
+                            printf("flop1: %d %d\n",cp.flop1.couleur,cp.flop1.valeur);
+                        }
+                        if(cp.flop2.visible==1){
+                            printf("flop2: %d %d\n",cp.flop2.couleur,cp.flop2.valeur);
+                        }
+                        if(cp.flop3.visible==1){
+                            printf("flop3: %d %d\n",cp.flop3.couleur,cp.flop3.valeur);
                         }
                         if(cp.turn.visible==1){
                             printf("turn: %d %d\n",cp.turn.couleur,cp.turn.valeur);
@@ -89,7 +95,9 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
             {
                 //Tour 1
                 case 0:
-                    cp.flop.visible = 1;
+                    cp.flop1.visible = 1;
+                    cp.flop2.visible = 1;
+                    cp.flop3.visible = 1;
                     break;
 
                 //Tour 2
@@ -224,7 +232,7 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int enJeu,
 
   // Positions
   SDL_Rect fullscreen = newRect(0, 0, 720, 1280);
-  SDL_Rect posZoneJetonsPersos = newRect(900, 466, 108, 108);
+  SDL_Rect posZoneJetonsPersos = newRect(883, 558, 108, 108);
   SDL_Rect posZoneJetonsGlobal = newRect(480, 0, 192, 320);
   SDL_Rect posAffichageJetonsPersos = newRect(901, 385, 50, 105);
   SDL_Rect posAffichageJetonsGlobal = newRect(858, 63, 50, 200);
@@ -248,9 +256,11 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int enJeu,
   // Positions des cartes
   SDL_Rect posCarte1 = newRect(480, 524, 196, 128);
   SDL_Rect posCarte2 = newRect(672, 524, 196, 128);
-  SDL_Rect posFlop = newRect(416, 262, 196, 128);
-  SDL_Rect posTurn = newRect(576, 262, 196, 128);
-  SDL_Rect posRiver = newRect(736, 262, 196, 128);
+  SDL_Rect posFlop1 = newRect(256, 262, 196, 128);
+  SDL_Rect posFlop2 = newRect(416, 262, 196, 128);
+  SDL_Rect posFlop3 = newRect(576, 262, 196, 128);
+  SDL_Rect posTurn = newRect(736, 262, 196, 128);
+  SDL_Rect posRiver = newRect(896, 262, 196, 128);
 
   // Positions des Textes
   SDL_Rect posTextCurrentManche = newRect(30, 520, 45, 180);
@@ -290,7 +300,9 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int enJeu,
     // Affichage des cartes
     afficherCarte(screen, j->hand.carte1, posCarte1);
     afficherCarte(screen, j->hand.carte2, posCarte2);
-    afficherCarte(screen, cp->flop, posFlop);
+    afficherCarte(screen, cp->flop1, posFlop1);
+    afficherCarte(screen, cp->flop2, posFlop2);
+    afficherCarte(screen, cp->flop3, posFlop3);
     afficherCarte(screen, cp->turn, posTurn);
     afficherCarte(screen, cp->river, posRiver);
 
