@@ -13,7 +13,7 @@
 #include "../headers/shortcuts.h"
 #include "../headers/mainsPoker.h"
 #include "../headers/menu.h"
-#include "../headers/loto.h"
+#include "../headers/affichageloto.h"
 #include "../headers/poker.h"
 #include "../headers/affichageSudoku.h"
 

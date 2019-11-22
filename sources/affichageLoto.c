@@ -4,6 +4,7 @@
 #include "../headers/interface.h"
 #include "../headers/shortcuts.h"
 #include "../headers/constantes.h"
+#include "../headers/loto.h"
 
 
 void afficheGrilleLoto(CaseLoto t[9][3],SDL_Surface* screen, int numJoueur,TTF_Font* font,SDL_Surface* texte,int punition[4]){
@@ -114,7 +115,7 @@ int menuChoixJoueur(SDL_Surface* screen){
   Coord clic;
   //Affiche l'image du menu de choix
   SDL_Surface* choix = NULL;
-  choix = IMG_Load("assets/menu/choixJoueurLoto.png");
+  choix = IMG_Load("assets/Loto/choixJoueurLoto.png");
   SDL_Rect choixNbJoueur = newRect(0, 0, 1280, 720);
   //bouton 1 joueur
   SDL_Rect un = newRect(147, 114, 233, 112);
@@ -148,13 +149,13 @@ int menuChoixJoueur(SDL_Surface* screen){
                   continuer=afficherLoto(screen, 1);
                 }
                 if (posInclusion(clic.x, clic.y, deux)) {
-
+                  continuer=afficherLoto(screen, 2);
                 }
                 if (posInclusion(clic.x, clic.y, trois)) {
-
+                  continuer=afficherLoto(screen, 3);
                 }
                 if (posInclusion(clic.x, clic.y, quatre)) {
-
+                  continuer=afficherLoto(screen, 4);
                 }
             }
             break;
