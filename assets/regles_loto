@@ -1,0 +1,11 @@
+Voici les règles du loto :
+Toutes les 5 secondes, un nouveau chiffre apparaît.
+Tous les joueurs peuvent intervenir, si un joueur clique sur sa touche et que le chiffre est dans grille
+alors, un jeton sera ajouté dans sa grille sur le chiffre correspondant, sinon, le joueur sera pénalisé et
+pourra de nouveu cliquer qu'à partir de la fin du prochain chiffre.
+
+Commandes du loto :
+- Joueur 1 : ctrl gauche
+- Joueur 2 : espace
+- Joueur 3 : ctrl droit
+- Joueur 4 : flèche droite
