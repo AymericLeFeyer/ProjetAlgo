@@ -249,7 +249,7 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
   SDL_Rect fullscreen = newRect(0, 0, 720, 1280);
   SDL_Rect posZoneJetonsPersos = newRect(883, 558, 108, 108);
   SDL_Rect posZoneJetonsGlobal = newRect(480, 0, 192, 320);
-  SDL_Rect posAffichageJetonsPersos = newRect(901, 385, 50, 105);
+  SDL_Rect posAffichageJetonsPersos = newRect(883, 507, 50, 105);
   SDL_Rect posAffichageJetonsGlobal = newRect(858, 63, 50, 200);
 
   SDL_Rect posSuivreButton = newRect(1060, 228, 80, 200);
@@ -313,6 +313,8 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
     // Affichage de la table
     SDL_BlitSurface(table, NULL, screen, &fullscreen);
     // Affichage des cartes
+    j->hand.carte1.visible = posInclusion(c.x, c.y, posCarte1);
+    j->hand.carte2.visible = posInclusion(c.x, c.y, posCarte2);
     afficherCarte(screen, j->hand.carte1, posCarte1);
     afficherCarte(screen, j->hand.carte2, posCarte2);
     afficherCarte(screen, cp->flop1, posFlop1);
