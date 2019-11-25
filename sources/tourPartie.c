@@ -84,7 +84,7 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
 
 
 
-                        continuer = tourPoker(screen, &t[j], &cp, nbJoueurs, manche + 1, t);
+                        continuer = tourPoker(screen, &t[j], &cp, nbJoueurs, manche + 1, t, mancheTotale);
                         if (continuer != 1) return continuer;
 
 
@@ -173,7 +173,7 @@ int nbNonCouche(JoueurPoker *t,int nbJoueurs){
 }
 
 //tour Poker
-int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoueurs, int currentManche, JoueurPoker* tabJ) {
+int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoueurs, int currentManche, JoueurPoker* tabJ, int totalManche) {
   if (j->argent == 0) return 1;
   int continuer = 1;
   SDL_Event event;
@@ -189,6 +189,7 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
   SDL_Surface* affichageRelance = NULL;
   SDL_Surface* boutonNext = NULL;
   SDL_Surface* nextSelection = NULL;
+  SDL_Surface* mancheText = NULL;
 
   table = IMG_Load("assets/poker/table/tablePoker.jpg");
 
@@ -203,6 +204,7 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
   affichageJetonsPersos = IMG_Load("assets/poker/table/affichageJetonsPersos.png");
   affichageRelance = IMG_Load("assets/poker/table/affichageRelance.png");
   boutonNext = IMG_Load("assets/poker/table/boutonNext.png");
+  mancheText = IMG_Load("assets/poker/table/mancheText.png");
 
   // Informations de la manche
   SDL_Surface* playerIconPlaying = NULL;
@@ -222,28 +224,31 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
   // Textes
   SDL_Surface* texteJetonsPersos = NULL;
   SDL_Surface* texteJetonsGlobal = NULL;
-  SDL_Surface* texteCurrentJoueur = NULL;
   SDL_Surface* texteCurrentManche = NULL;
-  SDL_Surface* texteNbJoueursEnJeu = NULL;
+  SDL_Surface* texteTotalManche = NULL;
   SDL_Surface* texteMontantRemise = NULL;
   SDL_Surface* texteMiseMinimumActuelle = NULL;
+
   char valeurTexteJetonsPersos[5];
   char valeurTexteJetonsGlobal[5];
-  char valeurTexteCurrentJoueur[20];
-  char valeurTexteCurrentManche[20];
-  char valeurTexteNbJoueursEnJeu[30];
+  char valeurTexteCurrentManche[2];
+  char valeurTexteTotalManche[2];
   char valeurTexteMontantRemise[10];
   char valeurTexteMinimumActuelle[50];
 
   SDL_Color noir = {0, 0, 0, 0};
   SDL_Color rouge = {255, 0, 0, 0};
   SDL_Color vert = {0, 255, 0, 0};
+  SDL_Color blanc = {255, 255, 255, 255};
 
   TTF_Font *font = NULL;
   font = TTF_OpenFont(FONT_UBUNTU, 30);
 
   TTF_Font *font2 = NULL;
   font2 = TTF_OpenFont(FONT_UBUNTU, 20);
+
+  TTF_Font *font3 = NULL;
+  font3 = TTF_OpenFont(FONT_UBUNTU, 36);
 
   // Positions
   SDL_Rect fullscreen = newRect(0, 0, 720, 1280);
@@ -278,11 +283,11 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
   SDL_Rect posRiver = newRect(896, 262, 196, 128);
 
   // Positions des Textes
-  SDL_Rect posTextCurrentManche = newRect(30, 520, 45, 180);
-  SDL_Rect posTextCurrentJoueur = newRect(30, 560, 45, 180);
-  SDL_Rect posTextJoueursEnJeu = newRect(30, 600, 45, 180);
+  SDL_Rect posTextCurrentManche = newRect(90, 570, 0, 0);
+  SDL_Rect posTextTotalManche = newRect(132, 570, 0, 0);
+
   SDL_Rect posTextMiseRelance = newRect(32, 186, 36, 186);
-  SDL_Rect posTexteMinimumMise = newRect(475, 210, 36, 320);
+  SDL_Rect posTexteMinimumMise = newRect(500, 210, 36, 320);
 
   // Variables
   int choix = 0; // 1 = suivre, 2 = tapis, 3 = relance, 4 = passer
@@ -296,14 +301,13 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
   sprintf(valeurTexteJetonsGlobal, "%d", cp->mise);
   texteJetonsGlobal = creerTexte(screen, valeurTexteJetonsGlobal, noir, font);
 
-  sprintf(valeurTexteCurrentManche, "Manche %d", currentManche);
-  texteCurrentManche = creerTexte(screen, valeurTexteCurrentManche, noir, font2);
+  sprintf(valeurTexteCurrentManche, "%d", currentManche);
+  texteCurrentManche = creerTexte(screen, valeurTexteCurrentManche, blanc, font3);
 
-  sprintf(valeurTexteCurrentJoueur, "Joueur %d", j->joueur);
-  texteCurrentJoueur = creerTexte(screen, valeurTexteCurrentJoueur, noir, font2);
+  sprintf(valeurTexteTotalManche, "%d", totalManche);
+  texteTotalManche = creerTexte(screen, valeurTexteTotalManche, blanc, font3);
 
-  // sprintf(valeurTexteNbJoueursEnJeu, "%d Joueurs restants" , enJeu);
-  // texteNbJoueursEnJeu = creerTexte(screen, valeurTexteNbJoueursEnJeu, noir, font2);
+
 
   sprintf(valeurTexteMinimumActuelle, "Mise minimale : %d", cp->miseD);
   texteMiseMinimumActuelle = creerTexte(screen, valeurTexteMinimumActuelle, noir, font);
@@ -324,9 +328,10 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
     afficherCarte(screen, cp->river, posRiver);
 
     // Affichage des infos de partie
-    // SDL_BlitSurface(texteCurrentManche, NULL, screen, &posTextCurrentManche);
-    // SDL_BlitSurface(texteCurrentJoueur, NULL, screen, &posTextCurrentJoueur);
-    // SDL_BlitSurface(texteNbJoueursEnJeu, NULL, screen, &posTextJoueursEnJeu);
+    SDL_BlitSurface(mancheText, NULL, screen, &fullscreen);
+    SDL_BlitSurface(texteCurrentManche, NULL, screen, &posTextCurrentManche);
+    SDL_BlitSurface(texteTotalManche, NULL, screen, &posTextTotalManche);
+
     for (int i = 0; i < nbJoueurs; i++) {
       if (tabJ[i].etat == 1) {
         SDL_BlitSurface(playerIconOut, NULL, screen, &positionPlayerIcon[i]);
