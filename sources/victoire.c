@@ -48,11 +48,13 @@ int victoirePokerManche(SDL_Surface* screen, JoueurPoker*t, CentrePlateau* cp, J
   SDL_Rect posNextMenu = newRect(1110, 25, 125, 150);
   SDL_Rect posDetailsMenu = newRect(1110, 175, 125, 150);
 
-  SDL_Rect posCarte1 = newRect(152, 400, 196, 128);
-  SDL_Rect posCarte2 = newRect(364, 440, 196, 128);
-  SDL_Rect posCarte3 = newRect(576, 480, 196, 128);
-  SDL_Rect posCarte4 = newRect(788, 440, 196, 128);
-  SDL_Rect posCarte5 = newRect(1000, 400, 196, 128);
+  SDL_Rect posCarte1 = newRect(48, 420, 196, 128);
+  SDL_Rect posCarte2 = newRect(224, 446, 196, 128);
+  SDL_Rect posCarte3 = newRect(400, 472, 196, 128);
+  SDL_Rect posCarte4 = newRect(576, 490, 196, 128);
+  SDL_Rect posCarte5 = newRect(752, 472, 196, 128);
+  SDL_Rect posCarte6 = newRect(928, 446, 196, 128);
+  SDL_Rect posCarte7 = newRect(1104, 420, 196, 128);
 
   // variables
   Coord c;
@@ -63,8 +65,10 @@ int victoirePokerManche(SDL_Surface* screen, JoueurPoker*t, CentrePlateau* cp, J
     SDL_BlitSurface(k.hand.carte1.skin, NULL, screen, &posCarte1);
     SDL_BlitSurface(k.hand.carte2.skin, NULL, screen, &posCarte2);
     SDL_BlitSurface(cp->flop1.skin, NULL, screen, &posCarte3);
-    SDL_BlitSurface(cp->turn.skin, NULL, screen, &posCarte4);
-    SDL_BlitSurface(cp->river.skin, NULL, screen, &posCarte5);
+    SDL_BlitSurface(cp->flop2.skin, NULL, screen, &posCarte4);
+    SDL_BlitSurface(cp->flop3.skin, NULL, screen, &posCarte5);
+    SDL_BlitSurface(cp->turn.skin, NULL, screen, &posCarte6);
+    SDL_BlitSurface(cp->river.skin, NULL, screen, &posCarte7);
 
     switch(k.joueur) {
       case 1:
