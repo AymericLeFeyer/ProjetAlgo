@@ -1,0 +1,9 @@
+Voici les règles de la bataille navale :
+Au départ, chaque joueur doit positionner ses bateaux sur la grille.
+Le joueur sélectionne son bateau avec le clic droit et change sa position avec le clic gauche.
+On ne peut pas passer à l'étape suivante tant que tout les bateaux ne sont pas tous positionnés sur la grille.
+À chaque tour, un joueur sélectionne une case de la grille.
+Si la case choisie correspond à une portion d'un bateau, une croix rouge apparaît correspondant à "touché"
+sinon une croix blanche apparaît correspondant à "raté".
+Dès que toutes les portions d'un bateau sont touchées, le bateau adverse "coule", apparaît sur la grille
+et est retiré de sa liste de bateaux.

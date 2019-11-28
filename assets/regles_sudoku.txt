@@ -1,0 +1,5 @@
+Voici les règles du sudoku :
+Quand tu poses un chiffre dans une case, le jeu vérifie que ce chiffre n'est pas présent dans la ligne et
+dans la colonne du chiffre et vérifie s'il n'est pas présent dans le carré dans lequel il est posé.
+Si jamais tu as posé un chiffre invalide, tu peux le changer en cliquant de nouveau dessus.
+Attention, même si tu as posé un bon chiffre, rien ne dit qu'il est posé au bon endroit !

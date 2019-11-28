@@ -1,0 +1,10 @@
+Voici les règles du poker :
+Avant le début de la partie, on sélectionne le nombre de joueur, le nombre de manches, la mise intiale et l'argent initial.
+Une manche au poker est constituée de 4 tours.
+Un joueur peut "suivre", "tapis", "relance" ou "passer".
+Si le joueur suit, il poursuit la partie avec la mise actuelle.
+Si le joueur se met au tapis, la nouvelle mise devient son nombre de jetons et ne peut plus participer à la manche actuelle.
+Si le joueur relance, il peut augmenter la mise de 5, de 10 ou la doubler.
+Si le joueur s'est trompé sur la nouvelle mise, il peut appuyer sur 0, ce qui va
+remettre la mise avant les modifications de ce tour.
+Si le joueur passe, il abandonne et ne pourra plus participer au reste de la manche.
