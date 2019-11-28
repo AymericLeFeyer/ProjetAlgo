@@ -20,9 +20,6 @@
 int afficherMenu(SDL_Surface* screen){
   int continuer=1;
   SDL_Event event;
-  JoueurBatailleNavale j1, j2;
-  j1 = initJoueurBN(1, 10, 10);
-  j2 = initJoueurBN(2, 10, 10);
   Coord clic;
 
   //background
@@ -55,7 +52,7 @@ int afficherMenu(SDL_Surface* screen){
   myMus = Mix_LoadMUS("assets/sounds/batailleNavale.wav");
 
 //tout afficher
-  while(continuer){
+  while(continuer>0){
     SDL_BlitSurface(back, NULL, screen, &background);
     SDL_BlitSurface(titre, NULL, screen, &logo);
     SDL_BlitSurface(bataille, NULL, screen, &boutonBN);
@@ -81,7 +78,7 @@ int afficherMenu(SDL_Surface* screen){
                 //conditions des clics
                 if ((posInclusion(clic.x, clic.y, boutonBN))) {
                   //  Mix_PlayMusic(myMus, 1);
-                  continuer = affichageBatailleNavale(screen, j1, j2);
+                  continuer = affichageBatailleNavale(screen);
                   if (continuer == 0) return 0;
 
                 }

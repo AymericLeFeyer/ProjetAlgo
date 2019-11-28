@@ -98,9 +98,9 @@ int phasePlacement(SDL_Surface* screen, JoueurBatailleNavale* j, int* continuer)
 
   SDL_Rect posTexte = newRect(496, 0, 0, 0);
 
-
+  int t=2;
   //on quitte uniquement si on a confirmé le placement du 2e joueur
-  while(continuer){
+  while(continuer && t==2){
     // On affiche le fond blanc
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255));
 
@@ -123,7 +123,7 @@ int phasePlacement(SDL_Surface* screen, JoueurBatailleNavale* j, int* continuer)
       switch(event.type) {
         case SDL_QUIT:
           continuer = 0;
-          return 0;
+          t = 0;
 
           break;
 
@@ -135,7 +135,7 @@ int phasePlacement(SDL_Surface* screen, JoueurBatailleNavale* j, int* continuer)
             if (nbCaseBateau(*j) == 17) {
               if ((posInclusion(clic.x, clic.y, posButton)) && (!enSelection)) {
                 continuer = 0;
-                return 1;
+                t = 1;
               }
             }
             if (!(enSelection)) {
@@ -177,4 +177,5 @@ int phasePlacement(SDL_Surface* screen, JoueurBatailleNavale* j, int* continuer)
   SDL_FreeSurface(case1);
   SDL_FreeSurface(case2);
   SDL_FreeSurface(texte);
+  return t;
 }

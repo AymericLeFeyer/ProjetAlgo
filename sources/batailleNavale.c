@@ -10,10 +10,14 @@
 #include "../headers/batailleNavale.h"
 #include "../headers/interface.h"
 #include "../headers/placement.h"
+#include "../headers/initialisation.h"
 #include "../headers/tir.h"
 
-int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, JoueurBatailleNavale j2)
+int affichageBatailleNavale(SDL_Surface* screen)
 {
+  JoueurBatailleNavale j1, j2;
+  j1 = initJoueurBN(1, 10, 10);
+  j2 = initJoueurBN(2, 10, 10);
   // variables pour la boucle principale
   SDL_Event event;
   int continuer = 1;
@@ -54,6 +58,8 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
   SDL_Surface *precisionVictoire = NULL;
   char strCoups[10];
   char strPrecision[10];
+  nbCoupsVictoire = creerTexte(screen, strCoups, noir, fontVictoire);
+  precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
   SDL_Rect nbCoupsVictoireRect = newRect(446, 336, 0, 0);
   SDL_Rect precisionVictoireRect = newRect(755, 336, 0, 0);
 
@@ -68,11 +74,10 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
   int nbBateauxValides = 0;
 
   // Boucle principale
-  while (continuer){
+  while (continuer==1){
 
     // Position du curseur
-    c.x = event.button.x;
-    c.y = event.button.y;
+
 
     // On regarde l'event
     SDL_PollEvent(&event);
@@ -83,22 +88,17 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
       // Si on clique sur la croix, on ferme la fenêtre
       case SDL_QUIT:
         continuer = 0;
-        return 0;
         break;
       case SDL_MOUSEBUTTONDOWN:
-        if (phase == 5) {
-          if (event.button.button == SDL_BUTTON_RIGHT) {
-            if (posInclusion(c.x, c.y, posBoutonMenu)){
-              continuer = 0;
-              return 1;
-
-            }
-          }
+        //if (phase == 5) {
+        posBoutonMenu = newRect(10, HEIGHT_GAME - 100 - 10, 100, 150);
+        c.x = event.button.x;
+        c.y = event.button.y;
+        if(posInclusion(c.x, c.y, posBoutonMenu)){
+          continuer=2;
         }
+        //}
         break;
-
-
-
     }
     int t = 0;
     switch (phase) {
@@ -106,24 +106,20 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
         t = phasePlacement(screen, &j1, &continuer);
         if (t == 1) phase = 2;
         else if (t == 2) {
-          continuer = 0;
-          return 2;
+          continuer = 2;
         }
         else {
           continuer = 0;
-          return 0;
         }
         break;
       case 2:
         t = phasePlacement(screen, &j2, &continuer);
         if (t == 1) phase = 3;
         else if (t == 2) {
-          continuer = 0;
-          return 2;
+          continuer = 2;
         }
         else {
           continuer = 0;
-          return 0;
         }
         break;
       case 3:
@@ -132,8 +128,7 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
           t = aToiDeJouer(screen, &j1, &j2);
         if (t == 1) phase = 4;
         else if (t == 2){
-          continuer = 0;
-          return 2;
+          continuer = 2;
         }
         else if (t == 3) {
           phase = 5;
@@ -141,7 +136,6 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
         }
         else {
           continuer = 0;
-          return 0;
         }
 
 
@@ -152,8 +146,7 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
           t = aToiDeJouer(screen, &j2, &j1);
         if (t == 1) phase = 3;
         else if (t == 2) {
-          continuer = 0;
-          return 1;
+          continuer = 2;
         }
         else if (t == 3) {
           phase = 5;
@@ -161,7 +154,6 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
         }
         else {
           continuer = 0;
-          return 0;
         }
 
         break;
@@ -172,22 +164,27 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
           SDL_BlitSurface(victoire2, NULL, screen, &posVictoire2);
           sprintf(strCoups, "%d", nbCaseNonVide(j2.infos));
           sprintf(strPrecision, "%d%%", (int) (100 * ((float) ((float) 17 / (float) nbCaseNonVide(j2.infos)))));
+          SDL_FreeSurface(nbCoupsVictoire);
+          SDL_FreeSurface(precisionVictoire);
           nbCoupsVictoire = creerTexte(screen, strCoups, noir, fontVictoire);
           precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
           SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
           SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
+
         }
         else if (nbBateauxVivant(j2) == 0) {
           SDL_BlitSurface(victoire1, NULL, screen, &posVictoire1);
           sprintf(strCoups, "%d", nbCaseNonVide(j1.infos));
           sprintf(strPrecision, "%d%%", (int) (100 * ((float) ((float) 17 / (float) nbCaseNonVide(j1.infos)))));
+          SDL_FreeSurface(nbCoupsVictoire);
+          SDL_FreeSurface(precisionVictoire);
           nbCoupsVictoire = creerTexte(screen, strCoups, noir, fontVictoire);
           precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
           SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
           SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
         }
         SDL_BlitSurface(boutonMenu, NULL, screen, &posBoutonMenu);
-
+        break;
 
 
     }
@@ -196,8 +193,6 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
     //afficherBateaux(screen, j1);
 
     // Afficher les textes pour la bataille navale
-    afficherInterfaceBatailleNavale(screen, font);
-
     char result[50];
     sprintf(result, "%d", nbCaseBateau(j1));
 
@@ -208,6 +203,8 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
     SDL_Flip(screen);
   }
   // Liberation
+  freeJoueurBN(&j1);
+  freeJoueurBN(&j2);
   TTF_CloseFont(font);
   TTF_CloseFont(fontVictoire);
   SDL_FreeSurface(boutonMenu);
@@ -215,6 +212,7 @@ int affichageBatailleNavale(SDL_Surface* screen, JoueurBatailleNavale j1, Joueur
   SDL_FreeSurface(victoire2);
   SDL_FreeSurface(nbCoupsVictoire);
   SDL_FreeSurface(precisionVictoire);
+  return continuer;
 }
 
 void afficherBateaux(SDL_Surface* screen, JoueurBatailleNavale j)

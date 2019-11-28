@@ -55,7 +55,7 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
   // Variables importantes
   Coord clic; // clic utilisateur
   SDL_Event event;
-  int continuer = 1; // boucle principale
+  int continuer = 4; // boucle principale
   int indexA, indexB; // pour simplifier la ligne 117/119
   int valeurTCR; // valeur de la fonction, car on en a besoin 2 fois
   bool aJoue = false; // bool qui dit si le joueur a deja joue
@@ -105,20 +105,22 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
   }
   SDL_Rect posTexte = newRect(500, 0, 0, 0);
 
-  while(continuer){
+  while(continuer==4){
     // On affiche le fond blanc
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255));
 
     // Debug zone
     sprintf(debugText, "%d\n%d\%d\n%d\n%d", j2->tab[0].pv, j2->tab[1].pv, j2->tab[2].pv, j2->tab[3].pv, j2->tab[4].pv);
-    debugSurface = creerTexte(screen, debugText, noir, font);
+    //debugSurface = creerTexte(screen, debugText, noir, font);
     // SDL_BlitSurface(debugSurface, NULL, screen, &debugRect);
 
     // Affichage du nombre de tour
     SDL_BlitSurface(nbTourSuface, NULL, screen, &nbTourRect);
     // Affichage des bateaux (sur le cote)
     SDL_BlitSurface(bateauAlliesSurface, NULL, screen, &posBateauxAllies);
+
     SDL_BlitSurface(bateauEnnemisSurface, NULL, screen, &posBateauxEnnemis);
+
     SDL_BlitSurface(boutonMenu, NULL, screen, &posBoutonMenu);
     afficherBateauxSurLeCote(screen, *j1, *j2);
 
@@ -131,6 +133,7 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
     afficherGrille(screen, case1, case2, positionCases);
 
     SDL_BlitSurface(texte, NULL, screen, &posTexte);
+
     //afficherBateaux(screen, *j);
     afficherInterfaceBatailleNavale(screen, font);
 
@@ -144,13 +147,13 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
       posCaseCible.y = clic.y - (clic.y - 40) % 64;
 
       ciblerCase(screen, caseCible, posCaseCible);
+
     }
 
     while(SDL_PollEvent(&event)){
       switch(event.type) {
         case SDL_QUIT:
           continuer = 0;
-          return 0;
 
           break;
         case SDL_MOUSEBUTTONDOWN:
@@ -158,8 +161,7 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
           indexB = (clic.y - 40) / 64;
           if (event.button.button == SDL_BUTTON_LEFT){
             if (posInclusion(clic.x, clic.y, posBoutonMenu)) {
-              continuer = 0;
-              return 2;
+              continuer = 2;
             }
 
               if (!aJoue) {
@@ -175,8 +177,7 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
 
               else {
                 if ((posInclusion(clic.x, clic.y, posButton) && (nbBateauxVivant(*j2) > 0))) {
-                  continuer = 0;
-                  return 1;
+                  continuer = 1;
                 }
               }
 
@@ -232,8 +233,7 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
 
     // Affichage des ecrans de victoire
     if (nbBateauxVivant(*j2) == 0) {
-      continuer = 0;
-      return 3;
+      continuer = 3;
     //   SDL_BlitSurface(victoire2, NULL, screen, &posVictoire2);
     //   sprintf(strCoups, "%d", nbCaseNonVide(j2->infos));
     //   sprintf(strPrecision, "%d%%", (int) (100 * ((float) ((float) 17 / (float) nbCaseNonVide(j2->infos)))));
@@ -244,8 +244,7 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
     //   c_fini = true;
     }
     else if (nbBateauxVivant(*j1) == 0) {
-      continuer = 0;
-      return 3;
+      continuer = 3;
     //   SDL_BlitSurface(victoire1, NULL, screen, &posVictoire1);
     //   sprintf(strCoups, "%d", nbCaseNonVide(j1->infos));
     //   sprintf(strPrecision, "%d%%", (int) (100 * ((float) ((float) 17 / (float) nbCaseNonVide(j2->infos)))));
@@ -260,17 +259,18 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
   }
   // Liberation
   SDL_FreeSurface(caseCible);
-  SDL_FreeSurface(bateauAlliesSurface);
+  SDL_FreeSurface(texte);
   SDL_FreeSurface(bateauEnnemisSurface);
+  SDL_FreeSurface(bateauAlliesSurface);
   SDL_FreeSurface(case1);
   SDL_FreeSurface(case2);
   SDL_FreeSurface(touche);
   SDL_FreeSurface(rate);
   SDL_FreeSurface(boutonTourSuivant);
   SDL_FreeSurface(boutonMenu);
-  SDL_FreeSurface(texte);
   TTF_CloseFont(font);
   TTF_CloseFont(fontVictoire);
+  return continuer;
 }
 
 //retourne 1 ou 2 si c'est possible, 0 si c'est pas possible
