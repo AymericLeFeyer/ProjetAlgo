@@ -14,11 +14,10 @@
 #include "../headers/grilleLoto.h"
 #include "../headers/bouleLoto.h"
 
-int afficherLoto(SDL_Surface* screen){
+int afficherLoto(SDL_Surface* screen, int nbJoueurs){
   srand(time(NULL));
   int gagnant=0;
 
-  int nbJoueurs=3;
   int score[4]={2,0,0,0};
   int punition[4]={0,0,0,0};
   int nombrePasse[4]={0,0,0,0};
