@@ -198,7 +198,12 @@ int affichageBatailleNavale(SDL_Surface* screen)
           SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
           SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
           if (calcul >= p2.scoreNavale ){
-            p2.scoreNavale=calcul;
+            for (int i =0; i<10; i++){
+                if (strcmp(p2.nom,p[i].nom)==0){
+                  p[i].scoreNavale=calcul;
+                  sauvegardeProfils(p);
+                }
+            }
           }
         }
         else if (nbBateauxVivant(j2) == 0) {
@@ -213,7 +218,12 @@ int affichageBatailleNavale(SDL_Surface* screen)
           SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
           SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
           if (calcul >= p1.scoreNavale ){
-            p1.scoreNavale=calcul;
+              for (int i =0 ;  i<10 ; i++){
+                if (strcmp(p1.nom, p[i].nom)==0){
+                  p[i].scoreNavale=calcul;
+                  sauvegardeProfils(p);
+                }
+              }
           }
         }
         SDL_BlitSurface(boutonMenu, NULL, screen, &posBoutonMenu);
