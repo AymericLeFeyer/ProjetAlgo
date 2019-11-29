@@ -12,14 +12,12 @@
 #include "../headers/placement.h"
 #include "../headers/initialisation.h"
 #include "../headers/tir.h"
+#include "../headers/chargement.h"
+#include "../headers/sauvegarde.h"
 
-
-void selectionProfil (tabP p){
+void selectionProfil (tabP p , Profil *p1,Profil *p2 ){
     int Joueur=0; //0 = j1 et 1=j2
     int i =0;
-    Profil P1=null;
-    Profil P2=null;
-    chargementProfils(p);
     //affichage de tous les profils
     while (i!=2){
     if (Joueur ==0) {
@@ -31,16 +29,19 @@ void selectionProfil (tabP p){
     }
     i++;
   }
-  return P1; P2;
 }
-
-
 
 
 
 int affichageBatailleNavale(SDL_Surface* screen)
 {
+  tabP p ;
+  Profil p1;//profil vierge pour le joueur 1
+  Profil p2;//profil vierge pour le joueur 2
   JoueurBatailleNavale j1, j2;
+  chargementProfils(p);
+  selectionProfil(p, &p1, &p2);
+  int calcul = 0;
   j1 = initJoueurBN(1, 10, 10);
   j2 = initJoueurBN(2, 10, 10);
   // variables pour la boucle principale
@@ -188,25 +189,32 @@ int affichageBatailleNavale(SDL_Surface* screen)
         if (nbBateauxVivant(j1) == 0) {
           SDL_BlitSurface(victoire2, NULL, screen, &posVictoire2);
           sprintf(strCoups, "%d", nbCaseNonVide(j2.infos));
-          sprintf(strPrecision, "%d%%", (int) (100 * ((float) ((float) 17 / (float) nbCaseNonVide(j2.infos)))));
+          calcul=(int) (100 * ((float) ((float) 17 / (float) nbCaseNonVide(j2.infos))));
+          sprintf(strPrecision, "%d%%",calcul );
           SDL_FreeSurface(nbCoupsVictoire);
           SDL_FreeSurface(precisionVictoire);
           nbCoupsVictoire = creerTexte(screen, strCoups, noir, fontVictoire);
           precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
           SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
           SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
-
+          if (calcul >= p2.scoreNavale ){
+            p2.scoreNavale=calcul;
+          }
         }
         else if (nbBateauxVivant(j2) == 0) {
           SDL_BlitSurface(victoire1, NULL, screen, &posVictoire1);
           sprintf(strCoups, "%d", nbCaseNonVide(j1.infos));
-          sprintf(strPrecision, "%d%%", (int) (100 * ((float) ((float) 17 / (float) nbCaseNonVide(j1.infos)))));
+          calcul=(int) (100 * ((float) ((float) 17 / (float) nbCaseNonVide(j1.infos))));
+          sprintf(strPrecision, "%d%%", calcul);
           SDL_FreeSurface(nbCoupsVictoire);
           SDL_FreeSurface(precisionVictoire);
           nbCoupsVictoire = creerTexte(screen, strCoups, noir, fontVictoire);
           precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
           SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
           SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
+          if (calcul >= p1.scoreNavale ){
+            p1.scoreNavale=calcul;
+          }
         }
         SDL_BlitSurface(boutonMenu, NULL, screen, &posBoutonMenu);
         break;
