@@ -59,7 +59,7 @@ int victoirePokerManche(SDL_Surface* screen, JoueurPoker*t, CentrePlateau* cp, J
   // variables
   Coord c;
 
-  while(continuer) {
+  while(continuer==1) {
     // Blit des surfaces
     SDL_BlitSurface(ecranVictoire, NULL, screen, &fullscreen);
     SDL_BlitSurface(k.hand.carte1.skin, NULL, screen, &posCarte1);
@@ -99,17 +99,17 @@ int victoirePokerManche(SDL_Surface* screen, JoueurPoker*t, CentrePlateau* cp, J
       // Si on clique sur la croix, on ferme la fenêtre
       case SDL_QUIT:
         continuer = 0;
-        return 0;
+        //return 0;
         break;
       // Actions souris
       case SDL_MOUSEBUTTONDOWN:
         if (posInclusion(c.x, c.y, posZoneMenu)) {
-          continuer = 0;
-          return 2;
+          continuer = 2;
+          //return 2;
         }
         if (posInclusion(c.x, c.y, posNextMenu)) {
-          continuer = 0;
-          return 1;
+          continuer = 3;
+          //return 1;
         }
         if (posInclusion(c.x, c.y, posDetailsMenu)) {
           continuer = detailsVictoirePoker(screen, t, *cp, nbJoueurs, k.joueur);
@@ -128,8 +128,19 @@ int victoirePokerManche(SDL_Surface* screen, JoueurPoker*t, CentrePlateau* cp, J
 
     SDL_Flip(screen);
   }
+  SDL_FreeSurface(ecranVictoire);
+  SDL_FreeSurface(winJ1);
+  SDL_FreeSurface(winJ2);
+  SDL_FreeSurface(winJ3);
+  SDL_FreeSurface(winJ4);
+  SDL_FreeSurface(winJ5);
+  SDL_FreeSurface(nextSelection);
 
-
+  if (continuer==3) {
+    return 1;
+  }else{
+    return continuer;
+  }
 }
 
 int detailsVictoirePoker(SDL_Surface* screen, JoueurPoker* t, CentrePlateau cp, int nbJoueurs, int winner) {
@@ -241,7 +252,7 @@ int detailsVictoirePoker(SDL_Surface* screen, JoueurPoker* t, CentrePlateau cp, 
   }
 
   // Boucle Principale
-  while (continuer) {
+  while (continuer==1) {
     // Affichage du background
     switch (nbJoueurs) {
       case 2:
@@ -304,13 +315,13 @@ int detailsVictoirePoker(SDL_Surface* screen, JoueurPoker* t, CentrePlateau cp, 
       // On quitte
       case SDL_QUIT:
         continuer = 0;
-        return 0;
+        //return 0;
         break;
       // Actions souris
       case SDL_MOUSEBUTTONDOWN:
         if (posInclusion(c.x, c.y, backButton)) {
-          continuer = 0;
-          return 1;
+          continuer = 2;
+          //return 1;
         }
 
     }
@@ -322,9 +333,30 @@ int detailsVictoirePoker(SDL_Surface* screen, JoueurPoker* t, CentrePlateau cp, 
 
     SDL_Flip(screen);
   }
-
-
-
+  SDL_FreeSurface(ecranDetails2);
+  SDL_FreeSurface(ecranDetails3);
+  SDL_FreeSurface(ecranDetails4);
+  SDL_FreeSurface(ecranDetails5);
+  SDL_FreeSurface(etatDead);
+  SDL_FreeSurface(etatWin);
+  SDL_FreeSurface(etatLoose);
+  SDL_FreeSurface(selection);
+  SDL_FreeSurface(textePoints1);
+  SDL_FreeSurface(textePoints2);
+  SDL_FreeSurface(textePoints3);
+  SDL_FreeSurface(textePoints4);
+  SDL_FreeSurface(textePoints5);
+  SDL_FreeSurface(texteArgent1);
+  SDL_FreeSurface(texteArgent2);
+  SDL_FreeSurface(texteArgent3);
+  SDL_FreeSurface(texteArgent4);
+  SDL_FreeSurface(texteArgent5);
+  TTF_CloseFont(font);
+  if (continuer==2) {
+    return 1;
+  }else{
+    return continuer;
+  }
 }
 
 int victoirePokerFinale(SDL_Surface* screen, JoueurPoker t) {
@@ -364,7 +396,7 @@ int victoirePokerFinale(SDL_Surface* screen, JoueurPoker t) {
   SDL_Rect posMenuButton = newRect(25, 25, 125, 150);
   SDL_Rect posArgent = newRect(650, 600, 0, 0);
 
-  while(continuer) {
+  while(continuer==1) {
     SDL_BlitSurface(ecranVictoireFinale, NULL, screen, &fullscreen);
     SDL_BlitSurface(texteArgent, NULL, screen, &posArgent);
 
@@ -377,12 +409,12 @@ int victoirePokerFinale(SDL_Surface* screen, JoueurPoker t) {
       // On quitte
       case SDL_QUIT:
         continuer = 0;
-        return 0;
+        //return 0;
         break;
       case SDL_MOUSEBUTTONDOWN:
         if (posInclusion(c.x, c.y, posMenuButton)) {
-          continuer = 0;
-          return 2;
+          continuer = 2;
+          //return 2;
         }
 
     }
@@ -415,5 +447,14 @@ int victoirePokerFinale(SDL_Surface* screen, JoueurPoker t) {
     SDL_Flip(screen);
 
   }
-
+  SDL_FreeSurface(ecranVictoireFinale);
+  SDL_FreeSurface(winJ1);
+  SDL_FreeSurface(winJ2);
+  SDL_FreeSurface(winJ3);
+  SDL_FreeSurface(winJ4);
+  SDL_FreeSurface(winJ5);
+  SDL_FreeSurface(nextSelection);
+  SDL_FreeSurface(texteArgent);
+  TTF_CloseFont(font);
+  return continuer;
 }
