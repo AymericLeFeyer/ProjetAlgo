@@ -106,6 +106,22 @@ typedef struct{
 } CaseLoto;
 
 /*
+Profil
+*/
+
+typedef struct
+{
+  char nom[8];
+  float scoreNavale;
+  float scorePoker;
+  float scoreLoto;
+  float scoreSudoku;
+  float scoreTotal;
+}Profil;
+
+typedef Profil tabP[10];
+
+/*
     HEADERS
 */
 

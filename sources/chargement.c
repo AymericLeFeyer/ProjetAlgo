@@ -3,39 +3,22 @@
 
 #include "../headers/structure.h"
 
-JoueurBatailleNavale chargeNavale(int joueur) //on mettra en paramètre l'état du joueur pour lequel on veut charger ses infos
+void chargementProfils(tabP p) //on mettra en paramètre l'état du joueur pour lequel on veut charger ses infos
 {
-    JoueurBatailleNavale j;
-    int x, y;
-    FILE *f;
-    if(joueur == 1)
+  FILE *f;
+  f = fopen("profils.txt", "r");
+  if(f)
+  {
+    for(int i = 0; i < 10; i++)
     {
-        f = fopen("partieNavale1.txt", "r");
+      fscanf(f, "%s ", p[i].nom);
+      fscanf(f, "%d ", &p[i].scoreNavale);
+      fscanf(f, "%d ", &p[i].scorePoker);
+      fscanf(f, "%d ", &p[i].scoreLoto);
+      fscanf(f, "%d ", &p[i].scoreSudoku);
+      fscanf(f, "%d ", &p[i].scoreLoto);
     }
-    else
-    {
-        f = fopen("partieNavale2.txt", "r");
-    }
-    if(f != NULL)
-    {
-      fscanf(f, "%d ", &j.joueur);
-      for(x = 0; x < 10; x++)
-      {
-          for(y = 0; y < 10; y++)
-          {
-            fscanf(f, "%d ", &j.g.tab[x][y]);
-          }
-      }
-      for(x = 0; x <= 4; x++)
-      {
-        fscanf(f, "%d", &j.tab[x].direction);
-        fscanf(f, "%d", &j.tab[x].pv);
-        fscanf(f, "%d", &j.tab[x].taille);
-        fscanf(f, "%d", &j.tab[x].tete.x);
-        fscanf(f, "%d", &j.tab[x].tete.y);
-      }
-      fclose(f);
-      return j;
-    }
-    else printf("Erreur de sauvegarde\n");
+    fclose(f);
+  }
+    else printf("Erreur de chargement\n");
 }
