@@ -13,6 +13,31 @@
 #include "../headers/initialisation.h"
 #include "../headers/tir.h"
 
+
+void selectionProfil (tabP p){
+    int Joueur=0; //0 = j1 et 1=j2
+    int i =0;
+    Profil P1=null;
+    Profil P2=null;
+    chargementProfils(p);
+    //affichage de tous les profils
+    while (i!=2){
+    if (Joueur ==0) {
+      //clique sur un profil et P1 prend la valeur du profil choisi
+      Joueur ++;
+    }
+    else{
+      //clique sur un profil et P2 prend la valeur du profil choisi
+    }
+    i++;
+  }
+  return P1; P2;
+}
+
+
+
+
+
 int affichageBatailleNavale(SDL_Surface* screen)
 {
   JoueurBatailleNavale j1, j2;
