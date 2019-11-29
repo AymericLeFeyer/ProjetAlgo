@@ -184,16 +184,18 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs){
 
     //victoire
     if (gagnant!=0) {
-      sprintf(timerText, "Victoire du Joueur %d", gagnant);
+      continuer= victoireLoto(screen,gagnant);
+      /*sprintf(timerText, "Victoire du Joueur %d", gagnant);
       font = TTF_OpenFont(FONT_UBUNTU, 70);
       tempsRestant = TTF_RenderText_Solid(font, timerText, blanc);
       SDL_BlitSurface(tempsRestant, NULL, screen, &position);
       TTF_CloseFont(font);
-      SDL_FreeSurface(tempsRestant);
+      SDL_FreeSurface(tempsRestant);*/
     }
 
 
-    
+
+
     SDL_Flip(screen);
   }
   SDL_FreeSurface(fond);

@@ -140,7 +140,6 @@ int menuChoixJoueur(SDL_Surface* screen){
       switch(event.type) {
         case SDL_QUIT:
           continuer = 0;
-          return 0;
 
           break;
 
@@ -160,7 +159,7 @@ int menuChoixJoueur(SDL_Surface* screen){
                   continuer=afficherLoto(screen, 4);
                 }
                 if (posInclusion(clic.x, clic.y, menu)) {
-                  continuer=afficherMenu(screen);
+                  continuer=2;
                 }
             }
             break;
@@ -171,4 +170,89 @@ int menuChoixJoueur(SDL_Surface* screen){
 //free les surfaces
 SDL_FreeSurface(choix);
 return continuer;
+}
+
+
+
+//victoire loto
+int victoireLoto(SDL_Surface* screen, int gagnant){
+  int continuer=1;
+  SDL_Event event;
+  Coord clic;
+  //victoire 1
+  SDL_Surface* vic1 = NULL;
+  vic1 = IMG_Load("assets/Loto/victoirej1.png");
+  SDL_Rect victoire = newRect(0, 0, 1280, 720);
+  //victoire 2
+  SDL_Surface* vic2 = NULL;
+  vic2 = IMG_Load("assets/Loto/victoirej2.png");
+  //victoire 3
+  SDL_Surface* vic3 = NULL;
+  vic3 = IMG_Load("assets/Loto/victoirej3.png");
+  //victoire 4
+  SDL_Surface* vic4 = NULL;
+  vic4 = IMG_Load("assets/Loto/victoirej4.png");
+
+  while(continuer==1){
+    if(gagnant==1){
+      SDL_BlitSurface(vic1, NULL, screen, &victoire);
+    }
+    else{
+      if(gagnant==2){
+        SDL_BlitSurface(vic2, NULL, screen, &victoire);
+      }
+      else{
+        if(gagnant==3){
+          SDL_BlitSurface(vic3, NULL, screen, &victoire);
+        }
+        else{
+          SDL_BlitSurface(vic4, NULL, screen, &victoire);
+        }
+      }
+    }
+
+    SDL_Flip(screen);
+    //evenements
+    clic.x=event.button.x;
+    clic.y=event.button.y;
+    while(SDL_PollEvent(&event)){
+      switch(event.type) {
+        case SDL_QUIT:
+          continuer = 0;
+
+          break;
+
+          case SDL_MOUSEBUTTONDOWN:
+            if (event.button.button == SDL_BUTTON_LEFT){
+                //conditions des clics
+                if (posInclusion(clic.x, clic.y, victoire)) {
+                  continuer=2;
+                }
+
+            }
+            break;
+
+        }
+      }
+  }
+  //free surfaces
+  if(gagnant==1){
+    SDL_FreeSurface(vic1);
+  }
+  else{
+    if(gagnant==2){
+      SDL_FreeSurface(vic2);
+    }
+    else{
+      if(gagnant==3){
+        SDL_FreeSurface(vic3);
+      }
+      else{
+        SDL_FreeSurface(vic4);
+      }
+    }
+  }
+  return continuer;
+
+
 }
