@@ -25,7 +25,7 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs){
   CaseLoto grille2[9][3];
   CaseLoto grille3[9][3];
   CaseLoto grille4[9][3];
-
+  int totalPunition[4]={0}; //le nombre de fois qu'une personne a une punition
 
   int tasBoules[90];
   int tailleTas = initialisationLoto(tasBoules,nbJoueurs,grille1,grille2,grille3,grille4);
@@ -124,6 +124,7 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs){
                           poserJeton(grille1,nombreTire);
                         }else{
                           punition[0]=2;
+                          totalPunition[0]=totalPunition[0]+1;
                         }
                       }
                       break;
@@ -135,6 +136,7 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs){
                             poserJeton(grille2,nombreTire);
                           }else{
                             punition[1]=2;
+                            totalPunition[1]=totalPunition[1]+1;
                           }
                         }
                       }
@@ -146,6 +148,7 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs){
                             poserJeton(grille3,nombreTire);
                           }else{
                             punition[2]=2;
+                            totalPunition[2]=totalPunition[2]+1;
                           }
                         }
                       }
@@ -157,6 +160,7 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs){
                             poserJeton(grille4,nombreTire);
                           }else{
                             punition[3]=2;
+                            totalPunition[3]=totalPunition[3]+1;
                           }
                         }
                       }
