@@ -118,13 +118,15 @@ int menuChoixJoueur(SDL_Surface* screen){
   choix = IMG_Load("assets/Loto/choixJoueurLoto.png");
   SDL_Rect choixNbJoueur = newRect(0, 0, 1280, 720);
   //bouton 1 joueur
-  SDL_Rect un = newRect(147, 114, 233, 112);
+  SDL_Rect un = newRect(148, 113, 232, 112);
   //bouton 2 Joueurs
-  SDL_Rect deux = newRect(899, 114, 233, 112);
+  SDL_Rect deux = newRect(900, 113, 232, 112);
   //bouton 3 joueurs
-  SDL_Rect trois = newRect(147, 454, 233, 112);
+  SDL_Rect trois = newRect(148, 455, 232, 112);
   //bouton 4 joueurs
-  SDL_Rect quatre = newRect(899, 454, 233, 112);
+  SDL_Rect quatre = newRect(900, 455, 232, 112);
+  //bouton menu
+  SDL_Rect menu = newRect(552, 546, 149, 84);
 
   while(continuer==1){
     SDL_BlitSurface(choix, NULL, screen, &choixNbJoueur);
@@ -156,6 +158,9 @@ int menuChoixJoueur(SDL_Surface* screen){
                 }
                 if (posInclusion(clic.x, clic.y, quatre)) {
                   continuer=afficherLoto(screen, 4);
+                }
+                if (posInclusion(clic.x, clic.y, menu)) {
+                  continuer=afficherMenu(screen);
                 }
             }
             break;
