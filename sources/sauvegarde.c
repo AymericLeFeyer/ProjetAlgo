@@ -3,36 +3,24 @@
 
 #include "../headers/structure.h"
 
-void sauvegardeNavale(JoueurBatailleNavale J)
+void sauvegardeProfils(tabP p)
 {
-    int i, j;
-    FILE *f;
-    if(J.joueur == 1)
+  FILE *f;
+  f = fopen("profils.txt", "w");
+  if(f)
+  {
+    for(int i = 0; i < 10; i++)
     {
-        f = fopen("partieNavale1.txt", "w"); //créer un fichier où toutes les infos du joueur 1
+      fprintf(f, "%s ", p[i].nom);
+      fprintf(f, "%d ", p[i].scoreNavale);
+      fprintf(f, "%d ", p[i].scorePoker);
+      fprintf(f, "%d ", p[i].scoreLoto);
+      fprintf(f, "%d ", p[i].scoreSudoku);
+      fprintf(f, "%d\n ", p[i].scoreTotal);
     }
-    else
-    {
-        f = fopen("partieNavale2.txt", "w"); //créer un fichier où toutes les infos du joueur 2
-    }
-    if(f != NULL)
-    {
-        for(i = 0; i <= J.g.h-1; i++)
-        {
-            for(j = 0; j <= J.g.l-1; j++)
-            {
-              fprintf(f, "%d ", J.g.tab[i][j]); //sauvegarde la grille du joueur
-            }
-            fprintf(f, "\n"); //permet de mettre "sous forme" de tableau dans le fichier sauvegarde
-        }
-        for(i = 0; i <= 4; i++)
-        {
-          fprintf(f, "%d", J.tab[i]); //sauvegarde la grille des bateaux du joueur
-        }
-        fprintf(f, "%d\n", J.joueur); //état du joueur (1 ou 2)
-        fclose(f);
-    }
-    else printf("Erreur de sauvegarde\n");
+      fclose(f);
+  }
+  else printf("Erreur de sauvegarde\n");
 }
 
 //----------
