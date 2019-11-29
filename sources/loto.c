@@ -199,11 +199,7 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs){
     SDL_Flip(screen);
   }
   SDL_FreeSurface(fond);
-  if(continuer==2){
-    return 1;
-  }else{
-    return continuer;
-  }
+  return continuer;
 }
 //joueur 1: ctrl g
 //joueur 2: espace
