@@ -160,6 +160,7 @@ int affichageBatailleNavale(SDL_Surface* screen)
 
       case 5:
         // Ecrans de victoires
+        SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255));
         if (nbBateauxVivant(j1) == 0) {
           SDL_BlitSurface(victoire2, NULL, screen, &posVictoire2);
           sprintf(strCoups, "%d", nbCaseNonVide(j2.infos));

@@ -16,6 +16,7 @@
 #include "../headers/affichageloto.h"
 #include "../headers/poker.h"
 #include "../headers/affichageSudoku.h"
+#include "../headers/choixProfils.h"
 
 int afficherMenu(SDL_Surface* screen){
   int continuer=1;
@@ -32,19 +33,27 @@ int afficherMenu(SDL_Surface* screen){
   SDL_Rect logo = newRect(384, 0, 512, 200);
   //jeu bataille naval
   SDL_Surface* bataille = NULL;
+  SDL_Surface* batailleHover = NULL;
   bataille = IMG_Load("assets/menu/batailleNavale.png");
+  batailleHover = IMG_Load("assets/menu/batailleNavaleHover.png");
   SDL_Rect boutonBN = newRect(0, 260, 468, 130);
   //jeu poker
   SDL_Surface* poker = NULL;
+  SDL_Surface* pokerHover = NULL;
   poker = IMG_Load("assets/menu/poker.png");
+  pokerHover = IMG_Load("assets/menu/pokerHover.png");
   SDL_Rect boutonPoker = newRect(812, 260, 468, 130);
   //loto
   SDL_Surface* loto = NULL;
+  SDL_Surface* lotoHover = NULL;
   loto = IMG_Load("assets/menu/loto.png");
+  lotoHover = IMG_Load("assets/menu/lotoHover.png");
   SDL_Rect boutonLoto = newRect(0, 520, 468, 130);
   //sudoku
   SDL_Surface* sudoku = NULL;
+  SDL_Surface* sudokuHover = NULL;
   sudoku = IMG_Load("assets/menu/sudoku.png");
+  sudokuHover = IMG_Load("assets/menu/sudokuHover.png");
   SDL_Rect boutonSudoku = newRect(812, 520, 468, 130);
 
   // Sons
@@ -56,15 +65,21 @@ int afficherMenu(SDL_Surface* screen){
   while(continuer>0){
     SDL_BlitSurface(back, NULL, screen, &background);
     SDL_BlitSurface(titre, NULL, screen, &logo);
-    SDL_BlitSurface(bataille, NULL, screen, &boutonBN);
-    SDL_BlitSurface(poker, NULL, screen, &boutonPoker);
-    SDL_BlitSurface(loto, NULL, screen, &boutonLoto);
-    SDL_BlitSurface(sudoku, NULL, screen, &boutonSudoku);
 
-    SDL_Flip(screen);
+
 //evenements
     clic.x=event.button.x;
     clic.y=event.button.y;
+
+    // Hover boutons
+    if (posInclusion(clic.x, clic.y, boutonBN)) SDL_BlitSurface(batailleHover, NULL, screen, &boutonBN);
+    else SDL_BlitSurface(bataille, NULL, screen, &boutonBN);
+    if (posInclusion(clic.x, clic.y, boutonPoker)) SDL_BlitSurface(pokerHover, NULL, screen, &boutonPoker);
+    else SDL_BlitSurface(poker, NULL, screen, &boutonPoker);
+    if (posInclusion(clic.x, clic.y, boutonLoto)) SDL_BlitSurface(lotoHover, NULL, screen, &boutonLoto);
+    else SDL_BlitSurface(loto, NULL, screen, &boutonLoto);
+    if (posInclusion(clic.x, clic.y, boutonSudoku)) SDL_BlitSurface(sudokuHover, NULL, screen, &boutonSudoku);
+    else SDL_BlitSurface(sudoku, NULL, screen, &boutonSudoku);
 
     while(SDL_PollEvent(&event)){
       switch(event.type) {
@@ -73,6 +88,9 @@ int afficherMenu(SDL_Surface* screen){
           return 0;
 
           break;
+          case SDL_KEYDOWN:
+            afficherProfils(screen);
+            break;
 
           case SDL_MOUSEBUTTONDOWN:
             if (event.button.button == SDL_BUTTON_LEFT){
@@ -99,17 +117,24 @@ int afficherMenu(SDL_Surface* screen){
                 }
             }
             break;
-
         }
+
+
+        SDL_Flip(screen);
       }
+
   }
   // Liberation
   SDL_FreeSurface(back);
   SDL_FreeSurface(titre);
   SDL_FreeSurface(bataille);
+  SDL_FreeSurface(batailleHover);
   SDL_FreeSurface(poker);
+  SDL_FreeSurface(pokerHover);
   SDL_FreeSurface(loto);
+  SDL_FreeSurface(lotoHover);
   SDL_FreeSurface(sudoku);
+  SDL_FreeSurface(sudokuHover);
   Mix_FreeMusic(myMus);
   Mix_CloseAudio();
 }

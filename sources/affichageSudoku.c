@@ -32,6 +32,7 @@ int affichageSudoku(SDL_Surface* screen) {
   SDL_Surface* menuBouton = NULL;
   SDL_Surface* menuBoutonHover = NULL;
 
+
   reglesImage = IMG_Load("assets/sudoku/difficulteSudoku.jpg");
   hoverFacile = IMG_Load("assets/sudoku/facileButton.png");
   hoverMoyen = IMG_Load("assets/sudoku/moyenButton.png");
@@ -80,7 +81,6 @@ int affichageSudoku(SDL_Surface* screen) {
 
     while(SDL_PollEvent(&event)){
 
-
       switch(event.type) {
         case SDL_QUIT:
           continuer = 0;
@@ -125,6 +125,9 @@ int affichageSudoku(SDL_Surface* screen) {
 }
 
 int playSudoku(SDL_Surface* screen, int difficulte, time_t temps) {
+
+  SDL_Surface* ecranVictoire = NULL;
+  ecranVictoire = IMG_Load("assets/sudoku/fin.png");
 
 
   JoueurSudoku J;
@@ -333,7 +336,7 @@ int playSudoku(SDL_Surface* screen, int difficulte, time_t temps) {
         }
       }
       temp2 = newPos(positionsNumeros[onClicked.x][onClicked.y]);
-      SDL_BlitSurface(caseHover, NULL, screen, &temp2);
+      if (!c_fini) SDL_BlitSurface(caseHover, NULL, screen, &temp2);
 
 
 
@@ -344,8 +347,15 @@ int playSudoku(SDL_Surface* screen, int difficulte, time_t temps) {
         continuer = 0;
         return 0;
         break;
+      case SDL_KEYDOWN:
+        c_fini = 1;
+        break;
 
       case SDL_MOUSEBUTTONDOWN:
+        if (posInclusion(c.x, c.y, posMenuBouton)) {
+          continuer = 0;
+          return 2;
+        }
         if (!c_fini) {
           for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -370,10 +380,7 @@ int playSudoku(SDL_Surface* screen, int difficulte, time_t temps) {
                 }
               }
 
-              if (posInclusion(c.x, c.y, posMenuBouton)) {
-                continuer = 0;
-                return 2;
-              }
+
             }
           }
 
@@ -384,7 +391,7 @@ int playSudoku(SDL_Surface* screen, int difficulte, time_t temps) {
       SDL_BlitSurface(menuBoutonHover, NULL, screen, &posMenuBouton);
     }
 
-
+    if (c_fini) SDL_BlitSurface(ecranVictoire, NULL, screen, &fullscreen);
     SDL_Flip(screen);
 
   }
