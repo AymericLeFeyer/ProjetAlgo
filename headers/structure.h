@@ -1,5 +1,6 @@
 #include <SDL/SDL.h>
 #include <stdbool.h>
+#include <string.h>
 
 typedef struct{
 int x;
