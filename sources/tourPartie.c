@@ -29,7 +29,7 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
   int manche = 0, i, j, k, max=0,maxi;
   int onPeutContinuer = 0;
 
-  while (continuer) {
+  while (continuer==1) {
     SDL_BlitSurface(table, NULL, screen, &posTable);
 
     SDL_PollEvent(&event);
@@ -37,13 +37,11 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
       // Si on clique sur la croix, on ferme la fenêtre
       case SDL_QUIT:
         continuer = 0;
-        return 0;
         break;
     }
 
-    if (manche < mancheTotale)
+    if (manche < mancheTotale && continuer==1)
     {
-        printf("manche numero %d \n\n",manche+1);
         cp=initialisePoker(t, nbJoueurs, argentDepart, manche, miseDepart);
         //Faire une boucle qui initialise l'état des joueurs à 0
         //Dès qu'une nouvelle manche demarre, tous les joueurs se "réveillent"
@@ -53,15 +51,14 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
         }
         for(i = 0; i < 4; i++)
         {
-            printf("tour numero %d\n",i+1);
             //Parcourir tableau pour savoir ce que le joueur j fais
             for(j = 0; j < nbJoueurs; j++)
             {
-                if(t[j].etat==0){
-                    if(nbNonCouche(t,nbJoueurs)!=1){
+                if(t[j].etat==0 && continuer==1){
+                    if(nbNonCouche(t,nbJoueurs)!=1 && continuer==1){
 
 
-                        if(cp.flop1.visible==1){
+                        /*if(cp.flop1.visible==1){
                             printf("flop1: %d %d\n",cp.flop1.couleur,cp.flop1.valeur);
                         }
                         if(cp.flop2.visible==1){
@@ -80,12 +77,11 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
                         printf("mise actuelle : %d \n", cp.miseD);
                         printf("argent possede par le joueur actuel : %d \n", t[j].argent);
                         printf("cartes possedees : \n");
-                        printf("%d %d | %d %d\n",t[j].hand.carte1.couleur,t[j].hand.carte1.valeur,t[j].hand.carte2.couleur,t[j].hand.carte2.valeur);
+                        printf("%d %d | %d %d\n",t[j].hand.carte1.couleur,t[j].hand.carte1.valeur,t[j].hand.carte2.couleur,t[j].hand.carte2.valeur);*/
 
 
 
                         continuer = tourPoker(screen, &t[j], &cp, nbJoueurs, manche + 1, t, mancheTotale);
-                        if (continuer != 1) return continuer;
 
 
                     }
@@ -117,7 +113,7 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
         }
         //determinons le vainqueur de la manche
         for(k=0;k<nbJoueurs;k++){
-            if(t[k].etat==0){
+            if(t[k].etat==0 && continuer==1){
                     if(valeurMain(t[k],cp)>max){
                         max=valeurMain(t[k],cp);
                         maxi=k;
@@ -127,26 +123,31 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
         max=0;
         t[maxi].argent+=cp.mise;
         cp.mise=0;
-        continuer = victoirePokerManche(screen, t, &cp, t[maxi], nbJoueurs);
-        if (continuer == 2) return 2;
+        if (continuer==1) {
+          continuer = victoirePokerManche(screen, t, &cp, t[maxi], nbJoueurs);
+        }
+
+        //if (continuer == 2) return 2;
 
         manche++;
     }
 
-    if (manche == mancheTotale)
+    if (manche == mancheTotale && continuer==1)
     {
       //determinons le vainqueur final
       max = 0;
       for(k=0;k<nbJoueurs;k++){
-          if(t[k].etat==0){
+          if(t[k].etat==0 && continuer==1){
                   if(t[k].argent>max){
                       max=t[k].argent;
                       maxi=k;
                   }
           }
       }
-      continuer = victoirePokerFinale(screen, t[maxi]);
-      if (continuer == 2) return 2;
+      if (continuer==1) {
+        continuer = victoirePokerFinale(screen, t[maxi]);
+      }
+      //if (continuer == 2) return 2;
     }
 
 
@@ -155,8 +156,8 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
   }
 
 
-
-
+  SDL_FreeSurface(table);
+  return continuer;
 
 
 }
@@ -313,7 +314,7 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
   texteMiseMinimumActuelle = creerTexte(screen, valeurTexteMinimumActuelle, noir, font);
 
   // Boucle Principale
-  while(continuer) {
+  while(continuer==1) {
     // Affichage de la table
     SDL_BlitSurface(table, NULL, screen, &fullscreen);
     // Affichage des cartes
@@ -357,18 +358,18 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
     SDL_WaitEvent(&event);
 
     switch(event.type) {
-      case SDL_KEYDOWN:
+      /*case SDL_KEYDOWN:
         continuer = 0;
         return 1;
-        break;
+        break;*/
       case SDL_QUIT:
         continuer = 0;
-        return 0;
+        //return 0;
         break;
       case SDL_MOUSEBUTTONDOWN:
         if (posInclusion(c.x, c.y, posMenuButton)) {
-          continuer = 0;
-          return 5;
+          continuer = 5;
+          //return 5;
         }
         if (posInclusion(c.x, c.y, posSuivreButton)) {
           choix = 1;
@@ -384,9 +385,9 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
         }
         if ((choix == 1) || (choix == 3) || (choix == 4) || ((choix == 2) && (etat == 2))) {
           if (posInclusion(c.x, c.y, posNextButton)) {
-            continuer = 0;
+            continuer = 3;
             miseJeu(j, cp, choix, relanceMise);
-            return 1;
+            //return 1;
           }
         }
         if (choix == 2) {
@@ -473,7 +474,7 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
         break;
     }
 
-    if (choix == 2) {
+    if (choix == 2 && continuer==1) {
       if (posInclusion(c.x, c.y, posPlus5Relance)) SDL_BlitSurface(relanceWhiteSelection, NULL, screen, &posPlus5Relance);
       if (posInclusion(c.x, c.y, posPlus10Relance)) SDL_BlitSurface(relanceWhiteSelection, NULL, screen, &posPlus10Relance);
       if (posInclusion(c.x, c.y, posFois2Relance)) SDL_BlitSurface(relanceWhiteSelection, NULL, screen, &posFois2Relance);
@@ -516,6 +517,12 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
   SDL_Flip(screen);
   }
 
+
+  if (continuer==3) {
+    return 1;
+  }else{
+    return continuer;
+  }
 }
 
 void afficherJetons(SDL_Surface* screen, CentrePlateau* cp) {

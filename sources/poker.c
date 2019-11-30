@@ -105,7 +105,7 @@ int affichagePoker(SDL_Surface* screen) {
   int nbJoueurs = 5, miseDepart = 5, nbTours = 3, argentDepart = 50;
   Coord c;
 
-  while (continuer) {
+  while (continuer==1) {
     // Affichage du fond
     SDL_BlitSurface(rulesBoard, NULL, screen, &posRulesBoard);
 
@@ -130,7 +130,7 @@ int affichagePoker(SDL_Surface* screen) {
       // Si on clique sur la croix, on ferme la fenêtre
       case SDL_QUIT:
         continuer = 0;
-        return 0;
+        //return 0;
         break;
       // Gestion du clic
       case SDL_MOUSEBUTTONDOWN:
@@ -138,7 +138,7 @@ int affichagePoker(SDL_Surface* screen) {
           // Changements des regles
           for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-              if (posInclusion(c.x, c.y, choix[i][j].pos)) {
+              if (posInclusion(c.x, c.y, choix[i][j].pos) && continuer==1) {
                 switch (i) {
                   case 0:
                     nbJoueurs = choix[i][j].valeur;
@@ -159,18 +159,18 @@ int affichagePoker(SDL_Surface* screen) {
             }
           }
           // Retour au menu
-          if (posInclusion(c.x, c.y, posMenuButton)) {
-            continuer = 0;
-            return 1;
+          if (posInclusion(c.x, c.y, posMenuButton) && continuer==1) {
+            continuer = 2;
+            //return 1;
           }
           // Commencer la partie
-          if (posInclusion(c.x, c.y, posNextButton)) {
+          if (posInclusion(c.x, c.y, posNextButton) && continuer==1) {
             continuer = tourPartie(screen, centre, joueurs, nbJoueurs, nbTours, argentDepart, miseDepart);
-            if (continuer == 2) {
+            /*if (continuer == 2) {
               continuer = 0;
               return 1;
             }
-            return continuer;
+            return continuer;*/
           }
 
 
@@ -193,7 +193,7 @@ int affichagePoker(SDL_Surface* screen) {
   SDL_FreeSurface(greenSelection);
   SDL_FreeSurface(whiteSelection);
   SDL_FreeSurface(buttonSelection);
-
+  return continuer;
 
 }
 
