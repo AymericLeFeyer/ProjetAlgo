@@ -1,1 +1,1 @@
-void sauvegardeNavale(JoueurBatailleNavale j);
+void sauvegardeProfils(tabP p);

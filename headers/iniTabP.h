@@ -1,0 +1,1 @@
+void iniTabP(tabP p);
