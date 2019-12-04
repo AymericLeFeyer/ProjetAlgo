@@ -55,6 +55,12 @@ int afficherMenu(SDL_Surface* screen){
   sudoku = IMG_Load("assets/menu/sudoku.png");
   sudokuHover = IMG_Load("assets/menu/sudokuHover.png");
   SDL_Rect boutonSudoku = newRect(812, 520, 468, 130);
+  // choixProfils
+  SDL_Surface* profils = NULL;
+  SDL_Surface* profilsHover = NULL;
+  profils = IMG_Load("assets/menu/boutonProfilMenu.png");
+  profilsHover = IMG_Load("assets/menu/boutonProfilMenuHover.png");
+  SDL_Rect boutonProfils = newRect(540, 260, 200, 200);
 
   // Sons
   Mix_Music* myMus;
@@ -80,6 +86,8 @@ int afficherMenu(SDL_Surface* screen){
     else SDL_BlitSurface(loto, NULL, screen, &boutonLoto);
     if (posInclusion(clic.x, clic.y, boutonSudoku)) SDL_BlitSurface(sudokuHover, NULL, screen, &boutonSudoku);
     else SDL_BlitSurface(sudoku, NULL, screen, &boutonSudoku);
+    if (posInclusion(clic.x, clic.y, boutonProfils)) SDL_BlitSurface(profilsHover, NULL, screen, &boutonProfils);
+    else SDL_BlitSurface(profils, NULL, screen, &boutonProfils);
 
     while(SDL_PollEvent(&event)){
       switch(event.type) {
@@ -88,9 +96,7 @@ int afficherMenu(SDL_Surface* screen){
           return 0;
 
           break;
-          case SDL_KEYDOWN:
-            afficherProfils(screen);
-            break;
+          
 
           case SDL_MOUSEBUTTONDOWN:
             if (event.button.button == SDL_BUTTON_LEFT){
@@ -115,6 +121,12 @@ int afficherMenu(SDL_Surface* screen){
                   if (continuer == 0) return 0;
 
                 }
+
+                if ((posInclusion(clic.x, clic.y, boutonProfils))) {
+                  afficherProfils(screen);
+
+
+                }
             }
             break;
         }
@@ -135,6 +147,8 @@ int afficherMenu(SDL_Surface* screen){
   SDL_FreeSurface(lotoHover);
   SDL_FreeSurface(sudoku);
   SDL_FreeSurface(sudokuHover);
+  SDL_FreeSurface(profils);
+  SDL_FreeSurface(profilsHover);
   Mix_FreeMusic(myMus);
   Mix_CloseAudio();
 }
