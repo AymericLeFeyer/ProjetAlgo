@@ -51,6 +51,11 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs){
   SDL_Surface* tempsRestant;
   SDL_Surface* fond=NULL;
   fond=IMG_Load("assets/Loto/backLoto.png");
+
+  // Hover menu
+  SDL_Surface* hoverMenu = NULL;
+  hoverMenu = IMG_Load("assets/Loto/hoverMenu.png");
+  SDL_Rect fullZoneMenu = newRect(90, 239, 210, 250);
   while (continuer==1){
 
 
@@ -93,9 +98,11 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs){
     }
 
 
-
+    c.x = event.button.x;
+    c.y = event.button.y;
 
     SDL_PollEvent(&event);
+
     switch(event.type)
     {
       // Si on clique sur la croix, on ferme la fenêtre
@@ -106,8 +113,7 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs){
       //retour au menu
       case SDL_MOUSEBUTTONDOWN:
         boutonMenu = newRect(133,290,84,154);
-        c.x = event.button.x;
-        c.y = event.button.y;
+
         if(posInclusion(c.x, c.y, boutonMenu)){
           continuer=2;
         }
@@ -171,6 +177,7 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs){
     }
 
 
+
     current_time = time(NULL) - temps;
     sprintf(timerText, "%ld", tempsmax-current_time);
     SDL_BlitSurface(fond, NULL, screen, &position);
@@ -185,6 +192,9 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs){
       SDL_FreeSurface(tempsRestant);
     }
     afficherJeuLoto(screen,font,texte,nombreTire,nbJoueurs,grille1,grille2,grille3,grille4,punition);
+    if (posInclusion(c.x, c.y, boutonMenu)) {
+      SDL_BlitSurface(hoverMenu, NULL, screen, &fullZoneMenu);
+    }
 
     //victoire
     if (gagnant!=0) {
@@ -203,6 +213,7 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs){
     SDL_Flip(screen);
   }
   SDL_FreeSurface(fond);
+  SDL_FreeSurface(hoverMenu);
   return continuer;
 }
 //joueur 1: ctrl g

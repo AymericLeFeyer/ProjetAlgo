@@ -127,11 +127,18 @@ int menuChoixJoueur(SDL_Surface* screen){
   SDL_Rect quatre = newRect(900, 455, 112, 232);
   //bouton menu
   SDL_Rect menu = newRect(552, 546, 84, 149);
+  // hover choix joueurs
+  SDL_Surface* hoverChoixJoueur = NULL;
+  hoverChoixJoueur = IMG_Load("assets/loto/hoverJoueurs.png");
+  // hover menu
+  SDL_Surface* hoverMenu = NULL;
+  hoverMenu = IMG_Load("assets/loto/hoverMenu.png");
+  SDL_Rect fullZoneMenu = newRect(508, 495, 210, 250);
 
   while(continuer==1){
     SDL_BlitSurface(choix, NULL, screen, &choixNbJoueur);
 
-    SDL_Flip(screen);
+
 
     //evenements
     clic.x=event.button.x;
@@ -166,9 +173,27 @@ int menuChoixJoueur(SDL_Surface* screen){
 
         }
       }
+      if (posInclusion(clic.x, clic.y, un)) {
+        SDL_BlitSurface(hoverChoixJoueur, NULL, screen, &un);
+      }
+      if (posInclusion(clic.x, clic.y, deux)) {
+        SDL_BlitSurface(hoverChoixJoueur, NULL, screen, &deux);
+      }
+      if (posInclusion(clic.x, clic.y, trois)) {
+        SDL_BlitSurface(hoverChoixJoueur, NULL, screen, &trois);
+      }
+      if (posInclusion(clic.x, clic.y, quatre)) {
+        SDL_BlitSurface(hoverChoixJoueur, NULL, screen, &quatre);
+      }
+      if (posInclusion(clic.x, clic.y, menu)) {
+        SDL_BlitSurface(hoverMenu, NULL, screen, &fullZoneMenu);
+      }
+      SDL_Flip(screen);
   }
 //free les surfaces
 SDL_FreeSurface(choix);
+SDL_FreeSurface(hoverChoixJoueur);
+SDL_FreeSurface(hoverMenu);
 return continuer;
 }
 
