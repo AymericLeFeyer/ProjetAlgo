@@ -14,11 +14,11 @@
 #include "../headers/grilleLoto.h"
 #include "../headers/bouleLoto.h"
 
-int afficherLoto(SDL_Surface* screen, int nbJoueurs){
+int afficherLoto(SDL_Surface* screen, int nbJoueurs, Profil tabProfil[5]){
   srand(time(NULL));
   int gagnant=0;
 
-  int score[4]={2,0,0,0};
+  int score[4]={0,0,0,0};
   int punition[4]={0,0,0,0};
   int nombrePasse[4]={0,0,0,0};
   CaseLoto grille1[9][3];
@@ -189,6 +189,10 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs){
     //victoire
     if (gagnant!=0) {
       continuer= victoireLoto(screen,gagnant);
+      //for(int i=0, i<nbJoueurs, i++){
+        //besoin du tab totalPunition, besoin d'un tab de grille et du tab tabProfil
+      //}
+
       /*sprintf(timerText, "Victoire du Joueur %d", gagnant);
       font = TTF_OpenFont(FONT_UBUNTU, 70);
       tempsRestant = TTF_RenderText_Solid(font, timerText, blanc);
