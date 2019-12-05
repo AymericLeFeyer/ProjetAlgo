@@ -13,6 +13,7 @@
 #include "../headers/affichageLoto.h"
 #include "../headers/grilleLoto.h"
 #include "../headers/bouleLoto.h"
+#include "../headers/scoreLoto.h"
 
 int afficherLoto(SDL_Surface* screen, int nbJoueurs, Profil tabProfil[5]){
   srand(time(NULL));
@@ -189,9 +190,26 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs, Profil tabProfil[5]){
     //victoire
     if (gagnant!=0) {
       continuer= victoireLoto(screen,gagnant);
-      //for(int i=0, i<nbJoueurs, i++){
-        //besoin du tab totalPunition, besoin d'un tab de grille et du tab tabProfil
-      //}
+      //modifit le tableau de profil pour enregistrer les meilleurs scores :
+      for(int i=0, i<nbJoueurs, i++){
+        if(i==0){
+          tabProfil[i].scoreLoto=scoreLoto(totalPunition[i], grille1, tabProfil[i]);
+        }
+        else{
+          if(i==1){
+            tabProfil[i].scoreLoto=scoreLoto(totalPunition[i], grille2, tabProfil[i]);
+          }
+          else{
+            if(i==2){
+              tabProfil[i].scoreLoto=scoreLoto(totalPunition[i], grille3, tabProfil[i]);
+            }
+            else{
+              tabProfil[i].scoreLoto=scoreLoto(totalPunition[i], grille4, tabProfil[i]);
+            }
+          }
+        }
+
+      }
 
       /*sprintf(timerText, "Victoire du Joueur %d", gagnant);
       font = TTF_OpenFont(FONT_UBUNTU, 70);
