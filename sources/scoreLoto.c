@@ -1,9 +1,10 @@
 #include "../headers/scoreLoto.h"
 
-int scoreLoto(int totalPunition, CaseLoto grille[9][3]){
+Profil scoreLoto(int totalPunition, CaseLoto grille[9][3], Profil p){
   //on a le nombre total de punition du joueur qui est en entré (on ne prend que le nombre qui nous
   //interesse dans le tableau total punition dans la fonction loto.c)
   //on prend egalement uniquement la grille qui nous interesse
+  //et le profil qui nous interesse
   int n=0; // compte les cases rempli par ligne
   int nbLigne=0; //compte le nombre de lignes rempli par rapport a n
   int i,j;
@@ -27,5 +28,11 @@ int scoreLoto(int totalPunition, CaseLoto grille[9][3]){
   else{
     score=25*nbLigne-5*totalPunition;
   }
-  return score;
+
+  if(score>p.scoreLoto){
+    p.scoreLoto=score;
+  }
+
+  return p;
+
 }
