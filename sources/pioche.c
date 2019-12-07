@@ -145,10 +145,12 @@ void initialisationPioche(Carte *pioche){ //initialise le talon puis le mélange
 
     //mélange des cartes dans la vraie pioche
     a=shuffle(talon,52,pioche);
-    for (int i = 0; i < a; i++) {
-      SDL_FreeSurface(talon[i].dos);
-      SDL_FreeSurface(talon[i].skin);
-      SDL_FreeSurface(talon[i].petit);
+    for (i = 0; i < 52; i++) {
+      if (talon[i].couleur!=-1) {
+        SDL_FreeSurface(talon[i].dos);
+        SDL_FreeSurface(talon[i].skin);
+        SDL_FreeSurface(talon[i].petit);
+      }
     }
 }
 
@@ -194,6 +196,11 @@ CentrePlateau piocher(Carte *pioche, int taillePioche, JoueurPoker* j, CentrePla
     taillePioche -=1;
     centre.river=pioche[taillePioche-1];
     taillePioche -=1;
+    for (int i = 0; i < taillePioche-1; i++) {
+      SDL_FreeSurface(pioche[i].dos);
+      SDL_FreeSurface(pioche[i].skin);
+      SDL_FreeSurface(pioche[i].petit);
+    }
     return centre;
 }
 
