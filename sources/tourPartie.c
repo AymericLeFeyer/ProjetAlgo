@@ -127,8 +127,7 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
           continuer = victoirePokerManche(screen, t, &cp, t[maxi], nbJoueurs);
         }
 
-        //if (continuer == 2) return 2;
-
+        cp=libererPoker(t,nbJoueurs,cp);
         manche++;
     }
 
@@ -147,7 +146,6 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
       if (continuer==1) {
         continuer = victoirePokerFinale(screen, t[maxi]);
       }
-      //if (continuer == 2) return 2;
     }
 
 
@@ -155,7 +153,7 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
     SDL_Flip(screen);
   }
 
-  cp=libererPoker(t,nbJoueurs,cp);
+  //cp=libererPoker(t,nbJoueurs,cp);
   SDL_FreeSurface(table);
   return continuer;
 
@@ -364,12 +362,10 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
         break;*/
       case SDL_QUIT:
         continuer = 0;
-        //return 0;
         break;
       case SDL_MOUSEBUTTONDOWN:
         if (posInclusion(c.x, c.y, posMenuButton)) {
           continuer = 5;
-          //return 5;
         }
         if (posInclusion(c.x, c.y, posSuivreButton)) {
           choix = 1;
@@ -387,7 +383,6 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
           if (posInclusion(c.x, c.y, posNextButton)) {
             continuer = 3;
             miseJeu(j, cp, choix, relanceMise);
-            //return 1;
           }
         }
         if (choix == 2) {
@@ -602,8 +597,6 @@ void afficherJetons(SDL_Surface* screen, CentrePlateau* cp) {
     for (int i = 0; i < nbJetons[k]; i++) {
       SDL_BlitSurface(jetons[k], NULL, screen, &posJetons[currentIndexInTheTable++]);
     }
-  }
-  for (int k = 0; k < 8; k++) {
     SDL_FreeSurface(jetons[k]);
   }
 }

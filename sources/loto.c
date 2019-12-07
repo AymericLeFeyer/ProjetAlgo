@@ -18,7 +18,7 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs){
   srand(time(NULL));
   int gagnant=0;
 
-  int score[4]={2,0,0,0};
+  int score[4]={0,0,0,0};
   int punition[4]={0,0,0,0};
   int nombrePasse[4]={0,0,0,0};
   CaseLoto grille1[9][3];
@@ -66,7 +66,7 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs){
           punition[i]--;
         }
       }
-      //score[0]=nbJetons(grille1);
+      score[0]=nbJetons(grille1);
       score[1]=nbJetons(grille2);
       score[2]=nbJetons(grille3);
       score[3]=nbJetons(grille4);

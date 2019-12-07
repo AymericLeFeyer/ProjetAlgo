@@ -96,13 +96,13 @@ int afficherMenu(SDL_Surface* screen){
           return 0;
 
           break;
-          
+
 
           case SDL_MOUSEBUTTONDOWN:
             if (event.button.button == SDL_BUTTON_LEFT){
                 //conditions des clics
                 if ((posInclusion(clic.x, clic.y, boutonBN))) {
-                  //  Mix_PlayMusic(myMus, 1);
+                  Mix_PlayMusic(myMus, 1);
                   continuer = affichageBatailleNavale(screen);
                   if (continuer == 0) return 0;
 

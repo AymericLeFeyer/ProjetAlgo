@@ -247,8 +247,8 @@ int affichageBatailleNavale(SDL_Surface* screen)
     SDL_Flip(screen);
   }
   // Liberation
-  freeJoueurBN(&j1);
-  freeJoueurBN(&j2);
+  j1=freeJoueurBN(j1);
+  j2=freeJoueurBN(j2);
   TTF_CloseFont(font);
   TTF_CloseFont(fontVictoire);
   SDL_FreeSurface(boutonMenu);
