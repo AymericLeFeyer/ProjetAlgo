@@ -155,7 +155,7 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
     SDL_Flip(screen);
   }
 
-
+  cp=libererPoker(t,nbJoueurs,cp);
   SDL_FreeSurface(table);
   return continuer;
 
@@ -482,7 +482,8 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
       if (posInclusion(c.x, c.y, posZoneOkRelance)) SDL_BlitSurface(okWhiteSelection, NULL, screen, &posZoneOkRelance);
       // Relance
       sprintf(valeurTexteMontantRemise, "%d", relanceMise);
-      texteMontantRemise = creerTexte(screen, valeurTexteMontantRemise, noir, font2);
+      /*texteMontantRemise = creerTexte(screen, valeurTexteMontantRemise, noir, font2);
+      SDL_FreeSurface(texteMontantRemise);*/
       if (etat != 2) {
         if (relanceMise <= j->argent) etat = 1;
         else etat = 0;
@@ -499,7 +500,7 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
           break;
       }
       SDL_BlitSurface(texteMontantRemise, NULL, screen, &posTextMiseRelance);
-
+      SDL_FreeSurface(texteMontantRemise);
     }
 
     if ((choix == 1) || (choix == 3) || (choix == 4) || ((choix == 2) && (etat == 2))) {
@@ -516,8 +517,28 @@ int tourPoker(SDL_Surface* screen, JoueurPoker* j, CentrePlateau* cp, int nbJoue
 
   SDL_Flip(screen);
   }
-
-
+  SDL_FreeSurface(troisOptionsWhiteSelection);
+  SDL_FreeSurface(table);
+  SDL_FreeSurface(troisOptionsGreenSelection);
+  SDL_FreeSurface(okWhiteSelection);
+  SDL_FreeSurface(relanceWhiteSelection);
+  SDL_FreeSurface(affichageJetonsGlobal);
+  SDL_FreeSurface(affichageJetonsPersos);
+  SDL_FreeSurface(affichageRelance);
+  SDL_FreeSurface(boutonNext);
+  SDL_FreeSurface(nextSelection);
+  SDL_FreeSurface(mancheText);
+  SDL_FreeSurface(playerIconPlaying);
+  SDL_FreeSurface(playerIconWaiting);
+  SDL_FreeSurface(playerIconOut);
+  SDL_FreeSurface(texteJetonsPersos);
+  SDL_FreeSurface(texteJetonsGlobal);
+  SDL_FreeSurface(texteCurrentManche);
+  SDL_FreeSurface(texteTotalManche);
+  SDL_FreeSurface(texteMiseMinimumActuelle);
+  TTF_CloseFont(font);
+  TTF_CloseFont(font2);
+  TTF_CloseFont(font3);
   if (continuer==3) {
     return 1;
   }else{
@@ -581,5 +602,8 @@ void afficherJetons(SDL_Surface* screen, CentrePlateau* cp) {
     for (int i = 0; i < nbJetons[k]; i++) {
       SDL_BlitSurface(jetons[k], NULL, screen, &posJetons[currentIndexInTheTable++]);
     }
+  }
+  for (int k = 0; k < 8; k++) {
+    SDL_FreeSurface(jetons[k]);
   }
 }

@@ -15,7 +15,7 @@
 
 int affichageSudoku(SDL_Surface* screen) {
   // Variables
-  int continuer;
+  int continuer=1;
   SDL_Event event;
   Coord c;
   int choix = 0;
@@ -53,7 +53,7 @@ int affichageSudoku(SDL_Surface* screen) {
   SDL_Rect posMenuBouton = newRect(25, 25, 200, 200);
 
   // Boucle principale
-  while (continuer) {
+  while (continuer==1) {
     SDL_BlitSurface(reglesImage, NULL, screen, &fullscreen);
     SDL_BlitSurface(menuBouton, NULL, screen, &posMenuBouton);
     if (choix) SDL_BlitSurface(nextButton, NULL, screen, &fullscreen);
@@ -84,7 +84,6 @@ int affichageSudoku(SDL_Surface* screen) {
       switch(event.type) {
         case SDL_QUIT:
           continuer = 0;
-          return 0;
 
           break;
         case SDL_MOUSEBUTTONDOWN:
@@ -102,16 +101,15 @@ int affichageSudoku(SDL_Surface* screen) {
           }
           if (posInclusion(c.x, c.y, posNextButton) && choix) {
             continuer = playSudoku(screen, choix-1, time(NULL));
-            if (continuer == 0) {
+            /*if (continuer == 0) {
               return 0;
             }
             if (continuer == 2) {
               return 2;
-            }
+            }*/
           }
           if (posInclusion(c.x, c.y, posMenuBouton)) {
-            continuer = 0;
-            return 2;
+            continuer = 2;
           }
         }
 
@@ -122,6 +120,17 @@ int affichageSudoku(SDL_Surface* screen) {
 
     SDL_Flip(screen);
   }
+  SDL_FreeSurface(reglesImage);
+  SDL_FreeSurface(hoverFacile);
+  SDL_FreeSurface(hoverMoyen);
+  SDL_FreeSurface(hoverDifficile);
+  SDL_FreeSurface(hoverDemoniaque);
+  SDL_FreeSurface(nextButton);
+  SDL_FreeSurface(nextButtonHover);
+  SDL_FreeSurface(menuBouton);
+  SDL_FreeSurface(menuBoutonHover);
+
+  return continuer;
 }
 
 int playSudoku(SDL_Surface* screen, int difficulte, time_t temps) {
@@ -272,7 +281,8 @@ int playSudoku(SDL_Surface* screen, int difficulte, time_t temps) {
     }
   }
 
-  while (continuer) {
+  while (continuer==1) {
+
     if (!c_fini) current_time = time(NULL) - temps;
     sprintf(timerText, "%ld", current_time);
     timerSurface = creerTexte(screen, timerText, orange, font2);
@@ -285,7 +295,7 @@ int playSudoku(SDL_Surface* screen, int difficulte, time_t temps) {
     SDL_BlitSurface(menuBouton, NULL, screen, &posMenuBouton);
     SDL_BlitSurface(niveauAffichage, NULL, screen , &zoneTextNiveau);
     SDL_BlitSurface(timerSurface, NULL, screen, &timerPos);
-
+    SDL_FreeSurface(timerSurface);
     for (int i = 0; i < 9; i++) {
       for (int j = 0; j < 9; j++) {
         temp = newPos(positionsNumeros[i][j]);
@@ -345,7 +355,6 @@ int playSudoku(SDL_Surface* screen, int difficulte, time_t temps) {
     switch(event.type) {
       case SDL_QUIT:
         continuer = 0;
-        return 0;
         break;
       case SDL_KEYDOWN:
         c_fini = 1;
@@ -353,8 +362,7 @@ int playSudoku(SDL_Surface* screen, int difficulte, time_t temps) {
 
       case SDL_MOUSEBUTTONDOWN:
         if (posInclusion(c.x, c.y, posMenuBouton)) {
-          continuer = 0;
-          return 2;
+          continuer = 2;
         }
         if (!c_fini) {
           for (int i = 0; i < 9; i++) {
@@ -395,8 +403,21 @@ int playSudoku(SDL_Surface* screen, int difficulte, time_t temps) {
     SDL_Flip(screen);
 
   }
-
-  return 1;
+  SDL_FreeSurface(ecranVictoire);
+  SDL_FreeSurface(imageDeFond);
+  SDL_FreeSurface(caseHover);
+  SDL_FreeSurface(menuBouton);
+  SDL_FreeSurface(menuBoutonHover);
+  SDL_FreeSurface(niveauAffichage);
+  SDL_FreeSurface(newNumArea);
+  for (int i = 0; i < 9; i++) {
+    SDL_FreeSurface(nbBlancs[i]);
+    SDL_FreeSurface(nbVerts[i]);
+    SDL_FreeSurface(nbRouges[i]);
+  }
+  TTF_CloseFont(font);
+  TTF_CloseFont(font2);
+  return continuer;
 }
 
 SDL_Rect newPos (SDL_Rect oldPos) {

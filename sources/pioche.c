@@ -7,12 +7,13 @@
 #include "../headers/pioche.h"
 
 
+
 void initialisationPioche(Carte *pioche){ //initialise le talon puis le mélange dans la pioche
     ///entrée: pioche, le tableau de cartes correspondant à la pioche
 
 
     Carte talon[52];
-
+    int a;
     //Initialisation de toutes les cartes dans un tableau de cartes temporaire
     int i, j, k=0;
     for (i = 1; i <= 4; i++) {
@@ -143,11 +144,16 @@ void initialisationPioche(Carte *pioche){ //initialise le talon puis le mélange
     talon[51].petit = IMG_Load("assets/poker/cartes/cartesSmall/asTrefle.jpg");
 
     //mélange des cartes dans la vraie pioche
-    shuffle(talon,52,pioche);
+    a=shuffle(talon,52,pioche);
+    for (int i = 0; i < a; i++) {
+      SDL_FreeSurface(talon[i].dos);
+      SDL_FreeSurface(talon[i].skin);
+      SDL_FreeSurface(talon[i].petit);
+    }
 }
 
 
-void shuffle(Carte* talon,int tailleTalon,Carte* pioche){ //permet de mélanger le talon dans la pioche
+int shuffle(Carte* talon,int tailleTalon,Carte* pioche){ //permet de mélanger le talon dans la pioche
     ///entrée: talon, le tableau de Cartes correspondant au talon; tailleTalon , le nombre de cartes présents dans le talon; pioche, le tableau de cartes correspondant à la pioche
 int i,j,k,a=tailleTalon;
 
@@ -162,6 +168,7 @@ for(i=0;i<a;i++){
         talon[tailleTalon-1].valeur=-1;   //   mise en place d'une carte inexistante à la fin du talon
         tailleTalon=tailleTalon-1;
     }
+    return tailleTalon;
 }
 
 //fais piocher toutes les cartes necessaires au deroulement d'une manche
@@ -220,4 +227,31 @@ CentrePlateau initialisePoker(JoueurPoker* j, int nbJoueurs, int argentDepart, i
   }
   centre.miseD=miseInit;
   return centre;
+}
+
+CentrePlateau libererPoker(JoueurPoker* t,int nbJoueurs,CentrePlateau cp){
+  for (int i = 0; i < nbJoueurs; i++) {
+    SDL_FreeSurface(t[i].hand.carte1.dos);
+    SDL_FreeSurface(t[i].hand.carte1.petit);
+    SDL_FreeSurface(t[i].hand.carte1.skin);
+    SDL_FreeSurface(t[i].hand.carte2.dos);
+    SDL_FreeSurface(t[i].hand.carte2.petit);
+    SDL_FreeSurface(t[i].hand.carte2.skin);
+  }
+  SDL_FreeSurface(cp.river.dos);
+  SDL_FreeSurface(cp.river.skin);
+  SDL_FreeSurface(cp.river.petit);
+  SDL_FreeSurface(cp.flop1.dos);
+  SDL_FreeSurface(cp.flop1.skin);
+  SDL_FreeSurface(cp.flop1.petit);
+  SDL_FreeSurface(cp.flop2.dos);
+  SDL_FreeSurface(cp.flop2.skin);
+  SDL_FreeSurface(cp.flop2.petit);
+  SDL_FreeSurface(cp.flop3.dos);
+  SDL_FreeSurface(cp.flop3.skin);
+  SDL_FreeSurface(cp.flop3.petit);
+  SDL_FreeSurface(cp.turn.dos);
+  SDL_FreeSurface(cp.turn.skin);
+  SDL_FreeSurface(cp.turn.petit);
+  return cp;
 }
