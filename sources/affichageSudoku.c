@@ -101,12 +101,6 @@ int affichageSudoku(SDL_Surface* screen) {
           }
           if (posInclusion(c.x, c.y, posNextButton) && choix) {
             continuer = playSudoku(screen, choix-1, time(NULL));
-            /*if (continuer == 0) {
-              return 0;
-            }
-            if (continuer == 2) {
-              return 2;
-            }*/
           }
           if (posInclusion(c.x, c.y, posMenuBouton)) {
             continuer = 2;
