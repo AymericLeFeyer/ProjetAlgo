@@ -40,4 +40,6 @@ void afficherProfils(SDL_Surface* screen) {
     }
     SDL_Flip(screen);
   }
+  SDL_FreeSurface(ecranProfils);
+  SDL_FreeSurface(profilGris);
 }

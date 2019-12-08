@@ -261,22 +261,10 @@ int victoireLoto(SDL_Surface* screen, int gagnant){
       }
   }
   //free surfaces
-  if(gagnant==1){
-    SDL_FreeSurface(vic1);
-  }
-  else{
-    if(gagnant==2){
-      SDL_FreeSurface(vic2);
-    }
-    else{
-      if(gagnant==3){
-        SDL_FreeSurface(vic3);
-      }
-      else{
-        SDL_FreeSurface(vic4);
-      }
-    }
-  }
+  SDL_FreeSurface(vic1);
+  SDL_FreeSurface(vic2);
+  SDL_FreeSurface(vic3);
+  SDL_FreeSurface(vic4);
   return continuer;
 
 

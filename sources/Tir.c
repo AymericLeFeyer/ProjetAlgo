@@ -270,6 +270,7 @@ int aToiDeJouer(SDL_Surface* screen, JoueurBatailleNavale* j1, JoueurBatailleNav
   SDL_FreeSurface(boutonMenu);
   TTF_CloseFont(font);
   TTF_CloseFont(fontVictoire);
+  Mix_FreeMusic(ploc);
   return continuer;
 }
 

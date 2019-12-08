@@ -68,7 +68,7 @@ int afficherLoto(SDL_Surface* screen, int nbJoueurs/*, Profil tabProfil[5]*/){
           punition[i]--;
         }
       }
-      //score[0]=nbJetons(grille1);
+      score[0]=nbJetons(grille1);
       score[1]=nbJetons(grille2);
       score[2]=nbJetons(grille3);
       score[3]=nbJetons(grille4);

@@ -130,7 +130,6 @@ int affichagePoker(SDL_Surface* screen) {
       // Si on clique sur la croix, on ferme la fenêtre
       case SDL_QUIT:
         continuer = 0;
-        //return 0;
         break;
       // Gestion du clic
       case SDL_MOUSEBUTTONDOWN:
@@ -161,16 +160,10 @@ int affichagePoker(SDL_Surface* screen) {
           // Retour au menu
           if (posInclusion(c.x, c.y, posMenuButton) && continuer==1) {
             continuer = 2;
-            //return 1;
           }
           // Commencer la partie
           if (posInclusion(c.x, c.y, posNextButton) && continuer==1) {
             continuer = tourPartie(screen, centre, joueurs, nbJoueurs, nbTours, argentDepart, miseDepart);
-            /*if (continuer == 2) {
-              continuer = 0;
-              return 1;
-            }
-            return continuer;*/
           }
 
 
