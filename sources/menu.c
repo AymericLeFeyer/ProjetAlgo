@@ -6,17 +6,17 @@
 #include <SDL/SDL_mixer.h>
 #include <time.h>
 
-#include "../headers/structure.h"
-#include "../headers/batailleNavale.h"
-#include "../headers/initialisation.h"
-#include "../headers/constantes.h"
-#include "../headers/shortcuts.h"
-#include "../headers/mainsPoker.h"
+#include "../headers/global/structure.h"
+#include "../headers/batailleNavale/batailleNavale.h"
+#include "../headers/batailleNavale/initialisationBatailleNavale.h"
+#include "../headers/global/constantes.h"
+#include "../headers/global/shortcuts.h"
+#include "../headers/poker/mainsPoker.h"
 #include "../headers/menu.h"
-#include "../headers/affichageloto.h"
-#include "../headers/poker.h"
-#include "../headers/affichageSudoku.h"
-#include "../headers/choixProfils.h"
+#include "../headers/loto/affichageloto.h"
+#include "../headers/poker/poker.h"
+#include "../headers/sudoku/sudoku.h"
+#include "../headers/profils/choixProfils.h"
 
 int afficherMenu(SDL_Surface *screen)
 {

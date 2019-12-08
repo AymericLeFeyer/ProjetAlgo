@@ -4,14 +4,11 @@
 #include <SDL/SDL_ttf.h>
 #include <SDL/SDL_mixer.h>
 
-#include "headers/structure.h"
-#include "headers/batailleNavale.h"
-#include "headers/initialisation.h"
-#include "headers/constantes.h"
-#include "headers/mainsPoker.h"
+#include "headers/global/structure.h"
+#include "headers/global/constantes.h"
 #include "headers/menu.h"
-#include "headers/splash.h"
-#include "headers/poker.h"
+#include "headers/splashScreen.h"
+
 
 int main(int argc, char *argv[])
 {
