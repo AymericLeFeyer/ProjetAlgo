@@ -16,6 +16,7 @@
 //lance une partie de poker en textuel
 void poker(){
   srand(time(NULL));
+  tabJP jp;
   JoueurPoker joueurs[5];
   CentrePlateau centre;
   int nbJoueurs=2;

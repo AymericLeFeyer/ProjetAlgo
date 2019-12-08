@@ -15,17 +15,17 @@
 #include "../headers/chargement.h"
 #include "../headers/sauvegarde.h"
 
-void selectionProfil (tabP p , Profil *p1,Profil *p2 ){
+void selectionProfil (tabP p , tabJP jp ){
     int Joueur=0; //0 = j1 et 1=j2
     int i =0;
     //affichage de tous les profils
     while (i!=2){
     if (Joueur ==0) {
-      //clique sur un profil et P1 prend la valeur du profil choisi
+      //clique sur un profil et jp[0] prend la valeur du profil choisi
       Joueur ++;
     }
     else{
-      //clique sur un profil et P2 prend la valeur du profil choisi
+      //clique sur un profil et jp[1] prend la valeur du profil choisi
     }
     i++;
   }
@@ -36,11 +36,10 @@ void selectionProfil (tabP p , Profil *p1,Profil *p2 ){
 int affichageBatailleNavale(SDL_Surface* screen)
 {
   tabP p ;
-  Profil p1;//profil vierge pour le joueur 1
-  Profil p2;//profil vierge pour le joueur 2
+  tabJP jp
   JoueurBatailleNavale j1, j2;
   chargementProfils(p);
-  selectionProfil(p, &p1, &p2);
+  selectionProfil(p,jp);
   int calcul = 0;
   j1 = initJoueurBN(1, 10, 10);
   j2 = initJoueurBN(2, 10, 10);
@@ -198,9 +197,9 @@ int affichageBatailleNavale(SDL_Surface* screen)
           precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
           SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
           SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
-          if (calcul >= p2.scoreNavale ){
+          if (calcul >= jp[1].scoreNavale ){
             for (int i =0; i<10; i++){
-                if (strcmp(p2.nom,p[i].nom)==0){
+                if (jp[1].ID==p[i].ID){
                   p[i].scoreNavale=calcul;
                   sauvegardeProfils(p);
                 }
@@ -218,9 +217,9 @@ int affichageBatailleNavale(SDL_Surface* screen)
           precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
           SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
           SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
-          if (calcul >= p1.scoreNavale ){
+          if (calcul >= jp[0].scoreNavale ){
               for (int i =0 ;  i<10 ; i++){
-                if (strcmp(p1.nom, p[i].nom)==0){
+                if (jp[0].ID==p[i].ID){
                   p[i].scoreNavale=calcul;
                   sauvegardeProfils(p);
                 }
