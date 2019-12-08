@@ -12,6 +12,7 @@ void sauvegardeProfils(tabP p)
     for(int i = 0; i < 10; i++)
     {
       fprintf(f, "%s ", p[i].nom);
+      fprintf(f, "%d ", p[i].ID);
       fprintf(f, "%f ", p[i].scoreNavale);
       fprintf(f, "%f ", p[i].scorePoker);
       fprintf(f, "%f ", p[i].scoreLoto);
