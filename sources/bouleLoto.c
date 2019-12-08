@@ -6,6 +6,7 @@
 #include "../headers/bouleLoto.h"
 #include "../headers/grilleLoto.h"
 
+//détermine si le nombre donné est dans
 int appartient(int n,int t[90]){
   int a=0;
   for (int i = 0; i < 90; i++) {
@@ -15,7 +16,7 @@ int appartient(int n,int t[90]){
   }
   return a;
 }
-
+//initialise toute une partie de loto
 int initialisationLoto(int tasBoules[90],int nbJoueurs, CaseLoto g1[9][3], CaseLoto g2[9][3], CaseLoto g3[9][3], CaseLoto g4[9][3]){
     int talon[90]={0};
     int k=0;
@@ -80,6 +81,7 @@ int initialisationLoto(int tasBoules[90],int nbJoueurs, CaseLoto g1[9][3], CaseL
     return k;
 }
 
+//permet de mélanger la liste des boules pouvant être tirées
 void shuffleLoto(int* talon,int tailleTalon,int* tasBoules){
 int i,j,k,a=tailleTalon;
 

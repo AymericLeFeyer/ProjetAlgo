@@ -236,6 +236,7 @@ CentrePlateau initialisePoker(JoueurPoker* j, int nbJoueurs, int argentDepart, i
   return centre;
 }
 
+//permet de libérer tout ce qui est lié aux cartes en possession des joueur et des cartes au centre du plateau 
 CentrePlateau libererPoker(JoueurPoker* t,int nbJoueurs,CentrePlateau cp){
   for (int i = 0; i < nbJoueurs; i++) {
     SDL_FreeSurface(t[i].hand.carte1.dos);

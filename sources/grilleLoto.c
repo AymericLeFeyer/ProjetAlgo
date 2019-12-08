@@ -48,7 +48,7 @@ void carteLoto (CaseLoto t[9][3]){ //un tableau de case
 
 }
 
-
+//calcule le nombre de jetons sur une grille de loto donnée
 int nbJetons (CaseLoto t[9][3]){
   int i,j;
   int nb=0;
@@ -74,6 +74,7 @@ int maxJeton(int t[4]){ //t[0] : nombre de jeton du joueur 1, t[1] : nombre de j
   return id;
 }
 
+//permet de poser un jeton sur la grille si cela est possible
 void poserJeton(CaseLoto t[9][3],int nombre){
   for(int i=0;i<9;i++){
     for (int j = 0; j < 3; j++) {
@@ -84,6 +85,7 @@ void poserJeton(CaseLoto t[9][3],int nombre){
   }
 }
 
+//permet de créer une grille vide dans le cas ou le nombre de joueur est différent de 4
 void grilleVide(CaseLoto t[9][3]){
   for(int i=0;i<9;i++){
     for (int j = 0; j < 3; j++) {

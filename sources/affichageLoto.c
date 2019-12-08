@@ -6,7 +6,7 @@
 #include "../headers/constantes.h"
 #include "../headers/loto.h"
 
-
+//permet d'afficher les grilles de loto des joueurs
 void afficheGrilleLoto(CaseLoto t[9][3],SDL_Surface* screen, int numJoueur,TTF_Font* font,SDL_Surface* texte,int punition[4]){
   int x=0,y=0;
   if (numJoueur==2 || numJoueur == 4) {
@@ -81,7 +81,7 @@ void afficheGrilleLoto(CaseLoto t[9][3],SDL_Surface* screen, int numJoueur,TTF_F
   TTF_CloseFont(font);
 }
 
-
+//permet d'afficher le nombre tiré
 void afficherNombreLoto(SDL_Surface* screen,int nombre,TTF_Font* font,SDL_Surface* texte){
   font = TTF_OpenFont(FONT_UBUNTU, 80);
   SDL_Color noir = {0, 0, 0, 0};
@@ -94,6 +94,7 @@ void afficherNombreLoto(SDL_Surface* screen,int nombre,TTF_Font* font,SDL_Surfac
   TTF_CloseFont(font);
 }
 
+//permet l'affichage de tous les éléments du loto
 void afficherJeuLoto(SDL_Surface* screen,TTF_Font* font,SDL_Surface* texte,int nombre, int nbJoueurs,CaseLoto g1[9][3],CaseLoto g2[9][3],CaseLoto g3[9][3],CaseLoto g4[9][3],int punition[4]){
   afficherNombreLoto(screen,nombre,font,texte);
   afficheGrilleLoto(g1,screen,1,font,texte,punition);
