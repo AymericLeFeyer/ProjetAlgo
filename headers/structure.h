@@ -122,7 +122,7 @@ typedef struct
 }Profil;
 
 typedef Profil tabP[10];
-typedef Profil tabJP[5];//tableau correspondant au profil de joueurs 
+typedef Profil tabJP[5];//tableau correspondant au profil de joueurs
 
 /*
     HEADERS
