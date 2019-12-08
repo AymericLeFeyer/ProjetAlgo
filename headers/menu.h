@@ -1,1 +1,1 @@
-int afficherMenu(SDL_Surface* screen);
+int afficherMenu(SDL_Surface *screen);

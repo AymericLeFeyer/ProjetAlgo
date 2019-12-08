@@ -1,4 +1,4 @@
-int affichageSudoku(SDL_Surface* screen);
-int playSudoku(SDL_Surface* screen, int difficulte, time_t temps);
+int affichageSudoku(SDL_Surface *screen);
+int playSudoku(SDL_Surface *screen, int difficulte, time_t temps);
 SDL_Rect newPos(SDL_Rect oldPos);
-JoueurSudoku* chargementGrille(int numeroGrille);
+JoueurSudoku *chargementGrille(int numeroGrille);

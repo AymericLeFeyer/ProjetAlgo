@@ -17,15 +17,18 @@
 
 void selectionProfil(tabP p, tabJP jp)
 {
-  int Joueur=0; //0 = j1 et 1=j2
-    int i =0;
-    //affichage de tous les profils
-    while (i!=2){
-    if (Joueur ==0) {
+  int Joueur = 0; //0 = j1 et 1=j2
+  int i = 0;
+  //affichage de tous les profils
+  while (i != 2)
+  {
+    if (Joueur == 0)
+    {
       //clique sur un profil et jp[0] prend la valeur du profil choisi
-      Joueur ++;
+      Joueur++;
     }
-    else{
+    else
+    {
       //clique sur un profil et jp[1] prend la valeur du profil choisi
     }
     i++;
@@ -34,7 +37,7 @@ void selectionProfil(tabP p, tabJP jp)
 
 int affichageBatailleNavale(SDL_Surface *screen)
 {
-  tabP p ;
+  tabP p;
   tabJP jp;
   JoueurBatailleNavale j1, j2;
   chargementProfils(p);
@@ -212,14 +215,17 @@ int affichageBatailleNavale(SDL_Surface *screen)
         SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
         SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
         // Calcul pour les profils
-        if (calcul >= jp[1].scoreNavale ){
-            for (int i =0; i<10; i++){
-                if (jp[1].ID==p[i].ID){
-                  p[i].scoreNavale=calcul;
-                  sauvegardeProfils(p);
-                }
+        if (calcul >= jp[1].scoreNavale)
+        {
+          for (int i = 0; i < 10; i++)
+          {
+            if (jp[1].ID == p[i].ID)
+            {
+              p[i].scoreNavale = calcul;
+              sauvegardeProfils(p);
             }
           }
+        }
       }
       else if (nbBateauxVivant(j2) == 0)
       {
@@ -237,14 +243,17 @@ int affichageBatailleNavale(SDL_Surface *screen)
         SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
         SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
         // Calcul pour les profils
-        if (calcul >= jp[0].scoreNavale ){
-              for (int i =0 ;  i<10 ; i++){
-                if (jp[0].ID==p[i].ID){
-                  p[i].scoreNavale=calcul;
-                  sauvegardeProfils(p);
-                }
-              }
+        if (calcul >= jp[0].scoreNavale)
+        {
+          for (int i = 0; i < 10; i++)
+          {
+            if (jp[0].ID == p[i].ID)
+            {
+              p[i].scoreNavale = calcul;
+              sauvegardeProfils(p);
+            }
           }
+        }
       }
       SDL_BlitSurface(boutonMenu, NULL, screen, &posBoutonMenu);
       break;

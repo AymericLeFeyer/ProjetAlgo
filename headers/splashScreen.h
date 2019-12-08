@@ -1,1 +1,1 @@
-void afficherSplash(SDL_Surface* screen);
+void afficherSplash(SDL_Surface *screen);

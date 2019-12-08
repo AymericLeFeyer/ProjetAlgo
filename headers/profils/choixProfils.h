@@ -1,1 +1,1 @@
-void afficherProfils(SDL_Surface* screen);
+void afficherProfils(SDL_Surface *screen);

@@ -7,7 +7,7 @@ void sauvegardeProfils(tabP p) //On passe le tableau de profils en paramètre
 {
   FILE *f;
   f = fopen("profils.txt", "w"); //Si le fichier "profils.txt" a été créé et possède des valeurs, il sera écrasé
-  if (f) //Si le  fichier a bien été créé, on sauvegarde toutes les informations des profils
+  if (f)                         //Si le  fichier a bien été créé, on sauvegarde toutes les informations des profils
   {
     for (int i = 0; i < 10; i++)
     {
