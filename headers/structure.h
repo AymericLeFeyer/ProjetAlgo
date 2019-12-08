@@ -118,6 +118,7 @@ typedef struct
   float scoreLoto;
   float scoreSudoku;
   float scoreTotal;
+  int ID;
 }Profil;
 
 typedef Profil tabP[10];
