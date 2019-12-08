@@ -37,9 +37,8 @@ void selectionProfil(tabP p, Profil *p1, Profil *p2)
 
 int affichageBatailleNavale(SDL_Surface *screen)
 {
-  tabP p;
-  Profil p1; //profil vierge pour le joueur 1
-  Profil p2; //profil vierge pour le joueur 2
+  tabP p ;
+  tabJP jp;
   JoueurBatailleNavale j1, j2;
   chargementProfils(p);
   selectionProfil(p, &p1, &p2);
