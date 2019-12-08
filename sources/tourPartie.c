@@ -13,23 +13,28 @@
 #include "../headers/interface.h"
 #include "../headers/constantes.h"
 #include "../headers/victoire.h"
+#include "../headers/sauvegarde.h"
 
 //calcule le score total (au niveau de l appel de victoirePokerFinale, appel de fonction en commentaire pour pas faire crash)
-void scorePoker (CentrePlateau cp, JoueurPoker* t, tabJP jp){
+void scorePoker (CentrePlateau cp, JoueurPoker* t, tabJP jp, int nbJoueurs){
+int i,j,k=0;
 int argentMax=cp.mise;//argent max present dans la partie, va servir de reference pour le pourcentage du score
-for (int i=0;i<5;i++){     //boucle pour faire la somme total de l argent present en jeu
+for (i=0;i<nbJoueurs;i++){     //boucle pour faire la somme total de l argent present en jeu
   argentMax=argentMax + t[i].argent;
 }
-for (int j=0;j<5;j++){  //boucle qui pour le tableau de profil selectionné pour les joueurs va leur faire monter leur scores
-  jp[j].scorePoker=t[j].argent/argentMax;
+for (j=0;j<=nbJoueurs;j++){
+  if(jp[j].scorePoker<=t[j].argent/argentMax){
+    jp[j].scorePoker=t[j].argent/argentMax;
+  }
 }
 
-//ici reste a voir avec le tableau tabP p en parametre et
-//effectuer les test voir si pour un profil en jeu , sont score est superieur au profil déja sauvegarder, si oui save dans le tableau p
+
+
+
 }
 
 
-int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoueurs, int mancheTotale,int argentDepart, int miseDepart)
+int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoueurs, int mancheTotale,int argentDepart, int miseDepart,tabJP jp)
 {
   // Images
   SDL_Surface* table = NULL;
@@ -159,7 +164,7 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
           }
       }
       if (continuer==1) {
-        /*scorePoker(cp,t,jp);**/
+        /*scorePoker(cp,t,jp,p);**/
         continuer = victoirePokerFinale(screen, t[maxi]);
       }
     }

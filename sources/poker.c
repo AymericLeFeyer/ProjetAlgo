@@ -16,7 +16,6 @@
 //lance une partie de poker en textuel
 void poker(){
   srand(time(NULL));
-  tabJP jp;
   JoueurPoker joueurs[5];
   CentrePlateau centre;
   int nbJoueurs=2;
@@ -36,6 +35,8 @@ void poker(){
 
 // poker en graphique
 int affichagePoker(SDL_Surface* screen) {
+//variable pour profil
+  tabJP jp;
   // variables pour la boucle principale
   SDL_Event event;
   int continuer = 1;
@@ -164,7 +165,7 @@ int affichagePoker(SDL_Surface* screen) {
           }
           // Commencer la partie
           if (posInclusion(c.x, c.y, posNextButton) && continuer==1) {
-            continuer = tourPartie(screen, centre, joueurs, nbJoueurs, nbTours, argentDepart, miseDepart);
+            continuer = tourPartie(screen, centre, joueurs, nbJoueurs, nbTours, argentDepart, miseDepart,jp);
           }
 
 
