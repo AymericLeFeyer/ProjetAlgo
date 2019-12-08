@@ -34,9 +34,8 @@ void poker()
 }
 
 // poker en graphique
-int affichagePoker(SDL_Surface* screen) {
-//variable pour profil
-  tabJP jp;
+int affichagePoker(SDL_Surface *screen)
+{
   // variables pour la boucle principale
   SDL_Event event;
   int continuer = 1;
@@ -168,9 +167,6 @@ int affichagePoker(SDL_Surface* screen) {
               }
             }
           }
-          
-
-
         }
         // Retour au menu
         if (posInclusion(c.x, c.y, posMenuButton) && continuer == 1)
