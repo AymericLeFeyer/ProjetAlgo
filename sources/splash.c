@@ -15,7 +15,7 @@
 #include "../headers/mainsPoker.h"
 #include "../headers/menu.h"
 
-void afficherSplash(SDL_Surface* screen)
+void afficherSplash(SDL_Surface *screen)
 {
   int delaySplash = 0; // temps normal 1000
 
@@ -63,9 +63,6 @@ void afficherSplash(SDL_Surface* screen)
   j1 = initJoueurBN(1, 10, 10);
   j2 = initJoueurBN(2, 10, 10);
 
-
-
-
   SDL_BlitSurface(guillaume, NULL, screen, &posGuillaume);
   SDL_Flip(screen);
   SDL_Delay(delaySplash);
@@ -90,40 +87,39 @@ void afficherSplash(SDL_Surface* screen)
   SDL_Flip(screen);
 
   // Boucle principale
-  while (continuer){
+  while (continuer)
+  {
     // Clignotement du texte
-        tempsIni = SDL_GetTicks();
-        if (tempsIni - temps > 500 && aff == 0)
-        {
-          SDL_BlitSurface(cachePetitTexte, NULL, screen, &posCachePetitTexte);
-            aff = 1;
-            temps = tempsIni;
-        }
-        if (tempsIni - temps > 500 && aff == 1)
-        {
-            SDL_BlitSurface(petitTexte, NULL, screen, &posPetitTexte);
-            if(tempsIni - temps > 1500)
-            {
-                aff = 0;
-                temps = tempsIni;
-            }
-        }
-
+    tempsIni = SDL_GetTicks();
+    if (tempsIni - temps > 500 && aff == 0)
+    {
+      SDL_BlitSurface(cachePetitTexte, NULL, screen, &posCachePetitTexte);
+      aff = 1;
+      temps = tempsIni;
+    }
+    if (tempsIni - temps > 500 && aff == 1)
+    {
+      SDL_BlitSurface(petitTexte, NULL, screen, &posPetitTexte);
+      if (tempsIni - temps > 1500)
+      {
+        aff = 0;
+        temps = tempsIni;
+      }
+    }
 
     // On regarde l'event
     SDL_PollEvent(&event);
 
     // En fonction de l'event, on fait des actions
-    switch(event.type)
+    switch (event.type)
     {
-      // Si on clique sur la croix, on ferme la fenêtre
-      case SDL_QUIT:
-        continuer = 0;
-        break;
-      case SDL_KEYDOWN:
-        continuer = afficherMenu(screen);
-        break;
-
+    // Si on clique sur la croix, on ferme la fenêtre
+    case SDL_QUIT:
+      continuer = 0;
+      break;
+    case SDL_KEYDOWN:
+      continuer = afficherMenu(screen);
+      break;
     }
 
     // On actualise l'écran

@@ -6,11 +6,12 @@
 #include "../headers/constantes.h"
 
 //permet d'initialiser un joueur pour la bataille navale
-JoueurBatailleNavale initJoueurBN(int nJoueur, int h, int l){
+JoueurBatailleNavale initJoueurBN(int nJoueur, int h, int l)
+{
   JoueurBatailleNavale j;
-  j.joueur=nJoueur;
+  j.joueur = nJoueur;
 
-//images des différents bateaux avec leurs directions
+  //images des différents bateaux avec leurs directions
   j.tab[0].nord = IMG_Load("assets/batailleNavale/bateau1-1.png");
   j.tab[1].nord = IMG_Load("assets/batailleNavale/bateau2-1.png");
   j.tab[2].nord = IMG_Load("assets/batailleNavale/bateau3-1.png");
@@ -38,7 +39,7 @@ JoueurBatailleNavale initJoueurBN(int nJoueur, int h, int l){
   j.tab[3].r = newRect(100, 10, 256, 64);
   j.tab[4].r = newRect(100, 280, 320, 64);
 
-//tailles correspondant aux bateaux
+  //tailles correspondant aux bateaux
   j.tab[0].taille = 2;
   j.tab[1].taille = 3;
   j.tab[2].taille = 3;
@@ -51,43 +52,47 @@ JoueurBatailleNavale initJoueurBN(int nJoueur, int h, int l){
   j.tab[3].pv = j.tab[3].taille;
   j.tab[4].pv = j.tab[4].taille;
 
-//vers le nord, direction pas defaut
+  //vers le nord, direction pas defaut
   j.tab[0].direction = 1;
   j.tab[1].direction = 1;
   j.tab[2].direction = 1;
   j.tab[3].direction = 1;
   j.tab[4].direction = 1;
 
-//position par défaut car pas dans le tableau a la base
-  j.tab[0].tete.x=-1;
-  j.tab[0].tete.y=-1;
-  j.tab[1].tete.x=-1;
-  j.tab[1].tete.y=-1;
-  j.tab[2].tete.x=-1;
-  j.tab[2].tete.y=-1;
-  j.tab[3].tete.x=-1;
-  j.tab[3].tete.y=-1;
-  j.tab[4].tete.x=-1;
-  j.tab[4].tete.y=-1;
+  //position par défaut car pas dans le tableau a la base
+  j.tab[0].tete.x = -1;
+  j.tab[0].tete.y = -1;
+  j.tab[1].tete.x = -1;
+  j.tab[1].tete.y = -1;
+  j.tab[2].tete.x = -1;
+  j.tab[2].tete.y = -1;
+  j.tab[3].tete.x = -1;
+  j.tab[3].tete.y = -1;
+  j.tab[4].tete.x = -1;
+  j.tab[4].tete.y = -1;
 
-//initialisation d'une grille vide pour le joueur
+  //initialisation d'une grille vide pour le joueur
   int i;
   int k;
-  j.g.h=h;
-  j.g.l=l;
+  j.g.h = h;
+  j.g.l = l;
   j.infos.h = h;
   j.infos.l = l;
-  for(i=0;i<h;i++){
-    for(k=0;k<l;k++){
-      j.g.tab[i][k]=0;
-      j.infos.tab[i][k]=0;
+  for (i = 0; i < h; i++)
+  {
+    for (k = 0; k < l; k++)
+    {
+      j.g.tab[i][k] = 0;
+      j.infos.tab[i][k] = 0;
     }
   }
   return j;
 }
 
-JoueurBatailleNavale freeJoueurBN(JoueurBatailleNavale j) {
-  for (int i = 0; i < 5; i++) {
+JoueurBatailleNavale freeJoueurBN(JoueurBatailleNavale j)
+{
+  for (int i = 0; i < 5; i++)
+  {
     SDL_FreeSurface(j.tab[i].nord);
     SDL_FreeSurface(j.tab[i].sud);
     SDL_FreeSurface(j.tab[i].west);

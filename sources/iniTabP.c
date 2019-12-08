@@ -3,7 +3,7 @@
 
 void iniTabP(tabP p)
 {
-    for(int i = 0; i < 10; i++)
+    for (int i = 0; i < 10; i++)
     {
         strcpy(p[i].nom, "-1");
         p[i].scoreNavale = -1;

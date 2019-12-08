@@ -7,9 +7,9 @@ void chargementProfils(tabP p) //on mettra en paramètre l'état du joueur pour 
 {
   FILE *f;
   f = fopen("profils.txt", "r");
-  if(f)
+  if (f)
   {
-    for(int i = 0; i < 10; i++)
+    for (int i = 0; i < 10; i++)
     {
       fscanf(f, "%s ", p[i].nom);
       fscanf(f, "%f ", &p[i].scoreNavale);
@@ -20,5 +20,6 @@ void chargementProfils(tabP p) //on mettra en paramètre l'état du joueur pour 
     }
     fclose(f);
   }
-    else printf("Erreur de chargement\n");
+  else
+    printf("Erreur de chargement\n");
 }
