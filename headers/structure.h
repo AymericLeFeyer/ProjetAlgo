@@ -113,6 +113,7 @@ Profil
 typedef struct
 {
   char nom[8];
+  int ID;
   float scoreNavale;
   float scorePoker;
   float scoreLoto;
@@ -121,6 +122,7 @@ typedef struct
 }Profil;
 
 typedef Profil tabP[10];
+typedef Profil tabJP[5];//tableau correspondant au profil de joueurs 
 
 /*
     HEADERS

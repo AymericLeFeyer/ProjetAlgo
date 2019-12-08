@@ -16,6 +16,7 @@
 void poker()
 {
   srand(time(NULL));
+  tabJP jp;
   JoueurPoker joueurs[5];
   CentrePlateau centre;
   int nbJoueurs = 2;

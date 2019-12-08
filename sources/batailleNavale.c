@@ -15,21 +15,17 @@
 #include "../headers/chargement.h"
 #include "../headers/sauvegarde.h"
 
-void selectionProfil(tabP p, Profil *p1, Profil *p2)
-{
-  int Joueur = 0; //0 = j1 et 1=j2
-  int i = 0;
-  //affichage de tous les profils
-  while (i != 2)
-  {
-    if (Joueur == 0)
-    {
-      //clique sur un profil et P1 prend la valeur du profil choisi
-      Joueur++;
+void selectionProfil (tabP p , tabJP jp ){
+    int Joueur=0; //0 = j1 et 1=j2
+    int i =0;
+    //affichage de tous les profils
+    while (i!=2){
+    if (Joueur ==0) {
+      //clique sur un profil et jp[0] prend la valeur du profil choisi
+      Joueur ++;
     }
-    else
-    {
-      //clique sur un profil et P2 prend la valeur du profil choisi
+    else{
+      //clique sur un profil et jp[1] prend la valeur du profil choisi
     }
     i++;
   }
@@ -37,12 +33,11 @@ void selectionProfil(tabP p, Profil *p1, Profil *p2)
 
 int affichageBatailleNavale(SDL_Surface *screen)
 {
-  tabP p;
-  Profil p1; //profil vierge pour le joueur 1
-  Profil p2; //profil vierge pour le joueur 2
+  tabP p ;
+  tabJP jp
   JoueurBatailleNavale j1, j2;
   chargementProfils(p);
-  selectionProfil(p, &p1, &p2);
+  selectionProfil(p,jp);
   int calcul = 0;
   j1 = initJoueurBN(1, 10, 10);
   j2 = initJoueurBN(2, 10, 10);
@@ -125,134 +120,104 @@ int affichageBatailleNavale(SDL_Surface *screen)
       break;
     }
     int t = 0;
-    switch (phase)
-    {
-    case 1:
-      // Phase de placement pour le joueur 1
-      t = phasePlacement(screen, &j1, &continuer);
-      if (t == 1)
-        phase = 2;
-      else if (t == 2)
-      {
-        continuer = 2;
-      }
-      else
-      {
-        continuer = 0;
-      }
-      break;
-    case 2:
-      // Phase de placement pour le joueur 2
-      t = phasePlacement(screen, &j2, &continuer);
-      if (t == 1)
-        phase = 3;
-      else if (t == 2)
-      {
-        continuer = 2;
-      }
-      else
-      {
-        continuer = 0;
-      }
-      break;
-    case 3:
-      // Si la partie n'est pas finie, le joueur 1 joue
-      t = 0;
-      if (nbBateauxVivant(j1) > 0)
-        t = aToiDeJouer(screen, &j1, &j2);
-      if (t == 1)
-        phase = 4;
-      else if (t == 2)
-      {
-        continuer = 2;
-      }
-      else if (t == 3)
-      {
-        phase = 5;
-      }
-      else
-      {
-        continuer = 0;
-      }
-      break;
-    case 4:
-      // Si la partie n'est pas finie, le joueur 2 joue
-      t = 0;
-      if (nbBateauxVivant(j2) > 0)
-        t = aToiDeJouer(screen, &j2, &j1);
-      if (t == 1)
-        phase = 3;
-      else if (t == 2)
-      {
-        continuer = 2;
-      }
-      else if (t == 3)
-      {
-        phase = 5;
-      }
-      else
-      {
-        continuer = 0;
-      }
-      break;
-    case 5:
-      // La partie est finie
-      // Ecrans de victoires
-      // Ecran blanc en fond
-      SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255));
-      if (nbBateauxVivant(j1) == 0)
-      {
-        // On affiche l'image du joueur 2
-        SDL_BlitSurface(victoire2, NULL, screen, &posVictoire2);
-        // On affiche le nombre de coups
-        sprintf(strCoups, "%d", nbCaseNonVide(j2.infos));
-        calcul = (int)(100 * ((float)((float)17 / (float)nbCaseNonVide(j2.infos))));
-        // On affiche la precision
-        sprintf(strPrecision, "%d%%", calcul);
-        SDL_FreeSurface(nbCoupsVictoire);
-        SDL_FreeSurface(precisionVictoire);
-        nbCoupsVictoire = creerTexte(screen, strCoups, noir, fontVictoire);
-        precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
-        SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
-        SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
-        // Calcul pour les profils
-        if (calcul >= p2.scoreNavale)
-        {
-          for (int i = 0; i < 10; i++)
-          {
-            if (strcmp(p2.nom, p[i].nom) == 0)
-            {
-              p[i].scoreNavale = calcul;
-              sauvegardeProfils(p);
+    switch (phase) {
+      case 1:
+        t = phasePlacement(screen, &j1, &continuer);
+        if (t == 1) phase = 2;
+        else if (t == 2) {
+          continuer = 2;
+        }
+        else {
+          continuer = 0;
+        }
+        break;
+      case 2:
+        t = phasePlacement(screen, &j2, &continuer);
+        if (t == 1) phase = 3;
+        else if (t == 2) {
+          continuer = 2;
+        }
+        else {
+          continuer = 0;
+        }
+        break;
+      case 3:
+        t = 0;
+        if (nbBateauxVivant(j1) > 0)
+          t = aToiDeJouer(screen, &j1, &j2);
+        if (t == 1) phase = 4;
+        else if (t == 2){
+          continuer = 2;
+        }
+        else if (t == 3) {
+          phase = 5;
+
+        }
+        else {
+          continuer = 0;
+        }
+
+
+        break;
+      case 4:
+        t = 0;
+        if (nbBateauxVivant(j2) > 0)
+          t = aToiDeJouer(screen, &j2, &j1);
+        if (t == 1) phase = 3;
+        else if (t == 2) {
+          continuer = 2;
+        }
+        else if (t == 3) {
+          phase = 5;
+
+        }
+        else {
+          continuer = 0;
+        }
+
+        break;
+
+      case 5:
+        // Ecrans de victoires
+        SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255));
+        if (nbBateauxVivant(j1) == 0) {
+          SDL_BlitSurface(victoire2, NULL, screen, &posVictoire2);
+          sprintf(strCoups, "%d", nbCaseNonVide(j2.infos));
+          calcul=(int) (100 * ((float) ((float) 17 / (float) nbCaseNonVide(j2.infos))));
+          sprintf(strPrecision, "%d%%",calcul );
+          SDL_FreeSurface(nbCoupsVictoire);
+          SDL_FreeSurface(precisionVictoire);
+          nbCoupsVictoire = creerTexte(screen, strCoups, noir, fontVictoire);
+          precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
+          SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
+          SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
+          if (calcul >= jp[1].scoreNavale ){
+            for (int i =0; i<10; i++){
+                if (jp[1].ID==p[i].ID){
+                  p[i].scoreNavale=calcul;
+                  sauvegardeProfils(p);
+                }
             }
           }
         }
-      }
-      else if (nbBateauxVivant(j2) == 0)
-      {
-        // On affiche l'image du joueur 1
-        SDL_BlitSurface(victoire1, NULL, screen, &posVictoire1);
-        // On affiche le nombre de coups
-        sprintf(strCoups, "%d", nbCaseNonVide(j1.infos));
-        calcul = (int)(100 * ((float)((float)17 / (float)nbCaseNonVide(j1.infos))));
-        // On affiche la precision
-        sprintf(strPrecision, "%d%%", calcul);
-        SDL_FreeSurface(nbCoupsVictoire);
-        SDL_FreeSurface(precisionVictoire);
-        nbCoupsVictoire = creerTexte(screen, strCoups, noir, fontVictoire);
-        precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
-        SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
-        SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
-        // Calcul pour les profils
-        if (calcul >= p1.scoreNavale)
-        {
-          for (int i = 0; i < 10; i++)
-          {
-            if (strcmp(p1.nom, p[i].nom) == 0)
-            {
-              p[i].scoreNavale = calcul;
-              sauvegardeProfils(p);
-            }
+        else if (nbBateauxVivant(j2) == 0) {
+          SDL_BlitSurface(victoire1, NULL, screen, &posVictoire1);
+          sprintf(strCoups, "%d", nbCaseNonVide(j1.infos));
+          calcul=(int) (100 * ((float) ((float) 17 / (float) nbCaseNonVide(j1.infos))));
+          sprintf(strPrecision, "%d%%", calcul);
+          SDL_FreeSurface(nbCoupsVictoire);
+          SDL_FreeSurface(precisionVictoire);
+          nbCoupsVictoire = creerTexte(screen, strCoups, noir, fontVictoire);
+          precisionVictoire = creerTexte(screen, strPrecision, noir, fontVictoire);
+          SDL_BlitSurface(nbCoupsVictoire, NULL, screen, &nbCoupsVictoireRect);
+          SDL_BlitSurface(precisionVictoire, NULL, screen, &precisionVictoireRect);
+          if (calcul >= jp[0].scoreNavale ){
+              for (int i =0 ;  i<10 ; i++){
+                if (jp[0].ID==p[i].ID){
+                  p[i].scoreNavale=calcul;
+                  sauvegardeProfils(p);
+                }
+              }
           }
         }
       }
