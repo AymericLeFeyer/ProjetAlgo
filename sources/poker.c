@@ -12,16 +12,16 @@
 #include "../headers/shortcuts.h"
 #include "../headers/poker.h"
 
-
 //lance une partie de poker en textuel
-void poker(){
+void poker()
+{
   srand(time(NULL));
   JoueurPoker joueurs[5];
   CentrePlateau centre;
-  int nbJoueurs=2;
-  int miseDepart=5;
-  int nbTours=2;
-  int argentDepart=50;
+  int nbJoueurs = 2;
+  int miseDepart = 5;
+  int nbTours = 2;
+  int argentDepart = 50;
   printf("nombre de joueurs ? ");
   scanf("%d", &nbJoueurs);
   printf("mise de depart ? ");
@@ -34,16 +34,17 @@ void poker(){
 }
 
 // poker en graphique
-int affichagePoker(SDL_Surface* screen) {
+int affichagePoker(SDL_Surface *screen)
+{
   // variables pour la boucle principale
   SDL_Event event;
   int continuer = 1;
 
   // Images
-  SDL_Surface* rulesBoard = NULL;
-  SDL_Surface* greenSelection = NULL;
-  SDL_Surface* whiteSelection = NULL;
-  SDL_Surface* buttonSelection = NULL;
+  SDL_Surface *rulesBoard = NULL;
+  SDL_Surface *greenSelection = NULL;
+  SDL_Surface *whiteSelection = NULL;
+  SDL_Surface *buttonSelection = NULL;
 
   rulesBoard = IMG_Load("assets/poker/regles/rulesBoard.jpg");
   greenSelection = IMG_Load("assets/poker/regles/greenSelection.png");
@@ -105,17 +106,22 @@ int affichagePoker(SDL_Surface* screen) {
   int nbJoueurs = 5, miseDepart = 5, nbTours = 3, argentDepart = 50;
   Coord c;
 
-  while (continuer==1) {
+  while (continuer == 1)
+  {
     // Affichage du fond
     SDL_BlitSurface(rulesBoard, NULL, screen, &posRulesBoard);
 
-
     // On affiche les cases vertes
-    for (int i = 0; i < 4; i++) {
-      if (choix[0][i].valeur == nbJoueurs) SDL_BlitSurface(greenSelection, NULL, screen, &choix[0][i].pos);
-      if (choix[1][i].valeur == nbTours) SDL_BlitSurface(greenSelection, NULL, screen, &choix[1][i].pos);
-      if (choix[2][i].valeur == miseDepart) SDL_BlitSurface(greenSelection, NULL, screen, &choix[2][i].pos);
-      if (choix[3][i].valeur == argentDepart) SDL_BlitSurface(greenSelection, NULL, screen, &choix[3][i].pos);
+    for (int i = 0; i < 4; i++)
+    {
+      if (choix[0][i].valeur == nbJoueurs)
+        SDL_BlitSurface(greenSelection, NULL, screen, &choix[0][i].pos);
+      if (choix[1][i].valeur == nbTours)
+        SDL_BlitSurface(greenSelection, NULL, screen, &choix[1][i].pos);
+      if (choix[2][i].valeur == miseDepart)
+        SDL_BlitSurface(greenSelection, NULL, screen, &choix[2][i].pos);
+      if (choix[3][i].valeur == argentDepart)
+        SDL_BlitSurface(greenSelection, NULL, screen, &choix[3][i].pos);
     }
 
     c.x = event.button.x;
@@ -125,59 +131,69 @@ int affichagePoker(SDL_Surface* screen) {
     SDL_PollEvent(&event);
 
     // En fonction de l'event, on fait des actions
-    switch(event.type)
+    switch (event.type)
     {
-      // Si on clique sur la croix, on ferme la fenêtre
-      case SDL_QUIT:
-        continuer = 0;
-        break;
-      // Gestion du clic
-      case SDL_MOUSEBUTTONDOWN:
-        if (event.button.button == SDL_BUTTON_LEFT){
-          // Changements des regles
-          for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-              if (posInclusion(c.x, c.y, choix[i][j].pos) && continuer==1) {
-                switch (i) {
-                  case 0:
-                    nbJoueurs = choix[i][j].valeur;
-                    break;
-                  case 1:
-                    nbTours = choix[i][j].valeur;
-                    break;
-                  case 2:
-                    miseDepart = choix[i][j].valeur;
-                    break;
-                  case 3:
-                    argentDepart = choix[i][j].valeur;
-                    break;
-                  default:
-                    break;
-                }
+    // Si on clique sur la croix, on ferme la fenêtre
+    case SDL_QUIT:
+      continuer = 0;
+      break;
+    // Gestion du clic
+    case SDL_MOUSEBUTTONDOWN:
+      if (event.button.button == SDL_BUTTON_LEFT)
+      {
+        // Changements des regles
+        for (int i = 0; i < 4; i++)
+        {
+          for (int j = 0; j < 4; j++)
+          {
+            if (posInclusion(c.x, c.y, choix[i][j].pos) && continuer == 1)
+            {
+              switch (i)
+              {
+              case 0:
+                nbJoueurs = choix[i][j].valeur;
+                break;
+              case 1:
+                nbTours = choix[i][j].valeur;
+                break;
+              case 2:
+                miseDepart = choix[i][j].valeur;
+                break;
+              case 3:
+                argentDepart = choix[i][j].valeur;
+                break;
+              default:
+                break;
               }
             }
           }
-          // Retour au menu
-          if (posInclusion(c.x, c.y, posMenuButton) && continuer==1) {
-            continuer = 2;
-          }
-          // Commencer la partie
-          if (posInclusion(c.x, c.y, posNextButton) && continuer==1) {
-            continuer = tourPartie(screen, centre, joueurs, nbJoueurs, nbTours, argentDepart, miseDepart);
-          }
-
-
         }
+        // Retour au menu
+        if (posInclusion(c.x, c.y, posMenuButton) && continuer == 1)
+        {
+          continuer = 2;
+        }
+        // Commencer la partie
+        if (posInclusion(c.x, c.y, posNextButton) && continuer == 1)
+        {
+          continuer = tourPartie(screen, centre, joueurs, nbJoueurs, nbTours, argentDepart, miseDepart);
+        }
+      }
     }
 
     // Affichages des cases blanches
-    for (int i = 0; i < 4; i++) {
-      for (int j = 0; j < 4; j++) {
-        if (posInclusion(c.x, c.y, choix[i][j].pos)) SDL_BlitSurface(whiteSelection, NULL, screen, &choix[i][j].pos);
+    for (int i = 0; i < 4; i++)
+    {
+      for (int j = 0; j < 4; j++)
+      {
+        if (posInclusion(c.x, c.y, choix[i][j].pos))
+          SDL_BlitSurface(whiteSelection, NULL, screen, &choix[i][j].pos);
       }
     }
-    if (posInclusion(c.x, c.y, posMenuButton)) SDL_BlitSurface(buttonSelection, NULL, screen, &posMenuButton);
-    if (posInclusion(c.x, c.y, posNextButton)) SDL_BlitSurface(buttonSelection, NULL, screen, &posNextButton);
+    if (posInclusion(c.x, c.y, posMenuButton))
+      SDL_BlitSurface(buttonSelection, NULL, screen, &posMenuButton);
+    if (posInclusion(c.x, c.y, posNextButton))
+      SDL_BlitSurface(buttonSelection, NULL, screen, &posNextButton);
 
     SDL_Flip(screen);
   }
@@ -187,14 +203,16 @@ int affichagePoker(SDL_Surface* screen) {
   SDL_FreeSurface(whiteSelection);
   SDL_FreeSurface(buttonSelection);
   return continuer;
-
 }
 
-void afficherCarte(SDL_Surface*screen, Carte c, SDL_Rect pos) {
-  if (c.visible) {
+void afficherCarte(SDL_Surface *screen, Carte c, SDL_Rect pos)
+{
+  if (c.visible)
+  {
     SDL_BlitSurface(c.skin, NULL, screen, &pos);
   }
-  else {
+  else
+  {
     SDL_BlitSurface(c.dos, NULL, screen, &pos);
   }
 }

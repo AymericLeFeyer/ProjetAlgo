@@ -7,9 +7,10 @@ void chargementProfils(tabP p) //On passe en paramètre le tableau de profils vi
 {
   FILE *f;
   f = fopen("profils.txt", "r");
-  if(f) //Si on arrive à accèder à profils.txt, on récupére toutes les informations pour les mettre dans le tableau p
+  //Si on arrive à accèder à profils.txt, on récupére toutes les informations pour les mettre dans le tableau p
+  if (f)
   {
-    for(int i = 0; i < 10; i++)
+    for (int i = 0; i < 10; i++)
     {
       fscanf(f, "%s ", p[i].nom);
       fscanf(f, "%d ", &p[i].ID);
@@ -21,5 +22,6 @@ void chargementProfils(tabP p) //On passe en paramètre le tableau de profils vi
     }
     fclose(f);
   }
-    else printf("Erreur de chargement\n");
+  else
+    printf("Erreur de chargement\n");
 }
