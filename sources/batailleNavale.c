@@ -36,7 +36,7 @@ void selectionProfil (tabP p , tabJP jp ){
 int affichageBatailleNavale(SDL_Surface* screen)
 {
   tabP p ;
-  tabJP jp
+  tabJP jp;
   JoueurBatailleNavale j1, j2;
   chargementProfils(p);
   selectionProfil(p,jp);

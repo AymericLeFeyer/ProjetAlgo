@@ -15,7 +15,7 @@
 #include "../headers/victoire.h"
 
 //calcule le score total (au niveau de l appel de victoirePokerFinale, appel de fonction en commentaire pour pas faire crash)
-void scorePoker (CentrePlateau cp, JoueurPoker* t, tabJP jp, /*tabP p*/){
+void scorePoker (CentrePlateau cp, JoueurPoker* t, tabJP jp){
 int argentMax=cp.mise;//argent max present dans la partie, va servir de reference pour le pourcentage du score
 for (int i=0;i<5;i++){     //boucle pour faire la somme total de l argent present en jeu
   argentMax=argentMax + t[i].argent;
