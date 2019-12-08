@@ -168,7 +168,7 @@ int affichagePoker(SDL_Surface* screen) {
               }
             }
           }
-          
+
 
 
         }
@@ -180,7 +180,7 @@ int affichagePoker(SDL_Surface* screen) {
         // Commencer la partie
         if (posInclusion(c.x, c.y, posNextButton) && continuer == 1)
         {
-          continuer = tourPartie(screen, centre, joueurs, nbJoueurs, nbTours, argentDepart, miseDepart);
+          continuer = tourPartie(screen, centre, joueurs, nbJoueurs, nbTours, argentDepart, miseDepart,jp);
         }
       }
     }
