@@ -17,20 +17,16 @@
 
 //calcule le score total (au niveau de l appel de victoirePokerFinale, appel de fonction en commentaire pour pas faire crash)
 void scorePoker (CentrePlateau cp, JoueurPoker* t, tabJP jp, int nbJoueurs){
-int i,j,k=0;
-int argentMax=cp.mise;//argent max present dans la partie, va servir de reference pour le pourcentage du score
-for (i=0;i<nbJoueurs;i++){     //boucle pour faire la somme total de l argent present en jeu
-  argentMax=argentMax + t[i].argent;
-}
-for (j=0;j<=nbJoueurs;j++){
-  if(jp[j].scorePoker<=t[j].argent/argentMax){
-    jp[j].scorePoker=t[j].argent/argentMax;
+  int i,j,k=0;
+  int argentMax=cp.mise;//argent max present dans la partie, va servir de reference pour le pourcentage du score
+  for (i=0;i<nbJoueurs;i++){     //boucle pour faire la somme total de l argent present en jeu
+    argentMax=argentMax + t[i].argent;
   }
-}
-
-
-
-
+  for (j=0;j<=nbJoueurs;j++){
+    if(jp[j].scorePoker<=t[j].argent/argentMax){
+      jp[j].scorePoker=t[j].argent/argentMax;
+    }
+  }
 }
 
 
