@@ -63,8 +63,12 @@ int aToiDeJouer(SDL_Surface *screen, JoueurBatailleNavale *j1, JoueurBatailleNav
 
   // Sons
   Mix_Music *ploc;
+  Mix_Music *touche2;
+  Mix_Music *coule;
   Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
   ploc = Mix_LoadMUS("assets/sounds/ploc.wav");
+  touche2 = Mix_LoadMUS("assets/sounds/touché.wav");
+  coule = Mix_LoadMUS("assets/sounds/coule2.wav");
 
   // Pour debug des variables
   char debugText[50];
@@ -173,8 +177,8 @@ int aToiDeJouer(SDL_Surface *screen, JoueurBatailleNavale *j1, JoueurBatailleNav
               valeurTCR = tcr(indexA, indexB, j2, j1);
               if (valeurTCR != 0)
               {
-                if (valeurTCR == 2)
-                  Mix_PlayMusic(ploc, 1);
+                if (valeurTCR == 1) Mix_PlayMusic(touche2, 1);
+                if (valeurTCR == 2) Mix_PlayMusic(ploc, 1);
                 j1->infos.tab[indexA][indexB] = valeurTCR;
                 aJoue = true;
               }
@@ -284,6 +288,8 @@ int aToiDeJouer(SDL_Surface *screen, JoueurBatailleNavale *j1, JoueurBatailleNav
   TTF_CloseFont(font);
   TTF_CloseFont(fontVictoire);
   Mix_FreeMusic(ploc);
+  Mix_FreeMusic(touche2);
+  Mix_FreeMusic(coule);
   return continuer;
 }
 
@@ -353,7 +359,7 @@ int tcr(int x, int y, JoueurBatailleNavale *victime, JoueurBatailleNavale *attaq
     victime->tab[4].pv--;
     return 1;
     break;
-  defaut:
+  default:
     return 0;
     break;
   }
