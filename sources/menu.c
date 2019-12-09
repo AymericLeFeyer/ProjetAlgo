@@ -100,6 +100,8 @@ int afficherMenu(SDL_Surface *screen)
     else
       SDL_BlitSurface(profils, NULL, screen, &boutonProfils);
 
+    tabJP tabProfils;
+
     while (SDL_PollEvent(&event))
     {
       switch (event.type)
@@ -116,7 +118,10 @@ int afficherMenu(SDL_Surface *screen)
           if ((posInclusion(clic.x, clic.y, boutonBN)))
           {
             Mix_PlayMusic(myMus, 1);
-            continuer = affichageBatailleNavale(screen);
+            continuer = selectionProfil(screen, 2, tabProfils);
+            if (tabProfils[0].nom[0] == '0') return 0;
+            printf("%s, %s\n",tabProfils[0].nom, tabProfils[1].nom );
+            continuer = affichageBatailleNavale(screen, tabProfils);
             if (continuer == 0)
               return 0;
           }

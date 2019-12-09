@@ -349,3 +349,183 @@ char updateChar(char c, char t) {
 SDL_Rect posNoms(SDL_Rect r) {
   return newRect(r.x + 30, r.y + 30, r.h, r.w);
 }
+
+int selectionProfil(SDL_Surface* screen, int nbProfils, tabJP profils) {
+  tabP p;
+  chargementProfils(p);
+  SDL_Event event;
+  int continuer = 1;
+  int trueContinue = 1;
+  int cbChecked[10] = {0};
+  int temp = 0;
+  Coord c;
+  int weCanContinue = 0;
+  int whichOnes[10] = {-1};
+
+  tabJP tableauProfils;
+
+  int profilsTotaux = 0;
+  for (int i = 0; i < 10; i++) {
+    if (p[i].scoreTotal != -1) profilsTotaux++;
+  }
+
+  // Images
+  SDL_Surface* imageFond = NULL;
+  SDL_Surface* checkboxEmpty = NULL;
+  SDL_Surface* checkboxFilled = NULL;
+  SDL_Surface* noms[10];
+  SDL_Surface* barre = NULL;
+  SDL_Surface* attendus = NULL;
+  SDL_Surface* confirmerHover = NULL;
+  SDL_Surface* retourHover = NULL;
+
+  imageFond = IMG_Load("assets/profils/choixProfilsRaw.jpg");
+  checkboxEmpty = IMG_Load("assets/profils/checkboxEmpty.png");
+  checkboxFilled = IMG_Load("assets/profils/checkboxFilled.png");
+  barre = IMG_Load("assets/profils/confirmerBarre.png");
+  confirmerHover = IMG_Load("assets/profils/confirmerHover.png");
+  retourHover = IMG_Load("assets/profils/retourHover.png");
+
+  // Positions
+  SDL_Rect fullscreen = newRect(0, 0, 720, 1280);
+  SDL_Rect positionsCheckbox[10];
+  SDL_Rect positionsNoms[10];
+  for (int i = 0; i < 10; i++) {
+    positionsCheckbox[i] = newRect(50 + (i/5)* 600, 200 + (i%5) * 70, 120, 120);
+    positionsNoms[i] = newRect(200 + (i/5)* 600, 200 + (i%5) * 70, 120, 120);
+  }
+  SDL_Rect positionAttendue = newRect(50, 50, 0, 0);
+  SDL_Rect posAnnuler = newRect(0, 619, 101, 229);
+  SDL_Rect posConfirmer = newRect(987, 620, 100, 293);
+
+  // Textes
+  char buffer[20];
+  char buffer2[50];
+
+  // Couleurs
+  SDL_Color noir = {0, 0, 0, 0};
+
+  // Font
+  TTF_Font *font = NULL;
+  font = TTF_OpenFont(FONT_SKRIBBLE, 25);
+  TTF_Font *font2 = NULL;
+  font2 = TTF_OpenFont(FONT_SKRIBBLE, 20);
+
+  while(continuer == 1) {
+    // Affichage du fond
+    SDL_BlitSurface(imageFond, NULL, screen, &fullscreen);
+    // Affichage des checkbox
+    for (int i = 0; i < profilsTotaux; i++) {
+      if (cbChecked[i] == 0) SDL_BlitSurface(checkboxEmpty, NULL, screen, &positionsCheckbox[i]);
+      if (cbChecked[i] == 1) SDL_BlitSurface(checkboxFilled, NULL, screen, &positionsCheckbox[i]);
+    }
+    // Affichage des noms
+    for (int i = 0; i < 10; i++) {
+      if (temp < profilsTotaux) {
+        if (p[i].scoreTotal != -1) {
+          noms[temp] = creerTexte(screen, p[i].nom, noir, font);
+          temp++;
+        }
+      }
+    }
+    for (int i = 0; i < profilsTotaux; i++) {
+      SDL_BlitSurface(noms[i], NULL, screen, &positionsNoms[i]);
+    }
+    // Compter nb Checked
+    int n = 0;
+    for (int i = 0; i < 10; i++) {
+      whichOnes[i] = -1;
+    }
+    int nombresValeursChecked = 0;
+    for (int i = 0; i < 10; i++) {
+      if (cbChecked[i] == 1) {
+        nombresValeursChecked++;
+        whichOnes[n] = i;
+        n++;
+      }
+
+    }
+    // Recuperation des vrais id
+    int vraisID[10];
+
+
+
+    // Confirmer barre ?
+    if (nombresValeursChecked != nbProfils) {
+      SDL_BlitSurface(barre, NULL, screen, &fullscreen);
+      weCanContinue = 0;
+    } else weCanContinue = 1;
+
+    // Afficher nombre de joueurs attendus
+    sprintf(buffer2, "Joueurs requis : %d", nbProfils);
+    attendus = creerTexte(screen, buffer2, noir, font2);
+    SDL_BlitSurface(attendus, NULL, screen, &positionAttendue);
+
+    // Boucle principale
+    while (SDL_PollEvent(&event))
+    {
+      c.x = event.button.x;
+      c.y = event.button.y;
+
+      switch (event.type)
+      {
+        // On quitte
+      case SDL_QUIT:
+        continuer = 0;
+        trueContinue = 0;
+        break;
+
+      // On clique
+      case SDL_MOUSEBUTTONDOWN:
+        for (int i = 0; i < profilsTotaux; i++) {
+          if (posInclusion(c.x, c.y, positionsCheckbox[i])) {
+            cbChecked[i] = (cbChecked[i]+1)%2;
+          }
+        }
+        if (posInclusion(c.x, c.y, posConfirmer) && (weCanContinue)) {
+          continuer = 0;
+          trueContinue = 1;
+          int n = 0;
+          for (int i = 0; i < 11; i++) {
+            if (p[i].scoreTotal != -1) {
+              if (p[i].ID == whichOnes[n]) {
+                strcpy(profils[n].nom, p[i].nom);
+                profils[n].ID = p[i].ID;
+                profils[n].scoreNavale = p[i].scoreNavale;
+                profils[n].scorePoker = p[i].scorePoker;
+                profils[n].scoreLoto = p[i].scoreLoto;
+                profils[n].scoreSudoku = p[i].scoreSudoku;
+                profils[n].scoreTotal = p[i].scoreTotal;
+                n++;
+              }
+            }
+          }
+        }
+      }
+    }
+    // Hovers boutons
+    if (posInclusion(c.x, c.y, posConfirmer) && (weCanContinue)) {
+      SDL_BlitSurface(confirmerHover, NULL, screen, &fullscreen);
+    }
+    if (posInclusion(c.x, c.y, posAnnuler)) {
+      SDL_BlitSurface(retourHover, NULL, screen, &fullscreen);
+    }
+    SDL_Flip(screen);
+  }
+  return trueContinue;
+}
+
+int iemeProfil(int i) {
+  tabP profils;
+  int step = 0;
+  chargementProfils(profils);
+  for (int a = 0; a < 10; a++) {
+    if (profils[a].scoreTotal != -1) {
+      step++;
+    }
+    if (step == i) {
+      return a;
+    }
+  }
+  return -1;
+}

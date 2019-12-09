@@ -14,19 +14,33 @@
 #include "../../headers/global/constantes.h"
 #include "../../headers/poker/victoirePoker.h"
 #include "../../headers/profils/sauvegarde.h"
+#include "../../headers/profils/chargement.h"
 
 //calcule le score total (au niveau de l appel de victoirePokerFinale, appel de fonction en commentaire pour pas faire crash)
 void scorePoker (CentrePlateau cp, JoueurPoker* t, tabJP jp, int nbJoueurs){
   int i,j,k=0;
-  int argentMax=cp.mise;//argent max present dans la partie, va servir de reference pour le pourcentage du score
+  int argentMax=0;//argent max present dans la partie, va servir de reference pour le pourcentage du score
   for (i=0;i<nbJoueurs;i++){     //boucle pour faire la somme total de l argent present en jeu
-    argentMax=argentMax + t[i].argent;
+    argentMax += t[i].argent;
   }
-  for (j=0;j<=nbJoueurs;j++){
-    if(jp[j].scorePoker<=t[j].argent/argentMax){
-      jp[j].scorePoker=t[j].argent/argentMax;
+  for (j=0;j<nbJoueurs;j++){
+
+    if(jp[j].scorePoker<=100*t[j].argent/(float)argentMax){
+      jp[j].scorePoker=100*t[j].argent/(float)argentMax;
+
     }
   }
+  // sauvegarde
+  tabP p;
+  chargementProfils(p);
+  for (int i = 0; i < 10; i++) {
+    for (int j = 0; j < nbJoueurs; j++) {
+      if (p[i].ID == jp[j].ID) {
+        p[i].scorePoker = jp[j].scorePoker;
+      }
+    }
+  }
+  sauvegardeProfils(p);
 }
 
 
@@ -166,7 +180,7 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
         }
       }
       if (continuer==1) {
-        /*scorePoker(cp,t,jp,p);**/
+        scorePoker(cp,t,jp,nbJoueurs);
         continuer = victoirePokerFinale(screen, t[maxi]);
       }
     }
