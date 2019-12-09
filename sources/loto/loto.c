@@ -14,8 +14,10 @@
 #include "../../headers/loto/grilleLoto.h"
 #include "../../headers/loto/bouleLoto.h"
 #include "../../headers/loto/scoreLoto.h"
+#include "../../headers/profils/chargement.h"
+#include "../../headers/profils/sauvegarde.h"
 
-int afficherLoto(SDL_Surface *screen, int nbJoueurs /*, Profil tabProfil[5]*/)
+int afficherLoto(SDL_Surface *screen, int nbJoueurs , tabJP tabProfil)
 {
 
   srand(time(NULL));
@@ -233,27 +235,42 @@ int afficherLoto(SDL_Surface *screen, int nbJoueurs /*, Profil tabProfil[5]*/)
     //victoire
     if (gagnant != 0)
     {
+
       continuer = victoireLoto(screen, gagnant);
       //modifit le tableau de profil pour enregistrer les meilleurs scores :
-      // for(int i=0; i<nbJoueurs; i++){
-      //   if(i==0){
-      //     tabProfil[i].scoreLoto=scoreLoto(totalPunition[i], grille1, tabProfil[i]);
-      //   }
-      //   else{
-      //     if(i==1){
-      //       tabProfil[i].scoreLoto=scoreLoto(totalPunition[i], grille2, tabProfil[i]);
-      //     }
-      //     else{
-      //       if(i==2){
-      //         tabProfil[i].scoreLoto=scoreLoto(totalPunition[i], grille3, tabProfil[i]);
-      //       }
-      //       else{
-      //         tabProfil[i].scoreLoto=scoreLoto(totalPunition[i], grille4, tabProfil[i]);
-      //       }
-      //     }
-      //   }
-      //
-      // }
+      for(int i=0; i<nbJoueurs; i++){
+        if(i==0){
+          tabProfil[i].scoreLoto=scoreLoto(totalPunition[i], grille1);
+        }
+        else{
+          if(i==1){
+            tabProfil[i].scoreLoto=scoreLoto(totalPunition[i], grille2);
+          }
+          else{
+            if(i==2){
+              tabProfil[i].scoreLoto=scoreLoto(totalPunition[i], grille3);
+            }
+            else{
+              tabProfil[i].scoreLoto=scoreLoto(totalPunition[i], grille4);
+            }
+          }
+        }
+
+      }
+      // Sauvegarde si c'est mieux
+      tabP p;
+      chargementProfils(p);
+
+      for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < nbJoueurs; j++) {
+          if (p[i].ID == tabProfil[j].ID) {
+            if (p[i].scoreLoto < tabProfil[j].scoreLoto) {
+              p[i].scoreLoto = tabProfil[j].scoreLoto;
+            }
+          }
+        }
+      }
+      sauvegardeProfils(p);
 
       /*sprintf(timerText, "Victoire du Joueur %d", gagnant);
       font = TTF_OpenFont(FONT_UBUNTU, 70);

@@ -1,7 +1,7 @@
 #include "../../headers/global/structure.h"
 #include "../../headers/loto/scoreLoto.h"
 
-Profil scoreLoto(int totalPunition, CaseLoto grille[9][3], Profil p)
+int scoreLoto(int totalPunition, CaseLoto grille[9][3])
 {
   //on a le nombre total de punition du joueur qui est en entré (on ne prend que le nombre qui nous
   //interesse dans le tableau total punition dans la fonction loto.c)
@@ -37,10 +37,5 @@ Profil scoreLoto(int totalPunition, CaseLoto grille[9][3], Profil p)
     score = 25 * nbLigne - 5 * totalPunition;
   }
 
-  if (score > p.scoreLoto)
-  {
-    p.scoreLoto = score;
-  }
-
-  return p;
+  return score;
 }

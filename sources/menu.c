@@ -17,9 +17,12 @@
 #include "../headers/poker/poker.h"
 #include "../headers/sudoku/sudoku.h"
 #include "../headers/profils/choixProfils.h"
+#include "../headers/profils/score.h"
+#include "../headers/profils/tabScore.h"
 
 int afficherMenu(SDL_Surface *screen)
 {
+  highscore();
   int continuer = 1;
   SDL_Event event;
   Coord clic;
@@ -62,6 +65,12 @@ int afficherMenu(SDL_Surface *screen)
   profils = IMG_Load("assets/menu/boutonProfilMenu.png");
   profilsHover = IMG_Load("assets/menu/boutonProfilMenuHover.png");
   SDL_Rect boutonProfils = newRect(540, 260, 200, 200);
+  // Scores
+  SDL_Surface *scoreButton = NULL;
+  SDL_Surface *scoreButtonHover = NULL;
+  scoreButton = IMG_Load("assets/menu/scoreButton.png");
+  scoreButtonHover = IMG_Load("assets/menu/scoreButtonHover.png");
+  SDL_Rect boutonScore = newRect(540, 500, 100, 200);
 
   // Sons
   Mix_Music *myMus;
@@ -99,6 +108,12 @@ int afficherMenu(SDL_Surface *screen)
       SDL_BlitSurface(profilsHover, NULL, screen, &boutonProfils);
     else
       SDL_BlitSurface(profils, NULL, screen, &boutonProfils);
+    if (posInclusion(clic.x, clic.y, boutonScore))
+      SDL_BlitSurface(scoreButtonHover, NULL, screen, &boutonScore);
+    else
+      SDL_BlitSurface(scoreButton, NULL, screen, &boutonScore);
+
+
 
     tabJP tabProfils;
 
@@ -147,6 +162,10 @@ int afficherMenu(SDL_Surface *screen)
           if ((posInclusion(clic.x, clic.y, boutonProfils)))
           {
             afficherProfils(screen);
+          }
+          if ((posInclusion(clic.x, clic.y, boutonScore)))
+          {
+            afficherTableauScore(screen);
           }
         }
         break;
