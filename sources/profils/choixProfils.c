@@ -274,6 +274,20 @@ Profil nouveauProfil(SDL_Surface* screen, int nbProfil, Profil oldProfil) {
     SDL_Flip(screen);
 
   }
+
+  SDL_FreeSurface(flecheUp);
+  SDL_FreeSurface(flecheDown);
+  SDL_FreeSurface(flecheUpHover);
+  SDL_FreeSurface(flecheDownHover);
+  SDL_FreeSurface(trashHover);
+  SDL_FreeSurface(annulerHover);
+  SDL_FreeSurface(confirmerHover);
+  SDL_FreeSurface(ecran);
+  for (int i = 0; i < 7; i++) {
+    SDL_FreeSurface(lettreSurface[i]);
+  }
+
+
   return p;
 
 }
@@ -511,6 +525,16 @@ int selectionProfil(SDL_Surface* screen, int nbProfils, tabJP profils) {
       SDL_BlitSurface(retourHover, NULL, screen, &fullscreen);
     }
     SDL_Flip(screen);
+  }
+  SDL_FreeSurface(imageFond);
+  SDL_FreeSurface(checkboxEmpty);
+  SDL_FreeSurface(checkboxFilled);
+  SDL_FreeSurface(barre);
+  SDL_FreeSurface(attendus);
+  SDL_FreeSurface(confirmerHover);
+  SDL_FreeSurface(retourHover);
+  for (int i = 0; i < 10; i++) {
+    SDL_FreeSurface(noms[i]);
   }
   return trueContinue;
 }
