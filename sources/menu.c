@@ -71,6 +71,15 @@ int afficherMenu(SDL_Surface *screen)
   scoreButton = IMG_Load("assets/menu/scoreButton.png");
   scoreButtonHover = IMG_Load("assets/menu/scoreButtonHover.png");
   SDL_Rect boutonScore = newRect(540, 500, 100, 200);
+  //bouton régles (1 surface et 4 rectangles)
+  SDL_Surface *regles = NULL;
+  regles = IMG_Load("assets/menu/tuto.png");
+  SDL_Rect breglesBatailleNavale = newRect(234, 390, 75, 75);
+  SDL_Rect breglesPoker = newRect(1046, 390, 75, 75);
+  SDL_Rect breglesLoto = newRect(234, 650, 75, 75);
+  SDL_Rect breglesSudoku = newRect(1046, 650, 75, 75);
+
+
 
   // Sons
   Mix_Music *myMus;
@@ -82,6 +91,11 @@ int afficherMenu(SDL_Surface *screen)
   {
     SDL_BlitSurface(back, NULL, screen, &background);
     SDL_BlitSurface(titre, NULL, screen, &logo);
+
+    SDL_BlitSurface(regles, NULL, screen, &breglesBatailleNavale);
+    SDL_BlitSurface(regles, NULL, screen, &breglesPoker);
+    SDL_BlitSurface(regles, NULL, screen, &breglesLoto);
+    SDL_BlitSurface(regles, NULL, screen, &breglesSudoku);
 
     //evenements
     clic.x = event.button.x;
@@ -167,6 +181,23 @@ int afficherMenu(SDL_Surface *screen)
           {
             afficherTableauScore(screen);
           }
+          //conditions de clics pour les régles :
+          if (posInclusion(clic.x, clic.y, breglesBatailleNavale))
+          {
+            continuer = reglesBT(screen);
+          }
+          if (posInclusion(clic.x, clic.y, breglesPoker))
+          {
+            continuer = reglesPoker(screen);
+          }
+          if (posInclusion(clic.x, clic.y, breglesLoto))
+          {
+            continuer = reglesLoto(screen);
+          }
+          if (posInclusion(clic.x, clic.y, breglesSudoku))
+          {
+            continuer = reglesSudoku(screen);
+          }
         }
         break;
       }
@@ -187,6 +218,7 @@ int afficherMenu(SDL_Surface *screen)
   SDL_FreeSurface(sudokuHover);
   SDL_FreeSurface(profils);
   SDL_FreeSurface(profilsHover);
+  SDL_FreeSurface(regles);
   Mix_FreeMusic(myMus);
   Mix_CloseAudio();
 }
