@@ -294,11 +294,12 @@ int tourPoker(SDL_Surface *screen, JoueurPoker *j, CentrePlateau *cp, int nbJoue
   font3 = TTF_OpenFont(FONT_UBUNTU, 36);
 
   //Sons
-  Mix_Music *mise;
+  Mix_Music *miseSon;
   Mix_Music *cartes;
   Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
-  mise = Mix_LoadMUS("assets/sounds/mise.wav");
+  miseSon = Mix_LoadMUS("assets/sounds/mise.wav");
   cartes = Mix_LoadMUS("assets/sounds/cartes.wav");
+  int sonMiseDejaJoue = 0;
 
   // Positions
   SDL_Rect fullscreen = newRect(0, 0, 720, 1280);
@@ -586,9 +587,13 @@ int tourPoker(SDL_Surface *screen, JoueurPoker *j, CentrePlateau *cp, int nbJoue
     if ((choix == 1) || (choix == 3) || (choix == 4) || ((choix == 2) && (etat == 2)))
     {
       SDL_BlitSurface(boutonNext, NULL, screen, &fullscreen);
+      if (choix != 3 && sonMiseDejaJoue == 0) {
+        // Different de passer
+        Mix_PlayMusic(miseSon, 1);
+        sonMiseDejaJoue = 1;
+      }
       if (posInclusion(c.x, c.y, posNextButton))
       {
-        if(choix == 2) Mix_PlayMusic(mise, 1);
         SDL_BlitSurface(nextSelection, NULL, screen, &posNextButton);
       }
     }
@@ -613,7 +618,7 @@ int tourPoker(SDL_Surface *screen, JoueurPoker *j, CentrePlateau *cp, int nbJoue
   SDL_FreeSurface(texteCurrentManche);
   SDL_FreeSurface(texteTotalManche);
   SDL_FreeSurface(texteMiseMinimumActuelle);
-  Mix_FreeMusic(mise);
+  Mix_FreeMusic(miseSon);
   Mix_FreeMusic(cartes);
   TTF_CloseFont(font);
   TTF_CloseFont(font2);
