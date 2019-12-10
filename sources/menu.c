@@ -40,25 +40,25 @@ int afficherMenu(SDL_Surface *screen)
   SDL_Surface *batailleHover = NULL;
   bataille = IMG_Load("assets/menu/batailleNavale.png");
   batailleHover = IMG_Load("assets/menu/batailleNavaleHover.png");
-  SDL_Rect boutonBN = newRect(0, 260, 468, 130);
+  SDL_Rect boutonBN = newRect(0, 240, 468, 130);
   //jeu poker
   SDL_Surface *poker = NULL;
   SDL_Surface *pokerHover = NULL;
   poker = IMG_Load("assets/menu/poker.png");
   pokerHover = IMG_Load("assets/menu/pokerHover.png");
-  SDL_Rect boutonPoker = newRect(812, 260, 468, 130);
+  SDL_Rect boutonPoker = newRect(812, 240, 468, 130);
   //loto
   SDL_Surface *loto = NULL;
   SDL_Surface *lotoHover = NULL;
   loto = IMG_Load("assets/menu/loto.png");
   lotoHover = IMG_Load("assets/menu/lotoHover.png");
-  SDL_Rect boutonLoto = newRect(0, 520, 468, 130);
+  SDL_Rect boutonLoto = newRect(0, 500, 468, 130);
   //sudoku
   SDL_Surface *sudoku = NULL;
   SDL_Surface *sudokuHover = NULL;
   sudoku = IMG_Load("assets/menu/sudoku.png");
   sudokuHover = IMG_Load("assets/menu/sudokuHover.png");
-  SDL_Rect boutonSudoku = newRect(812, 520, 468, 130);
+  SDL_Rect boutonSudoku = newRect(812, 500, 468, 130);
   // choixProfils
   SDL_Surface *profils = NULL;
   SDL_Surface *profilsHover = NULL;
@@ -74,10 +74,10 @@ int afficherMenu(SDL_Surface *screen)
   //bouton régles (1 surface et 4 rectangles)
   SDL_Surface *regles = NULL;
   regles = IMG_Load("assets/menu/tuto.png");
-  SDL_Rect breglesBatailleNavale = newRect(234, 390, 75, 75);
-  SDL_Rect breglesPoker = newRect(1046, 390, 75, 75);
-  SDL_Rect breglesLoto = newRect(234, 650, 75, 75);
-  SDL_Rect breglesSudoku = newRect(1046, 650, 75, 75);
+  SDL_Rect breglesBatailleNavale = newRect(234, 370, 75, 75);
+  SDL_Rect breglesPoker = newRect(1046, 370, 75, 75);
+  SDL_Rect breglesLoto = newRect(234, 630, 75, 75);
+  SDL_Rect breglesSudoku = newRect(1046, 630, 75, 75);
 
 
 
