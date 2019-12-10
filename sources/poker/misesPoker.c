@@ -6,7 +6,7 @@ void miseJeu(JoueurPoker *j, CentrePlateau *p, int choix, int value)
   int a = 0;
   while (a == 0)
   {
-    printf("Votre choix 1=suivre; 2=relance; 3= se coucher 4=tapis\n");
+
     switch (choix)
     {
     case 1: //Suivre
@@ -50,7 +50,7 @@ void suivre(JoueurPoker *j, CentrePlateau *p)
 
 void relancer(JoueurPoker *j, CentrePlateau *p, int value)
 {
-  printf("1 pour valider mise 0= continuer a  monter la mise\n");
+  
 
   j->argent -= value;
   p->mise += value;

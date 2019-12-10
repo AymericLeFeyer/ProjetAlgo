@@ -11,31 +11,10 @@
 #include "../../headers/poker/mainsPoker.h"
 #include "../../headers/global/shortcuts.h"
 #include "../../headers/poker/poker.h"
-
-//lance une partie de poker en textuel
-void poker()
-{
-  srand(time(NULL));
-  JoueurPoker joueurs[5];
-  CentrePlateau centre;
-  int nbJoueurs = 2;
-  int miseDepart = 5;
-  int nbTours = 2;
-  int argentDepart = 50;
-  printf("nombre de joueurs ? ");
-  scanf("%d", &nbJoueurs);
-  printf("mise de depart ? ");
-  scanf("%d", &miseDepart);
-  printf("nombre de manches ? ");
-  scanf("%d", &nbTours);
-  printf("jetons au depart pour les joueurs ? ");
-  scanf("%d", &argentDepart);
-  //tourPartie(centre, joueurs,nbJoueurs,nbTours,argentDepart,miseDepart);
-}
+#include "../../headers/profils/choixProfils.h"
 
 // poker en graphique
 int affichagePoker(SDL_Surface* screen) {
-//variable pour profil
   tabJP jp;
   // variables pour la boucle principale
   SDL_Event event;
@@ -180,6 +159,7 @@ int affichagePoker(SDL_Surface* screen) {
         // Commencer la partie
         if (posInclusion(c.x, c.y, posNextButton) && continuer == 1)
         {
+          continuer = selectionProfil(screen, nbJoueurs, jp);
           continuer = tourPartie(screen, centre, joueurs, nbJoueurs, nbTours, argentDepart, miseDepart,jp);
         }
       }

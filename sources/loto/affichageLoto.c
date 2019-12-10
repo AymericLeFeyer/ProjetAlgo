@@ -5,6 +5,7 @@
 #include "../../headers/global/constantes.h"
 #include "../../headers/loto/loto.h"
 #include "../../headers/loto/affichageLoto.h"
+#include "../../headers/profils/choixProfils.h"
 
 //permet d'afficher les grilles de loto des joueurs
 void afficheGrilleLoto(CaseLoto t[9][3], SDL_Surface *screen, int numJoueur, TTF_Font *font, SDL_Surface *texte, int punition[4])
@@ -135,6 +136,9 @@ void afficherJeuLoto(SDL_Surface *screen, TTF_Font *font, SDL_Surface *texte, in
 //gére le menu de choix de joueur du loto
 int menuChoixJoueur(SDL_Surface *screen)
 {
+  // scores
+  tabJP jp;
+
   int continuer = 1;
   SDL_Event event;
   Coord clic;
@@ -182,19 +186,23 @@ int menuChoixJoueur(SDL_Surface *screen)
           //conditions des clics
           if (posInclusion(clic.x, clic.y, un))
           {
-            continuer = afficherLoto(screen, 1);
+            continuer = selectionProfil(screen, 1, jp);
+            continuer = afficherLoto(screen, 1, jp);
           }
           if (posInclusion(clic.x, clic.y, deux))
           {
-            continuer = afficherLoto(screen, 2);
+            continuer = selectionProfil(screen, 2, jp);
+            continuer = afficherLoto(screen, 2, jp);
           }
           if (posInclusion(clic.x, clic.y, trois))
           {
-            continuer = afficherLoto(screen, 3);
+            continuer = selectionProfil(screen, 3, jp);
+            continuer = afficherLoto(screen, 3, jp);
           }
           if (posInclusion(clic.x, clic.y, quatre))
           {
-            continuer = afficherLoto(screen, 4);
+            continuer = selectionProfil(screen, 4, jp);
+            continuer = afficherLoto(screen, 4, jp);
           }
           if (posInclusion(clic.x, clic.y, menu))
           {

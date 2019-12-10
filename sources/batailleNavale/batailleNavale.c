@@ -15,33 +15,14 @@
 #include "../../headers/profils/chargement.h"
 #include "../../headers/profils/sauvegarde.h"
 
-void selectionProfil(tabP p, tabJP jp)
-{
-  int Joueur = 0; //0 = j1 et 1=j2
-  int i = 0;
-  //affichage de tous les profils
-  while (i != 2)
-  {
-    if (Joueur == 0)
-    {
-      //clique sur un profil et jp[0] prend la valeur du profil choisi
-      Joueur++;
-    }
-    else
-    {
-      //clique sur un profil et jp[1] prend la valeur du profil choisi
-    }
-    i++;
-  }
-}
 
-int affichageBatailleNavale(SDL_Surface *screen)
+int affichageBatailleNavale(SDL_Surface *screen, tabJP jp)
 {
   tabP p;
-  tabJP jp;
-  JoueurBatailleNavale j1, j2;
   chargementProfils(p);
-  selectionProfil(p, jp);
+
+  JoueurBatailleNavale j1, j2;
+
   int calcul = 0;
   j1 = initJoueurBN(1, 10, 10);
   j2 = initJoueurBN(2, 10, 10);

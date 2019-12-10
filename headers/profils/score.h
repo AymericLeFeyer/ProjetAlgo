@@ -1,1 +1,1 @@
-void highscore(tabP p);
+void highscore();
