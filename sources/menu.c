@@ -190,3 +190,171 @@ int afficherMenu(SDL_Surface *screen)
   Mix_FreeMusic(myMus);
   Mix_CloseAudio();
 }
+
+//affiche les regles de la bataille Navale
+int reglesBT(SDL_Surface *screen){
+  int continuer = 1;
+  SDL_Event event;
+  Coord clic;
+  SDL_Surface *reglesbt = NULL;
+  reglesbt = IMG_Load("assets/imagesRegles/reglesBatailleNavale.png");
+  SDL_Rect reglesBatailleNavale = newRect(0, 0, 1280, 720);
+
+  while (continuer ==1){
+    SDL_BlitSurface(reglesbt, NULL, screen, &reglesBatailleNavale);
+
+    SDL_Flip(screen);
+    clic.x = event.button.x;
+    clic.y = event.button.y;
+
+    while (SDL_PollEvent(&event))
+    {
+      switch (event.type)
+      {
+      case SDL_QUIT:
+        continuer = 0;
+
+        break;
+
+      case SDL_MOUSEBUTTONDOWN:
+        if (event.button.button == SDL_BUTTON_LEFT)
+        {
+          //conditions clics
+          if (posInclusion(clic.x, clic.y, reglesBatailleNavale))
+          {
+            continuer = 2;
+          }
+        }
+        break;
+      }
+    }
+  }
+  SDL_FreeSurface(reglesbt);
+  return continuer;
+}
+
+//affiche les regles du poker
+int reglesPoker(SDL_Surface *screen){
+  int continuer = 1;
+  SDL_Event event;
+  Coord clic;
+  SDL_Surface *reglesp = NULL;
+  reglesp = IMG_Load("assets/imagesRegles/reglesPoker.png");
+  SDL_Rect reglesPoker = newRect(0, 0, 1280, 720);
+
+  while (continuer ==1){
+    SDL_BlitSurface(reglesp, NULL, screen, &reglesPoker);
+
+    SDL_Flip(screen);
+    clic.x = event.button.x;
+    clic.y = event.button.y;
+
+    while (SDL_PollEvent(&event))
+    {
+      switch (event.type)
+      {
+      case SDL_QUIT:
+        continuer = 0;
+
+        break;
+
+      case SDL_MOUSEBUTTONDOWN:
+        if (event.button.button == SDL_BUTTON_LEFT)
+        {
+          //conditions clics
+          if (posInclusion(clic.x, clic.y, reglesPoker))
+          {
+            continuer = 2;
+          }
+        }
+        break;
+      }
+    }
+  }
+  SDL_FreeSurface(reglesp);
+  return continuer;
+}
+
+//affiche les regles du sudoku
+int reglesSudoku(SDL_Surface *screen){
+  int continuer = 1;
+  SDL_Event event;
+  Coord clic;
+  SDL_Surface *regless = NULL;
+  regless = IMG_Load("assets/imagesRegles/reglesSudoku.png");
+  SDL_Rect reglesSudoku = newRect(0, 0, 1280, 720);
+
+  while (continuer ==1){
+    SDL_BlitSurface(regless, NULL, screen, &reglesSudoku);
+
+    SDL_Flip(screen);
+    clic.x = event.button.x;
+    clic.y = event.button.y;
+
+    while (SDL_PollEvent(&event))
+    {
+      switch (event.type)
+      {
+      case SDL_QUIT:
+        continuer = 0;
+
+        break;
+
+      case SDL_MOUSEBUTTONDOWN:
+        if (event.button.button == SDL_BUTTON_LEFT)
+        {
+          //conditions clics
+          if (posInclusion(clic.x, clic.y, reglesSudoku))
+          {
+            continuer = 2;
+          }
+        }
+        break;
+      }
+    }
+  }
+  SDL_FreeSurface(regless);
+  return continuer;
+}
+
+//affiche les regles du loto
+int reglesLoto(SDL_Surface *screen){
+  int continuer = 1;
+  SDL_Event event;
+  Coord clic;
+  SDL_Surface *reglesl = NULL;
+  reglesl = IMG_Load("assets/imagesRegles/reglesLoto.png");
+  SDL_Rect reglesLoto = newRect(0, 0, 1280, 720);
+
+  while (continuer ==1){
+    SDL_BlitSurface(reglesl, NULL, screen, &reglesLoto);
+
+    SDL_Flip(screen);
+    clic.x = event.button.x;
+    clic.y = event.button.y;
+
+    while (SDL_PollEvent(&event))
+    {
+      switch (event.type)
+      {
+      case SDL_QUIT:
+        continuer = 0;
+
+        break;
+
+      case SDL_MOUSEBUTTONDOWN:
+        if (event.button.button == SDL_BUTTON_LEFT)
+        {
+          //conditions clics
+          if (posInclusion(clic.x, clic.y, reglesLoto))
+          {
+            continuer = 2;
+          }
+        }
+        break;
+      }
+    }
+  }
+  SDL_FreeSurface(reglesl);
+  return continuer;
+}
