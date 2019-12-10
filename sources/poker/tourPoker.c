@@ -2,6 +2,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
+#include <SDL/SDL_mixer.h>
 #include <time.h>
 
 #include "../../headers/global/structure.h"
@@ -17,25 +18,30 @@
 #include "../../headers/profils/chargement.h"
 
 //calcule le score total (au niveau de l appel de victoirePokerFinale, appel de fonction en commentaire pour pas faire crash)
-void scorePoker (CentrePlateau cp, JoueurPoker* t, tabJP jp, int nbJoueurs){
+void scorePoker (CentrePlateau cp, JoueurPoker* t, tabJP jp, int nbJoueurs)
+{
   int i,j,k=0;
   int argentMax=0;//argent max present dans la partie, va servir de reference pour le pourcentage du score
-  for (i=0;i<nbJoueurs;i++){     //boucle pour faire la somme total de l argent present en jeu
+  for (i=0;i<nbJoueurs;i++)
+  {     //boucle pour faire la somme total de l argent present en jeu
     argentMax += t[i].argent;
   }
-  for (j=0;j<nbJoueurs;j++){
-
-    if(jp[j].scorePoker<=100*t[j].argent/(float)argentMax){
+  for (j=0;j<nbJoueurs;j++)
+  {
+    if(jp[j].scorePoker<=100*t[j].argent/(float)argentMax)
+    {
       jp[j].scorePoker=100*t[j].argent/(float)argentMax;
-
     }
   }
   // sauvegarde
   tabP p;
   chargementProfils(p);
-  for (int i = 0; i < 10; i++) {
-    for (int j = 0; j < nbJoueurs; j++) {
-      if (p[i].ID == jp[j].ID) {
+  for (int i = 0; i < 10; i++)
+  {
+    for (int j = 0; j < nbJoueurs; j++)
+    {
+      if (p[i].ID == jp[j].ID)
+      {
         p[i].scorePoker = jp[j].scorePoker;
       }
     }
@@ -287,6 +293,13 @@ int tourPoker(SDL_Surface *screen, JoueurPoker *j, CentrePlateau *cp, int nbJoue
   TTF_Font *font3 = NULL;
   font3 = TTF_OpenFont(FONT_UBUNTU, 36);
 
+  //Sons
+  Mix_Music *mise;
+  Mix_Music *cartes;
+  Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
+  mise = Mix_LoadMUS("assets/sounds/mise.wav");
+  cartes = Mix_LoadMUS("assets/sounds/cartes.wav");
+
   // Positions
   SDL_Rect fullscreen = newRect(0, 0, 720, 1280);
   SDL_Rect posZoneJetonsPersos = newRect(883, 558, 108, 108);
@@ -463,8 +476,12 @@ int tourPoker(SDL_Surface *screen, JoueurPoker *j, CentrePlateau *cp, int nbJoue
         {
           // On poursuit
           if (relanceMise <= j->argent)
+          {
             if (etat)
+            {
               etat = 2;
+            }
+          }
         }
       }
       break;
@@ -571,10 +588,10 @@ int tourPoker(SDL_Surface *screen, JoueurPoker *j, CentrePlateau *cp, int nbJoue
       SDL_BlitSurface(boutonNext, NULL, screen, &fullscreen);
       if (posInclusion(c.x, c.y, posNextButton))
       {
+        if(choix == 2) Mix_PlayMusic(mise, 1);
         SDL_BlitSurface(nextSelection, NULL, screen, &posNextButton);
       }
     }
-
     SDL_Flip(screen);
   }
   SDL_FreeSurface(troisOptionsWhiteSelection);
@@ -596,6 +613,8 @@ int tourPoker(SDL_Surface *screen, JoueurPoker *j, CentrePlateau *cp, int nbJoue
   SDL_FreeSurface(texteCurrentManche);
   SDL_FreeSurface(texteTotalManche);
   SDL_FreeSurface(texteMiseMinimumActuelle);
+  Mix_FreeMusic(mise);
+  Mix_FreeMusic(cartes);
   TTF_CloseFont(font);
   TTF_CloseFont(font2);
   TTF_CloseFont(font3);
