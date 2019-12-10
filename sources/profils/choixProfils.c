@@ -536,9 +536,15 @@ int selectionProfil(SDL_Surface* screen, int nbProfils, tabJP profils) {
   SDL_FreeSurface(attendus);
   SDL_FreeSurface(confirmerHover);
   SDL_FreeSurface(retourHover);
-  // for (int i = 0; i < 10; i++) {
-  //   SDL_FreeSurface(noms[i]);
-  // }
+  temp=0;
+  for (int i = 0; i < 10; i++) {
+    if (temp < profilsTotaux) {
+      if (p[i].scoreTotal != -1) {
+        SDL_FreeSurface(noms[temp]);
+        temp++;
+      }
+    }
+  }
   return trueContinue;
 }
 
