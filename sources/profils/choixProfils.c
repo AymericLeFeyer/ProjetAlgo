@@ -189,6 +189,7 @@ Profil nouveauProfil(SDL_Surface* screen, int nbProfil, Profil oldProfil) {
   SDL_Surface* lettreSurface[7];
 
 
+  char temp[10];
   while(continuer) {
     // Coords de la souris
     c.x = event.button.x;
@@ -204,7 +205,9 @@ Profil nouveauProfil(SDL_Surface* screen, int nbProfil, Profil oldProfil) {
     }
     // Affichage des lettres
     for (int i = 0; i < 7; i++) {
-      lettreSurface[i] = creerTexte(screen, toString(p.nom[i]), noir, font);
+      sprintf(temp, "%c", p.nom[i]);
+      lettreSurface[i] = TTF_RenderText_Solid(font,temp, noir);
+      //lettreSurface[i] = creerTexte(screen, toString(p.nom[i]), noir, font);
       SDL_BlitSurface(lettreSurface[i], NULL, screen, &posLettres[i]);
     }
 
