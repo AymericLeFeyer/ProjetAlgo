@@ -304,6 +304,7 @@ int afficherLoto(SDL_Surface *screen, int nbJoueurs , tabJP tabProfil)
   Mix_FreeMusic(boule);
   Mix_FreeMusic(ok);
   Mix_FreeMusic(non);
+  Mix_CloseAudio();
   return continuer;
 }
 //joueur 1: ctrl g

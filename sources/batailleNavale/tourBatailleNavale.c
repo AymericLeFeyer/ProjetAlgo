@@ -293,6 +293,7 @@ int aToiDeJouer(SDL_Surface *screen, JoueurBatailleNavale *j1, JoueurBatailleNav
   Mix_FreeMusic(ploc);
   Mix_FreeMusic(touche2);
   Mix_FreeMusic(coule);
+  Mix_CloseAudio();
   return continuer;
 }
 
@@ -364,7 +365,7 @@ int tcr(int x, int y, JoueurBatailleNavale *victime, JoueurBatailleNavale *attaq
       return 0;
     }
     victime->tab[4].pv--;
-    
+
     return 1;
     break;
   default:
