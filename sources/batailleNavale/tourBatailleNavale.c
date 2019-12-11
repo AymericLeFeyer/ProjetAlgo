@@ -179,7 +179,7 @@ int aToiDeJouer(SDL_Surface *screen, JoueurBatailleNavale *j1, JoueurBatailleNav
               {
                 if (valeurTCR == 1) Mix_PlayMusic(touche2, 1);
                 if (valeurTCR == 2) Mix_PlayMusic(ploc, 1);
-                if (valeurTCR == 3) Mix_PlayMusic(coule, 1);
+
                 j1->infos.tab[indexA][indexB] = valeurTCR;
                 aJoue = true;
               }
@@ -241,8 +241,8 @@ int aToiDeJouer(SDL_Surface *screen, JoueurBatailleNavale *j1, JoueurBatailleNav
         case 2:
           SDL_BlitSurface(rate, NULL, screen, &posCroix);
           break;
-        case 3:
-          SDL_BlitSurface(touche, NULL, screen, &posCroix);
+
+
         defaut:
           break;
         }
@@ -320,7 +320,7 @@ int tcr(int x, int y, JoueurBatailleNavale *victime, JoueurBatailleNavale *attaq
       return 0;
     }
     victime->tab[0].pv--;
-    if(victime->tab[0].pv == 0) return 3;
+
     return 1;
     break;
   case 11:
@@ -331,7 +331,7 @@ int tcr(int x, int y, JoueurBatailleNavale *victime, JoueurBatailleNavale *attaq
       return 0;
     }
     victime->tab[1].pv--;
-    if(victime->tab[1].pv == 0) return 3;
+
     return 1;
     break;
   case 12:
@@ -342,7 +342,7 @@ int tcr(int x, int y, JoueurBatailleNavale *victime, JoueurBatailleNavale *attaq
       return 0;
     }
     victime->tab[2].pv--;
-    if(victime->tab[2].pv == 0) return 3;
+
     return 1;
     break;
   case 13:
@@ -353,7 +353,7 @@ int tcr(int x, int y, JoueurBatailleNavale *victime, JoueurBatailleNavale *attaq
       return 0;
     }
     victime->tab[3].pv--;
-    if(victime->tab[3].pv == 0) return 3;
+
     return 1;
     break;
   case 14:
@@ -364,7 +364,7 @@ int tcr(int x, int y, JoueurBatailleNavale *victime, JoueurBatailleNavale *attaq
       return 0;
     }
     victime->tab[4].pv--;
-    if(victime->tab[4].pv == 0) return 3;
+    
     return 1;
     break;
   default:
