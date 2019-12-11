@@ -20,5 +20,4 @@ void highscore()
 
   }
   sauvegardeProfils(p);
-
 }

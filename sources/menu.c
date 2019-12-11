@@ -182,7 +182,7 @@ int afficherMenu(SDL_Surface *screen)
           }
           if ((posInclusion(clic.x, clic.y, boutonScore)))
           {
-            afficherTableauScore(screen);
+            afficherTableauScore(screen, 'a');
           }
           //conditions de clics pour les régles :
           if (posInclusion(clic.x, clic.y, breglesBatailleNavale))
