@@ -142,7 +142,7 @@ int afficherMenu(SDL_Surface *screen)
         continuer = 0;
         return 0;
         break;
-
+      
       case SDL_MOUSEBUTTONDOWN:
         if (event.button.button == SDL_BUTTON_LEFT)
         {

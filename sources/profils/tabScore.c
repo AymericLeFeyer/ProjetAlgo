@@ -19,6 +19,11 @@ int afficherTableauScore(SDL_Surface* screen, char jeu) {
   tabP trie;
   char next = 'z';
   chargementProfils(p);
+  int nbProfils;
+
+  for (int i = 0; i < 10; i++) {
+    if (p[i].scoreTotal != -1) nbProfils++;
+  }
 
   // Images
   SDL_Surface* batailleNavale = NULL;
@@ -202,6 +207,7 @@ int afficherTableauScore(SDL_Surface* screen, char jeu) {
   SDL_FreeSurface(nextHover);
   SDL_FreeSurface(backHover);
   SDL_FreeSurface(aymericMeilleurQueToi);
+  
 
   if (next != 'z') afficherTableauScore(screen, next);
   return continuer;
