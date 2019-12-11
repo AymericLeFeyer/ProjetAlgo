@@ -186,10 +186,8 @@ int playSudoku(SDL_Surface *screen, int difficulte, time_t temps,tabJP jp, tabP 
   Mix_Music *ok;
   Mix_Music *non;
   Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
-  ok = Mix_LoadMUS("assets/sounds/ok-sudoku.wav");
+  ok = Mix_LoadMUS("assets/sounds/ok-loto.wav");
   non = Mix_LoadMUS("assets/sounds/non-.wav");
-  int sonOkDejaJoue = 0;
-  int sonNonDejaJoue = 0;
 
   // il faut random le numero dans la fonction, selon la difficulte
   int niveau = 0;
@@ -352,23 +350,11 @@ int playSudoku(SDL_Surface *screen, int difficulte, time_t temps,tabJP jp, tabP 
             // Le chiffre est coherent
             if (detection(cTab, J))
             {
-              //Le son va se jouer une fois lors de la première case réussie mais après non
-              if(sonOkDejaJoue == 0)
-              {
-                Mix_PlayMusic(ok, 1);
-                sonOkDejaJoue = 1;
-              }
               SDL_BlitSurface(nbVerts[J.g.tab[i][j] - 1], NULL, screen, &positionsNumeros[i][j]);
             }
             // Le chiffre n'est pas coherent
             else
             {
-              //Idem pour celui-ci
-              if(sonNonDejaJoue == 0)
-              {
-                Mix_PlayMusic(non, 1);
-                sonNonDejaJoue = 1;
-              }
               SDL_BlitSurface(nbRouges[J.g.tab[i][j] - 1], NULL, screen, &positionsNumeros[i][j]);
             }
 
@@ -440,6 +426,7 @@ int playSudoku(SDL_Surface *screen, int difficulte, time_t temps,tabJP jp, tabP 
             }
             if (newNum)
             {
+
               // On parcours pour savoir quelle case est cliquee
               for (int i = 0; i < 3; i++)
               {
@@ -450,6 +437,19 @@ int playSudoku(SDL_Surface *screen, int difficulte, time_t temps,tabJP jp, tabP 
                     nouveau = (i + j * 3) + 1;
                     J.g.tab[onClicked.x][onClicked.y] = nouveau;
                     newNum = 0;
+                    cTab.x=onClicked.x;
+                    cTab.y=onClicked.y;
+                    if (detection(cTab, J))
+                    {
+                      //Le son va se jouer une fois lors de la première case réussie mais après non
+                        Mix_PlayMusic(ok, 1);
+                    }
+                    // Le chiffre n'est pas coherent
+                    else
+                    {
+                      //Idem pour celui-ci
+                        Mix_PlayMusic(non, 1);
+                    }
                   }
                 }
               }
