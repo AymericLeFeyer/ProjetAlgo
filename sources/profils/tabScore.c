@@ -31,7 +31,7 @@ void afficherTableauScore(SDL_Surface* screen, char jeu) {
   SDL_Surface* backHover = NULL;
   SDL_Surface* nextHover = NULL;
   SDL_Surface* surfaceNom[10];
-  SDL_Surface* aymericPlusFortQueToi = NULL;
+  SDL_Surface* aymericMeilleurQueToi = NULL;
 
   batailleNavale = IMG_Load("assets/menu/batailleNavale.png");
   poker = IMG_Load("assets/menu/poker.png");
@@ -42,7 +42,7 @@ void afficherTableauScore(SDL_Surface* screen, char jeu) {
   menuHover = IMG_Load("assets/menu/menuHover.png");
   backHover = IMG_Load("assets/menu/backHover.png");
   nextHover = IMG_Load("assets/menu/nextHover.png");
-  aymericPlusFortQueToi = IMG_Load("assets/menu/aymericPlusFortQueToi.png");
+  aymericMeilleurQueToi = IMG_Load("assets/menu/aymericMeilleurQueToi.png");
 
   // Positions
   SDL_Rect fullscreen = newRect(0, 0, 720, 1280);
@@ -52,8 +52,9 @@ void afficherTableauScore(SDL_Surface* screen, char jeu) {
   SDL_Rect posJeu = newRect(412, 12, 130, 468);
   SDL_Rect positionNom[10];
   for (int i = 0; i < 10; i++) {
-    positionNom[i] = newRect(550, 200 + 40 * i, 0, 0);
+    positionNom[i] = newRect(550, 250 + 40 * i, 0, 0);
   }
+  SDL_Rect posAymeric = newRect(450, 150, 100, 275);
 
   // Couleurs
   SDL_Color blanc = {255, 255, 255, 0};
@@ -130,6 +131,7 @@ void afficherTableauScore(SDL_Surface* screen, char jeu) {
         case 'a':
           // All
           SDL_BlitSurface(all, NULL, screen, &posJeu);
+          SDL_BlitSurface(aymericMeilleurQueToi, NULL, screen, &posAymeric);
           triProfils(p, trie, 'a');
           // Affichage scores
           for (int i = 0; i < 10; i++) {
@@ -199,6 +201,7 @@ void afficherTableauScore(SDL_Surface* screen, char jeu) {
   SDL_FreeSurface(menuHover);
   SDL_FreeSurface(nextHover);
   SDL_FreeSurface(backHover);
+  SDL_FreeSurface(aymericMeilleurQueToi);
 
   if (next != 'z') afficherTableauScore(screen, next);
 }

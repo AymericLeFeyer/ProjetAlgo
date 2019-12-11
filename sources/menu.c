@@ -22,7 +22,7 @@
 
 int afficherMenu(SDL_Surface *screen)
 {
-  highscore();
+
   int continuer = 1;
   SDL_Event event;
   Coord clic;
@@ -91,6 +91,7 @@ int afficherMenu(SDL_Surface *screen)
   //tout afficher
   while (continuer > 0)
   {
+    highscore();
     SDL_BlitSurface(back, NULL, screen, &background);
     SDL_BlitSurface(titre, NULL, screen, &logo);
 
@@ -148,7 +149,7 @@ int afficherMenu(SDL_Surface *screen)
           //conditions des clics
           if ((posInclusion(clic.x, clic.y, boutonBN)))
           {
-            Mix_PlayMusic(myMus, 1);
+            // Mix_PlayMusic(myMus, 1);
             continuer = selectionProfil(screen, 2, tabProfils);
             if (continuer == 1)
               continuer = affichageBatailleNavale(screen, tabProfils);
