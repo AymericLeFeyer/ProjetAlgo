@@ -137,6 +137,7 @@ int afficherMenu(SDL_Surface *screen)
       {
       case SDL_QUIT:
         continuer = 0;
+        return 0;
         break;
 
       case SDL_MOUSEBUTTONDOWN:
@@ -147,23 +148,29 @@ int afficherMenu(SDL_Surface *screen)
           {
             Mix_PlayMusic(myMus, 1);
             continuer = selectionProfil(screen, 2, tabProfils);
-            if (continuer==1) {
-              if (tabProfils[0].nom[0] == '0') return 0;
-              printf("%s, %s\n",tabProfils[0].nom, tabProfils[1].nom );
-              continuer = affichageBatailleNavale(screen, tabProfils);
-            }
+            if (tabProfils[0].nom[0] == '0') return 0;
+            printf("%s, %s\n",tabProfils[0].nom, tabProfils[1].nom );
+            continuer = affichageBatailleNavale(screen, tabProfils);
+            if (continuer == 0)
+              return 0;
           }
           if ((posInclusion(clic.x, clic.y, boutonPoker)))
           {
             continuer = affichagePoker(screen);
+            if (continuer == 0)
+              return 0;
           }
           if ((posInclusion(clic.x, clic.y, boutonLoto)))
           {
             continuer = menuChoixJoueur(screen); //raméne au menu de choix de joueur du loto
+            if (continuer == 0)
+              return 0;
           }
           if ((posInclusion(clic.x, clic.y, boutonSudoku)))
           {
             continuer = affichageSudoku(screen);
+            if (continuer == 0)
+              return 0;
           }
 
           if ((posInclusion(clic.x, clic.y, boutonProfils)))
