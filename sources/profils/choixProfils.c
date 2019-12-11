@@ -51,13 +51,14 @@ void afficherProfils(SDL_Surface *screen)
   font = TTF_OpenFont(FONT_SKRIBBLE, 20);
 
   // Nombre actuel de profils
-  int nbProfils = 0;
-  for (int i = 0; i < 10; i++) {
-    if (profils[i].scoreTotal != -1) nbProfils++;
-  }
+
 
   while (continuer)
   {
+    int nbProfils = 0;
+    for (int i = 0; i < 10; i++) {
+      if (profils[i].scoreTotal != -1) nbProfils++;
+    }
     SDL_BlitSurface(ecranProfils, NULL, screen, &fullscreen);
 
     for (int i = 0; i < 10; i++) {
@@ -90,7 +91,14 @@ void afficherProfils(SDL_Surface *screen)
 
         for (int i = 0; i < 10; i++) {
           if (posInclusion(c.x, c.y, positionsFrameProfils[i%5][i/5])) {
-            profils[nbProfils] = nouveauProfil(screen, nbProfils, profils[nbProfils]);
+            // Nouveau profil
+
+            if (profils[i].scoreTotal != -1) {
+              profils[i].scoreTotal = -1;
+            }
+            else {
+              profils[nbProfils] = nouveauProfil(screen, nbProfils, profils[nbProfils]);
+            }
           }
         }
 
