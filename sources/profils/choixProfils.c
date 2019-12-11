@@ -532,6 +532,10 @@ int selectionProfil(SDL_Surface* screen, int nbProfils, tabJP profils) {
             }
           }
         }
+        if (posInclusion(c.x, c.y, posAnnuler)) {
+          continuer = 0;
+          trueContinue = 2;
+        }
       }
     }
     // Hovers boutons

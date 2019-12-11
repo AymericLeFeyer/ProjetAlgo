@@ -187,22 +187,22 @@ int menuChoixJoueur(SDL_Surface *screen)
           if (posInclusion(clic.x, clic.y, un))
           {
             continuer = selectionProfil(screen, 1, jp);
-            continuer = afficherLoto(screen, 1, jp);
+            if (continuer == 1) continuer = afficherLoto(screen, 1, jp);
           }
           if (posInclusion(clic.x, clic.y, deux))
           {
             continuer = selectionProfil(screen, 2, jp);
-            continuer = afficherLoto(screen, 2, jp);
+            if (continuer == 1) continuer = afficherLoto(screen, 2, jp);
           }
           if (posInclusion(clic.x, clic.y, trois))
           {
             continuer = selectionProfil(screen, 3, jp);
-            continuer = afficherLoto(screen, 3, jp);
+            if (continuer == 1) continuer = afficherLoto(screen, 3, jp);
           }
           if (posInclusion(clic.x, clic.y, quatre))
           {
             continuer = selectionProfil(screen, 4, jp);
-            continuer = afficherLoto(screen, 4, jp);
+            if (continuer == 1) continuer = afficherLoto(screen, 4, jp);
           }
           if (posInclusion(clic.x, clic.y, menu))
           {
