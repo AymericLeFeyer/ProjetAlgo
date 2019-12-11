@@ -160,9 +160,7 @@ int affichagePoker(SDL_Surface* screen) {
         if (posInclusion(c.x, c.y, posNextButton) && continuer == 1)
         {
           continuer = selectionProfil(screen, nbJoueurs, jp);
-          if (continuer==1) {
-            continuer = tourPartie(screen, centre, joueurs, nbJoueurs, nbTours, argentDepart, miseDepart,jp);
-          }
+          continuer = tourPartie(screen, centre, joueurs, nbJoueurs, nbTours, argentDepart, miseDepart,jp);
         }
       }
     }
