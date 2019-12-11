@@ -150,9 +150,8 @@ int afficherMenu(SDL_Surface *screen)
           {
             Mix_PlayMusic(myMus, 1);
             continuer = selectionProfil(screen, 2, tabProfils);
-            if (tabProfils[0].nom[0] == '0') return 0;
-            printf("%s, %s\n",tabProfils[0].nom, tabProfils[1].nom );
-            continuer = affichageBatailleNavale(screen, tabProfils);
+            if (continuer == 1)
+              continuer = affichageBatailleNavale(screen, tabProfils);
             if (continuer == 0)
               return 0;
           }
@@ -170,7 +169,9 @@ int afficherMenu(SDL_Surface *screen)
           }
           if ((posInclusion(clic.x, clic.y, boutonSudoku)))
           {
-            continuer = affichageSudoku(screen);
+            continuer = selectionProfil(screen, 1, tabProfils);
+            if (continuer == 1)
+              continuer = affichageSudoku(screen, tabProfils);
             if (continuer == 0)
               return 0;
           }

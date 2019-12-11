@@ -13,18 +13,16 @@
 #include "../../headers/sudoku/detectionSudoku.h"
 #include "../../headers/global/constantes.h"
 #include "../../headers/global/interface.h"
+#include "../../headers/profils/sauvegarde.h"
+#include "../../headers/profils/chargement.h"
 
-int affichageSudoku(SDL_Surface *screen)
+int affichageSudoku(SDL_Surface *screen, tabJP jp)
 {
   // Variables
   int continuer = 1;
   SDL_Event event;
   Coord c;
   int choix = 0;
-
-  //tableau de profil
-  tabJP jp;
-  tabP p;
 
   // Images
   SDL_Surface *reglesImage = NULL;
@@ -123,7 +121,7 @@ int affichageSudoku(SDL_Surface *screen)
         if (posInclusion(c.x, c.y, posNextButton) && choix)
         {
           // On lance le jeu
-          continuer = playSudoku(screen, choix - 1, time(NULL), jp, p);
+          continuer = playSudoku(screen, choix - 1, time(NULL), jp);
         }
         if (posInclusion(c.x, c.y, posMenuBouton))
         {
@@ -148,7 +146,7 @@ int affichageSudoku(SDL_Surface *screen)
   return continuer;
 }
 
-int playSudoku(SDL_Surface *screen, int difficulte, time_t temps,tabJP jp, tabP p)
+int playSudoku(SDL_Surface *screen, int difficulte, time_t temps,tabJP jp)
 {
   // Variables
   JoueurSudoku J;
@@ -465,8 +463,11 @@ int playSudoku(SDL_Surface *screen, int difficulte, time_t temps,tabJP jp, tabP 
     }
     // Affichage de l'ecran de victoire
     if (c_fini)
-      //scoreSud( current_time,jp,difficulte);
+    {
+      scoreSud(current_time, jp, difficulte);
       SDL_BlitSurface(ecranVictoire, NULL, screen, &fullscreen);
+    }
+
 
     // Actulisation de l'ecran
     SDL_Flip(screen);
@@ -500,13 +501,19 @@ SDL_Rect newPos(SDL_Rect oldPos)
 }
 
 //appel de fonction fait au niveau de c_fini
-void scoreSud(int current_time,tabJP jp, int difficulte,tabP p){
+void scoreSud(int current_time,tabJP jp, int difficulte){
+  tabP p;
+  chargementProfils(p);
+
   int tempsFacile =600; //temps max pour difficulte facileButton = 10min
   int tempsMoyen  =900; //meme chose pour moyen = 15min
   int tempsDifficile  =2700 ;// difficile 45min
   int tempsDemoniaque = 3600; // demoniaque 1h
   int score=0;
+  int scoreMax=0;
+  float newScore = 0.0;
   if (current_time<tempsFacile && difficulte==0) {
+    scoreMax = 70;
     score = score + 40;//score normal pour facile
     if (current_time<0.75*tempsFacile){
       score=score+30;// attribution d'un bonus si nous somme en dessous de 75% du temps
@@ -516,6 +523,7 @@ void scoreSud(int current_time,tabJP jp, int difficulte,tabP p){
     }
   }
   if (current_time<tempsMoyen && difficulte==1) {
+    scoreMax = 80;
     score = score + 50;//score normal pour moyen
     if (current_time<0.75*tempsMoyen){
       score=score+30;// attribution d'un bonus si nous somme en dessous de 75% du temps
@@ -525,6 +533,7 @@ void scoreSud(int current_time,tabJP jp, int difficulte,tabP p){
     }
   }
   if (current_time<tempsDifficile && difficulte==2) {
+    scoreMax = 90;
     score = score + 60;//score normal pour difficile
     if (current_time<0.75*tempsDifficile){
       score=score+30;// attribution d'un bonus si nous somme en dessous de 75% du temps
@@ -534,6 +543,7 @@ void scoreSud(int current_time,tabJP jp, int difficulte,tabP p){
     }
   }
   if (current_time<tempsDemoniaque && difficulte==3) {
+    scoreMax = 100;
     score = score + 70;//score normal pour demoniaque
     if (current_time<0.75*tempsDemoniaque){
       score=score+30;// attribution d'un bonus si nous somme en dessous de 75% du temps
@@ -542,7 +552,17 @@ void scoreSud(int current_time,tabJP jp, int difficulte,tabP p){
       score=score-((int)((current_time-tempsDemoniaque)/60))*5; //penalité si on depasse
     }
   }
-  score=score/100;
-  //mettre score dans jp[0].scoreSudoku et ensuite save le score dans p[0].scoreSudoku
+  newScore = ((float) score / (float) scoreMax) * 100;
 
+  //mettre score dans jp[0].scoreSudoku et ensuite save le score dans p[0].scoreSudoku
+  for (int i = 0; i < 10; i++) {
+    if (p[i].scoreTotal != -1) {
+      if (p[i].ID == jp[0].ID) {
+        if (p[i].scoreSudoku < newScore) {
+          p[i].scoreSudoku = newScore;
+        }
+      }
+    }
+  }
+  sauvegardeProfils(p);
 }
