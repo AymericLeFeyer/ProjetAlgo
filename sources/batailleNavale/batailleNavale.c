@@ -79,6 +79,9 @@ int affichageBatailleNavale(SDL_Surface *screen, tabJP jp)
 
   int nbBateauxValides = 0;
 
+
+  int coulej1[5]={0,0,0,0,0};
+  int coulej2[5]={0,0,0,0,0};
   // Boucle principale
   while (continuer == 1)
   {
@@ -139,7 +142,7 @@ int affichageBatailleNavale(SDL_Surface *screen, tabJP jp)
       // Si la partie n'est pas finie, le joueur 1 joue
       t = 0;
       if (nbBateauxVivant(j1) > 0)
-        t = aToiDeJouer(screen, &j1, &j2);
+        t = aToiDeJouer(screen, &j1, &j2,coulej1);
       if (t == 1)
         phase = 4;
       else if (t == 2)
@@ -159,7 +162,7 @@ int affichageBatailleNavale(SDL_Surface *screen, tabJP jp)
       // Si la partie n'est pas finie, le joueur 2 joue
       t = 0;
       if (nbBateauxVivant(j2) > 0)
-        t = aToiDeJouer(screen, &j2, &j1);
+        t = aToiDeJouer(screen, &j2, &j1,coulej2);
       if (t == 1)
         phase = 3;
       else if (t == 2)

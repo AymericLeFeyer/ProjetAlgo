@@ -14,7 +14,7 @@
 
 //Touché coulé raté bataille Navale
 // Renvoie 1 si on continue de jouer, 0 sinon
-int aToiDeJouer(SDL_Surface *screen, JoueurBatailleNavale *j1, JoueurBatailleNavale *j2)
+int aToiDeJouer(SDL_Surface *screen, JoueurBatailleNavale *j1, JoueurBatailleNavale *j2,int coulej[5])
 {
   // Case cible
   SDL_Surface *caseCible = NULL;
@@ -208,15 +208,31 @@ int aToiDeJouer(SDL_Surface *screen, JoueurBatailleNavale *j1, JoueurBatailleNav
         switch (j2->tab[a].direction)
         {
         case 1:
+          if (coulej[a]==0) {
+            Mix_PlayMusic(coule, 1);
+            coulej[a]=1;
+          }
           SDL_BlitSurface(j2->tab[a].nord, NULL, screen, &j2->tab[a].r);
           break;
         case 2:
+        if (coulej[a]==0) {
+          Mix_PlayMusic(coule, 1);
+          coulej[a]=1;
+        }
           SDL_BlitSurface(j2->tab[a].west, NULL, screen, &j2->tab[a].r);
           break;
         case 3:
+          if (coulej[a]==0) {
+            Mix_PlayMusic(coule, 1);
+            coulej[a]=1;
+          }
           SDL_BlitSurface(j2->tab[a].sud, NULL, screen, &j2->tab[a].r);
           break;
         case 4:
+          if (coulej[a]==0) {
+            Mix_PlayMusic(coule, 1);
+            coulej[a]=1;
+          }
           SDL_BlitSurface(j2->tab[a].est, NULL, screen, &j2->tab[a].r);
           break;
         default:
