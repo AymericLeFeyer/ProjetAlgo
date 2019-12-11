@@ -529,22 +529,22 @@ int selectionProfil(SDL_Surface* screen, int nbProfils, tabJP profils) {
     }
     SDL_Flip(screen);
   }
-  SDL_FreeSurface(imageFond);
-  SDL_FreeSurface(checkboxEmpty);
-  SDL_FreeSurface(checkboxFilled);
-  SDL_FreeSurface(barre);
-  SDL_FreeSurface(attendus);
-  SDL_FreeSurface(confirmerHover);
-  SDL_FreeSurface(retourHover);
-  temp=0;
-  for (int i = 0; i < 10; i++) {
-    if (temp < profilsTotaux) {
-      if (p[i].scoreTotal != -1) {
-        SDL_FreeSurface(noms[temp]);
-        temp++;
-      }
-    }
-  }
+  // SDL_FreeSurface(imageFond);
+  // SDL_FreeSurface(checkboxEmpty);
+  // SDL_FreeSurface(checkboxFilled);
+  // SDL_FreeSurface(barre);
+  // SDL_FreeSurface(attendus);
+  // SDL_FreeSurface(confirmerHover);
+  // SDL_FreeSurface(retourHover);
+  // temp=0;
+  // for (int i = 0; i < 10; i++) {
+  //   if (temp < profilsTotaux) {
+  //     if (p[i].scoreTotal != -1) {
+  //       SDL_FreeSurface(noms[temp]);
+  //       temp++;
+  //     }
+  //   }
+  // }
   return trueContinue;
 }
 
