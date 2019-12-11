@@ -22,6 +22,10 @@ int affichageSudoku(SDL_Surface *screen)
   Coord c;
   int choix = 0;
 
+  //tableau de profil
+  tabJP jp;
+  tabP p;
+
   // Images
   SDL_Surface *reglesImage = NULL;
   SDL_Surface *hoverFacile = NULL;
@@ -119,7 +123,7 @@ int affichageSudoku(SDL_Surface *screen)
         if (posInclusion(c.x, c.y, posNextButton) && choix)
         {
           // On lance le jeu
-          continuer = playSudoku(screen, choix - 1, time(NULL));
+          continuer = playSudoku(screen, choix - 1, time(NULL), jp, p);
         }
         if (posInclusion(c.x, c.y, posMenuBouton))
         {
@@ -144,7 +148,7 @@ int affichageSudoku(SDL_Surface *screen)
   return continuer;
 }
 
-int playSudoku(SDL_Surface *screen, int difficulte, time_t temps)
+int playSudoku(SDL_Surface *screen, int difficulte, time_t temps,tabJP jp, tabP p)
 {
   // Variables
   JoueurSudoku J;
@@ -461,7 +465,9 @@ int playSudoku(SDL_Surface *screen, int difficulte, time_t temps)
     }
     // Affichage de l'ecran de victoire
     if (c_fini)
+      //scoreSud( current_time,jp,difficulte);
       SDL_BlitSurface(ecranVictoire, NULL, screen, &fullscreen);
+
     // Actulisation de l'ecran
     SDL_Flip(screen);
   }
@@ -490,4 +496,52 @@ int playSudoku(SDL_Surface *screen, int difficulte, time_t temps)
 SDL_Rect newPos(SDL_Rect oldPos)
 {
   return newRect(oldPos.x - 4, oldPos.y - 4, 64, 64);
+}
+
+//appel de fonction fait au niveau de c_fini
+void scoreSud(int current_time,tabJP jp, int difficulte,tabP p){
+  int tempsFacile =600; //temps max pour difficulte facileButton = 10min
+  int tempsMoyen  =900; //meme chose pour moyen = 15min
+  int tempsDifficile  =2700 ;// difficile 45min
+  int tempsDemoniaque = 3600; // demoniaque 1h
+  int score=0;
+  if (current_time<tempsFacile && difficulte==0) {
+    score = score + 40;//score normal pour facile
+    if (current_time<0.75*tempsFacile){
+      score=score+30;// attribution d'un bonus si nous somme en dessous de 75% du temps
+    }
+    if (current_time>tempsFacile){
+      score=score-((int)((current_time-tempsFacile)/60))*5; //penalité si on depasse
+    }
+  }
+  if (current_time<tempsMoyen && difficulte==1) {
+    score = score + 50;//score normal pour moyen
+    if (current_time<0.75*tempsMoyen){
+      score=score+30;// attribution d'un bonus si nous somme en dessous de 75% du temps
+    }
+    if (current_time>tempsMoyen){
+      score=score-((int)((current_time-tempsMoyen)/60))*5; //penalité si on depasse
+    }
+  }
+  if (current_time<tempsDifficile && difficulte==2) {
+    score = score + 60;//score normal pour difficile
+    if (current_time<0.75*tempsDifficile){
+      score=score+30;// attribution d'un bonus si nous somme en dessous de 75% du temps
+    }
+    if (current_time>tempsDifficile){
+      score=score-((int)((current_time-tempsDifficile)/60))*5; //penalité si on depasse
+    }
+  }
+  if (current_time<tempsDemoniaque && difficulte==3) {
+    score = score + 70;//score normal pour demoniaque
+    if (current_time<0.75*tempsDemoniaque){
+      score=score+30;// attribution d'un bonus si nous somme en dessous de 75% du temps
+    }
+    if (current_time>tempsDemoniaque){
+      score=score-((int)((current_time-tempsDemoniaque)/60))*5; //penalité si on depasse
+    }
+  }
+  score=score/100;
+  //mettre score dans jp[0].scoreSudoku et ensuite save le score dans p[0].scoreSudoku
+
 }
