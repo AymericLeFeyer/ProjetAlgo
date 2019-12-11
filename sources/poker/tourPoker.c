@@ -61,6 +61,11 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
   int continuer = 1;
   SDL_Event event;
 
+  //Sons
+  Mix_Music *cartes;
+  Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
+  cartes = Mix_LoadMUS("assets/sounds/cartes.wav");
+
   // Variables poker
   int manche = 0, i, j, k, max = 0, maxi;
   int onPeutContinuer = 0;
@@ -80,6 +85,7 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
 
     if (manche < mancheTotale && continuer == 1)
     {
+      Mix_PlayMusic(cartes, 1);
       cp = initialisePoker(t, nbJoueurs, argentDepart, manche, miseDepart);
       //Faire une boucle qui initialise l'état des joueurs à 0
       //Dès qu'une nouvelle manche demarre, tous les joueurs se "réveillent"
@@ -196,6 +202,7 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
 
   //cp=libererPoker(t,nbJoueurs,cp);
   SDL_FreeSurface(table);
+  Mix_FreeMusic(cartes);
   return continuer;
 }
 
