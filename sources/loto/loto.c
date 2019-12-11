@@ -5,6 +5,7 @@
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 #include <time.h>
+#include <SDL/SDL_mixer.h>
 #include "../../headers/global/structure.h"
 #include "../../headers/global/shortcuts.h"
 #include "../../headers/loto/timerLoto.h"
@@ -19,6 +20,13 @@
 
 int afficherLoto(SDL_Surface *screen, int nbJoueurs , tabJP tabProfil)
 {
+  Mix_Music *boule;
+  Mix_Music *ok;
+  Mix_Music *non;
+  Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
+  boule = Mix_LoadMUS("assets/sounds/boules.wav");
+  ok = Mix_LoadMUS("assets/sounds/ok-loto.wav");
+  non = Mix_LoadMUS("assets/sounds/non-.wav");
 
   srand(time(NULL));
   int gagnant = 0;
@@ -89,8 +97,9 @@ int afficherLoto(SDL_Surface *screen, int nbJoueurs , tabJP tabProfil)
           gagnant = i + 1;
         }
       }
-      if (tailleTas >= 1)
+      if (tailleTas >= 1 && gagnant==0)
       {
+        Mix_PlayMusic(boule, 1);
         nombreTire = prendreNombre(&tailleTas, tasBoules);
         if (nombreDansGrille(grille1, nombreTire))
         {
@@ -145,10 +154,12 @@ int afficherLoto(SDL_Surface *screen, int nbJoueurs , tabJP tabProfil)
           {
             if (nombreDansGrille(grille1, nombreTire))
             {
+              Mix_PlayMusic(ok, 1);
               poserJeton(grille1, nombreTire);
             }
             else
             {
+              Mix_PlayMusic(non, 1);
               punition[0] = 2;
               totalPunition[0] = totalPunition[0] + 1;
             }
@@ -162,10 +173,12 @@ int afficherLoto(SDL_Surface *screen, int nbJoueurs , tabJP tabProfil)
             {
               if (nombreDansGrille(grille2, nombreTire))
               {
+                Mix_PlayMusic(ok, 1);
                 poserJeton(grille2, nombreTire);
               }
               else
               {
+                Mix_PlayMusic(non, 1);
                 punition[1] = 2;
                 totalPunition[1] = totalPunition[1] + 1;
               }
@@ -179,10 +192,12 @@ int afficherLoto(SDL_Surface *screen, int nbJoueurs , tabJP tabProfil)
             {
               if (nombreDansGrille(grille3, nombreTire))
               {
+                Mix_PlayMusic(ok, 1);
                 poserJeton(grille3, nombreTire);
               }
               else
               {
+                Mix_PlayMusic(non, 1);
                 punition[2] = 2;
                 totalPunition[2] = totalPunition[2] + 1;
               }
@@ -196,10 +211,12 @@ int afficherLoto(SDL_Surface *screen, int nbJoueurs , tabJP tabProfil)
             {
               if (nombreDansGrille(grille4, nombreTire))
               {
+                Mix_PlayMusic(ok, 1);
                 poserJeton(grille4, nombreTire);
               }
               else
               {
+                Mix_PlayMusic(non, 1);
                 punition[3] = 2;
                 totalPunition[3] = totalPunition[3] + 1;
               }
@@ -284,6 +301,9 @@ int afficherLoto(SDL_Surface *screen, int nbJoueurs , tabJP tabProfil)
   }
   SDL_FreeSurface(fond);
   SDL_FreeSurface(hoverMenu);
+  Mix_FreeMusic(boule);
+  Mix_FreeMusic(ok);
+  Mix_FreeMusic(non);
   return continuer;
 }
 //joueur 1: ctrl g
