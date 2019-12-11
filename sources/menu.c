@@ -74,10 +74,10 @@ int afficherMenu(SDL_Surface *screen)
   //bouton régles (1 surface et 4 rectangles)
   SDL_Surface *regles = NULL;
   regles = IMG_Load("assets/menu/tuto.png");
-  SDL_Rect breglesBatailleNavale = newRect(234, 370, 75, 75);
-  SDL_Rect breglesPoker = newRect(1046, 370, 75, 75);
-  SDL_Rect breglesLoto = newRect(234, 630, 75, 75);
-  SDL_Rect breglesSudoku = newRect(1046, 630, 75, 75);
+  SDL_Rect breglesBatailleNavale = newRect(197, 370, 75, 75);
+  SDL_Rect breglesPoker = newRect(1009, 370, 75, 75);
+  SDL_Rect breglesLoto = newRect(197, 630, 75, 75);
+  SDL_Rect breglesSudoku = newRect(1009, 630, 75, 75);
 
 
 
