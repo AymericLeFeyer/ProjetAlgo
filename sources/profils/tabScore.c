@@ -10,7 +10,7 @@
 #include "../../headers/profils/tabScore.h"
 #include "../../headers/global/interface.h"
 
-void afficherTableauScore(SDL_Surface* screen, char jeu) {
+int afficherTableauScore(SDL_Surface* screen, char jeu) {
   // Variables
   int continuer = 1;
   SDL_Event event;
@@ -65,7 +65,7 @@ void afficherTableauScore(SDL_Surface* screen, char jeu) {
 
   char buffer[30];
 
-  while (continuer) {
+  while (continuer == 1) {
     SDL_BlitSurface(ecran, NULL, screen, &fullscreen);
     switch (jeu) {
       case 'b':
@@ -160,10 +160,10 @@ void afficherTableauScore(SDL_Surface* screen, char jeu) {
       case SDL_MOUSEBUTTONDOWN:
         // En cas de clic
         if (posInclusion(c.x, c.y, menuPosition)) {
-          continuer = 0;
+          continuer = 2;
         }
         if (posInclusion(c.x, c.y, nextPosition)) {
-          continuer = 0;
+          continuer = 2;
           if (jeu == 'b') next = 's';
           else if (jeu == 's') next = 'p';
           else if (jeu == 'p') next = 'l';
@@ -171,7 +171,7 @@ void afficherTableauScore(SDL_Surface* screen, char jeu) {
           else if (jeu == 'a') next = 'b';
         }
         if (posInclusion(c.x, c.y, backPosition)) {
-          continuer = 0;
+          continuer = 2;
           if (jeu == 'b') next = 'a';
           else if (jeu == 'a') next = 'l';
           else if (jeu == 'l') next = 'p';
@@ -204,6 +204,7 @@ void afficherTableauScore(SDL_Surface* screen, char jeu) {
   SDL_FreeSurface(aymericMeilleurQueToi);
 
   if (next != 'z') afficherTableauScore(screen, next);
+  return continuer;
 }
 
 void triProfils(tabP p, tabP newP, char jeu) {

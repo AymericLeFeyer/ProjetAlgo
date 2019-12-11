@@ -1,4 +1,4 @@
-void afficherProfils(SDL_Surface *screen);
+int afficherProfils(SDL_Surface *screen);
 Profil nouveauProfil(SDL_Surface* screen, int nbProfil, Profil oldProfil);
 char* toString(char c);
 char updateChar(char c, char t);

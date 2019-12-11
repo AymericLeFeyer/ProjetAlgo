@@ -9,7 +9,7 @@
 #include "../../headers/global/constantes.h"
 #include "../../headers/profils/choixProfils.h"
 
-void afficherProfils(SDL_Surface *screen)
+int afficherProfils(SDL_Surface *screen)
 {
   tabP profils;
   iniTabP(profils);
@@ -19,11 +19,13 @@ void afficherProfils(SDL_Surface *screen)
 
   SDL_Surface *ecranProfils = NULL;
   SDL_Surface *profilGris = NULL;
+  SDL_Surface *backHover = NULL;
 
   Profil p;
 
   ecranProfils = IMG_Load("assets/profils/ecranProfils.jpg");
   profilGris = IMG_Load("assets/profils/profilGris.png");
+  backHover = IMG_Load("assets/profils/backHover.png");
 
   SDL_Rect fullscreen = newRect(0, 0, 720, 1280);
   SDL_Rect positionsFrameProfils[5][2];
@@ -34,6 +36,7 @@ void afficherProfils(SDL_Surface *screen)
       positionsFrameProfils[i][j] = newRect(0 + 256 * i, 186 + 260 * j, 256, 256);
     }
   }
+  SDL_Rect posBackHover = newRect(15, 22, 132, 225);
 
   char texteJoueur[10];
   SDL_Surface* nomsJoueur[10];
@@ -53,7 +56,7 @@ void afficherProfils(SDL_Surface *screen)
   // Nombre actuel de profils
 
 
-  while (continuer)
+  while (continuer == 1)
   {
     int nbProfils = 0;
     for (int i = 0; i < 10; i++) {
@@ -74,6 +77,8 @@ void afficherProfils(SDL_Surface *screen)
         SDL_BlitSurface(profilGris, NULL, screen, &positionsFrameProfils[i%5][i/5]);
       }
     }
+
+
 
 
     while (SDL_PollEvent(&event))
@@ -98,8 +103,15 @@ void afficherProfils(SDL_Surface *screen)
             }
             else {
               profils[nbProfils] = nouveauProfil(screen, nbProfils, profils[nbProfils]);
+              if (profils[nbProfils].ID == 92) {
+                // On quitte
+                continuer = 0;
+              }
             }
           }
+        }
+        if (posInclusion(c.x, c.y, posBackHover)) {
+          continuer = 2;
         }
 
         break;
@@ -107,10 +119,17 @@ void afficherProfils(SDL_Surface *screen)
       }
 
     }
+    // Hovers
+
+    if (posInclusion(c.x, c.y, posBackHover)) {
+      SDL_BlitSurface(backHover, NULL, screen, &fullscreen);
+    }
     SDL_Flip(screen);
   }
   SDL_FreeSurface(ecranProfils);
   SDL_FreeSurface(profilGris);
+  SDL_FreeSurface(backHover);
+  return continuer;
 }
 
 Profil nouveauProfil(SDL_Surface* screen, int nbProfil, Profil oldProfil) {
@@ -151,7 +170,7 @@ Profil nouveauProfil(SDL_Surface* screen, int nbProfil, Profil oldProfil) {
 
 
   // Variables
-  int continuer;
+  int continuer = 1;
   SDL_Event event;
   Coord c;
 
@@ -203,7 +222,7 @@ Profil nouveauProfil(SDL_Surface* screen, int nbProfil, Profil oldProfil) {
 
 
   char temp[10];
-  while(continuer) {
+  while(continuer == 1) {
     // Coords de la souris
     c.x = event.button.x;
     c.y = event.button.y;
@@ -233,6 +252,7 @@ Profil nouveauProfil(SDL_Surface* screen, int nbProfil, Profil oldProfil) {
         // On quitte
       case SDL_QUIT:
         continuer = 0;
+        p.ID = 92;
         break;
         // On clique
       case SDL_MOUSEBUTTONDOWN:
@@ -277,9 +297,7 @@ Profil nouveauProfil(SDL_Surface* screen, int nbProfil, Profil oldProfil) {
       }
     }
     // Hover boutons
-    if (posInclusion(c.x, c.y, posTrash)) {
-      SDL_BlitSurface(trashHover, NULL, screen, &fullscreen);
-    }
+
     if (posInclusion(c.x, c.y, posAnnuler)) {
       SDL_BlitSurface(annulerHover, NULL, screen, &fullscreen);
     }

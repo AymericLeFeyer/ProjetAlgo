@@ -179,11 +179,11 @@ int afficherMenu(SDL_Surface *screen)
 
           if ((posInclusion(clic.x, clic.y, boutonProfils)))
           {
-            afficherProfils(screen);
+            continuer = afficherProfils(screen);
           }
           if ((posInclusion(clic.x, clic.y, boutonScore)))
           {
-            afficherTableauScore(screen, 'a');
+            continuer = afficherTableauScore(screen, 'a');
           }
           //conditions de clics pour les régles :
           if (posInclusion(clic.x, clic.y, breglesBatailleNavale))
