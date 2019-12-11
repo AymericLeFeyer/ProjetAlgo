@@ -4,6 +4,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
+#include <SDL/SDL_mixer.h>
 
 #include "../../headers/global/shortcuts.h"
 #include "../../headers/global/structure.h"
@@ -177,6 +178,15 @@ int playSudoku(SDL_Surface *screen, int difficulte, time_t temps)
   menuBoutonHover = IMG_Load("assets/sudoku/menuBoutonHover.png");
   newNumArea = IMG_Load("assets/sudoku/newNumber.png");
 
+  //Sons
+  Mix_Music *ok;
+  Mix_Music *non;
+  Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
+  ok = Mix_LoadMUS("assets/sounds/ok-sudoku.wav");
+  non = Mix_LoadMUS("assets/sounds/non-.wav");
+  int sonOkDejaJoue = 0;
+  int sonNonDejaJoue = 0;
+
   // il faut random le numero dans la fonction, selon la difficulte
   int niveau = 0;
   switch (difficulte)
@@ -338,11 +348,27 @@ int playSudoku(SDL_Surface *screen, int difficulte, time_t temps)
             // Le chiffre est coherent
             if (detection(cTab, J))
             {
+              //Le son va se jouer une fois lors de la première case réussie mais après non
+              if(sonOkDejaJoue == 0)
+              {
+                Mix_PlayMusic(ok, 1);
+                sonOkDejaJoue = 1;
+              }
               SDL_BlitSurface(nbVerts[J.g.tab[i][j] - 1], NULL, screen, &positionsNumeros[i][j]);
             }
             // Le chiffre n'est pas coherent
             else
+            {
+              //Idem pour celui-ci
+              if(sonNonDejaJoue == 0)
+              {
+                Mix_PlayMusic(non, 1);
+                sonNonDejaJoue = 1;
+              }
               SDL_BlitSurface(nbRouges[J.g.tab[i][j] - 1], NULL, screen, &positionsNumeros[i][j]);
+            }
+
+
           }
         }
         else
@@ -447,6 +473,8 @@ int playSudoku(SDL_Surface *screen, int difficulte, time_t temps)
   SDL_FreeSurface(menuBoutonHover);
   SDL_FreeSurface(niveauAffichage);
   SDL_FreeSurface(newNumArea);
+  Mix_FreeMusic(ok);
+  Mix_FreeMusic(non);
   for (int i = 0; i < 9; i++)
   {
     SDL_FreeSurface(nbBlancs[i]);
