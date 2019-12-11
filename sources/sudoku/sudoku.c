@@ -481,6 +481,7 @@ int playSudoku(SDL_Surface *screen, int difficulte, time_t temps,tabJP jp, tabP 
   SDL_FreeSurface(newNumArea);
   Mix_FreeMusic(ok);
   Mix_FreeMusic(non);
+  Mix_CloseAudio();
   for (int i = 0; i < 9; i++)
   {
     SDL_FreeSurface(nbBlancs[i]);

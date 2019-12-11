@@ -203,6 +203,7 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
   //cp=libererPoker(t,nbJoueurs,cp);
   SDL_FreeSurface(table);
   Mix_FreeMusic(cartes);
+  Mix_CloseAudio();
   return continuer;
 }
 
@@ -303,7 +304,7 @@ int tourPoker(SDL_Surface *screen, JoueurPoker *j, CentrePlateau *cp, int nbJoue
   //Sons
   Mix_Music *miseSon;
   Mix_Music *cartes;
-  Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
+  //Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
   miseSon = Mix_LoadMUS("assets/sounds/mise.wav");
   cartes = Mix_LoadMUS("assets/sounds/cartes.wav");
   int sonMiseDejaJoue = 0;
