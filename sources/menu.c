@@ -73,11 +73,13 @@ int afficherMenu(SDL_Surface *screen)
   SDL_Rect boutonScore = newRect(540, 500, 100, 200);
   //bouton régles (1 surface et 4 rectangles)
   SDL_Surface *regles = NULL;
+  SDL_Surface *reglesHover = NULL;
   regles = IMG_Load("assets/menu/tuto.png");
-  SDL_Rect breglesBatailleNavale = newRect(197, 370, 75, 75);
+  reglesHover = IMG_Load("assets/menu/tutoHover.png");
+  SDL_Rect breglesBatailleNavale = newRect(196, 370, 75, 75);
   SDL_Rect breglesPoker = newRect(1009, 370, 75, 75);
-  SDL_Rect breglesLoto = newRect(197, 630, 75, 75);
-  SDL_Rect breglesSudoku = newRect(1009, 630, 75, 75);
+  SDL_Rect breglesLoto = newRect(196, 610, 75, 75);
+  SDL_Rect breglesSudoku = newRect(1009, 610, 75, 75);
 
 
 
@@ -201,6 +203,24 @@ int afficherMenu(SDL_Surface *screen)
         }
         break;
       }
+      // Hovers boutons
+      if (posInclusion(clic.x, clic.y, breglesBatailleNavale))
+      {
+        SDL_BlitSurface(reglesHover, NULL, screen, &breglesBatailleNavale);
+      }
+      if (posInclusion(clic.x, clic.y, breglesPoker))
+      {
+        SDL_BlitSurface(reglesHover, NULL, screen, &breglesPoker);
+      }
+      if (posInclusion(clic.x, clic.y, breglesLoto))
+      {
+        SDL_BlitSurface(reglesHover, NULL, screen, &breglesLoto);
+      }
+      if (posInclusion(clic.x, clic.y, breglesSudoku))
+      {
+        SDL_BlitSurface(reglesHover, NULL, screen, &breglesSudoku);
+      }
+
 
       SDL_Flip(screen);
     }
@@ -219,6 +239,7 @@ int afficherMenu(SDL_Surface *screen)
   SDL_FreeSurface(profils);
   SDL_FreeSurface(profilsHover);
   SDL_FreeSurface(regles);
+  SDL_FreeSurface(reglesHover);
   Mix_FreeMusic(myMus);
   Mix_CloseAudio();
 }
