@@ -28,11 +28,17 @@ int main(int argc, char *argv[])
       fprintf(stderr, "Erreur d'initialisation de TTF");
       exit(EXIT_FAILURE);
   }
+  // Icone
+  SDL_Surface* icone = NULL;
+  icone = IMG_Load("assets/logo.png");
+  SDL_WM_SetIcon(icone, NULL);
 
   // Création de la surface principale
   SDL_Surface *screen = NULL;
 
   screen = SDL_SetVideoMode(WIDTH_GAME, HEIGHT_GAME, 32, SDL_SWSURFACE | SDL_DOUBLEBUF);
+
+
 
   // Nom de la fenêtre
   SDL_WM_SetCaption(TITLE_GAME, NULL);
@@ -45,6 +51,8 @@ int main(int argc, char *argv[])
 
   SDL_Quit();
   TTF_Quit();
+
+  SDL_FreeSurface(icone);
 
   // On quitte le programme, sans erreur
   return EXIT_SUCCESS;
