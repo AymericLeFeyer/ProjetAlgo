@@ -89,6 +89,17 @@ int afficherProfils(SDL_Surface *screen)
         continuer = 0;
         sauvegardeProfils(profils);
         break;
+      case SDL_KEYDOWN:
+        // Reset scores
+        for (int i = 0; i < 10; i++) {
+          profils[i].scoreNavale = 0;
+          profils[i].scoreSudoku = 0;
+          profils[i].scoreLoto = 0;
+          profils[i].scorePoker = 0;
+          profils[i].scorePoker = 0;
+          sauvegardeProfils(profils);
+        }
+        break;
       case SDL_MOUSEBUTTONDOWN:
 
         for (int i = 0; i < 10; i++)
