@@ -1,6 +1,8 @@
-# ProjetAlgo
-Projet de Développement en équipe - Bataille Navale / Sudoku / Loto / Poker - C (SDL)
-13/09/2019 - 13/12/2019
+# ProjetAlgo  
+Projet de Développement en équipe  
+Bataille Navale / Sudoku / Loto / Poker  
+C avec la librairie graphique SDL  
+13/09/2019 - 13/12/2019  
 
 # Membres de l'équipe
 DEWAGHE Guillaume https://www.linkedin.com/in/guillaume-dewaghe-322095193/  
