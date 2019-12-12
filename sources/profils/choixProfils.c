@@ -112,6 +112,7 @@ int afficherProfils(SDL_Surface *screen)
         }
         if (posInclusion(c.x, c.y, posBackHover)) {
           continuer = 2;
+          sauvegardeProfils(profils);
         }
 
         break;
