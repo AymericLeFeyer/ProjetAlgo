@@ -146,7 +146,7 @@ int affichageSudoku(SDL_Surface *screen, tabJP jp)
   return continuer;
 }
 
-int playSudoku(SDL_Surface *screen, int difficulte, time_t temps,tabJP jp)
+int playSudoku(SDL_Surface *screen, int difficulte, time_t temps, tabJP jp)
 {
   // Variables
   JoueurSudoku J;
@@ -355,8 +355,6 @@ int playSudoku(SDL_Surface *screen, int difficulte, time_t temps,tabJP jp)
             {
               SDL_BlitSurface(nbRouges[J.g.tab[i][j] - 1], NULL, screen, &positionsNumeros[i][j]);
             }
-
-
           }
         }
         else
@@ -435,18 +433,18 @@ int playSudoku(SDL_Surface *screen, int difficulte, time_t temps,tabJP jp)
                     nouveau = (i + j * 3) + 1;
                     J.g.tab[onClicked.x][onClicked.y] = nouveau;
                     newNum = 0;
-                    cTab.x=onClicked.x;
-                    cTab.y=onClicked.y;
+                    cTab.x = onClicked.x;
+                    cTab.y = onClicked.y;
                     if (detection(cTab, J))
                     {
                       //Le son va se jouer une fois lors de la première case réussie mais après non
-                        Mix_PlayMusic(ok, 1);
+                      Mix_PlayMusic(ok, 1);
                     }
                     // Le chiffre n'est pas coherent
                     else
                     {
                       //Idem pour celui-ci
-                        Mix_PlayMusic(non, 1);
+                      Mix_PlayMusic(non, 1);
                     }
                   }
                 }
@@ -467,7 +465,6 @@ int playSudoku(SDL_Surface *screen, int difficulte, time_t temps,tabJP jp)
       scoreSud(current_time, jp, difficulte);
       SDL_BlitSurface(ecranVictoire, NULL, screen, &fullscreen);
     }
-
 
     // Actulisation de l'ecran
     SDL_Flip(screen);
@@ -501,64 +498,81 @@ SDL_Rect newPos(SDL_Rect oldPos)
 }
 
 //appel de fonction fait au niveau de c_fini
-void scoreSud(int current_time,tabJP jp, int difficulte){
+void scoreSud(int current_time, tabJP jp, int difficulte)
+{
   tabP p;
   chargementProfils(p);
 
-  int tempsFacile =600; //temps max pour difficulte facileButton = 10min
-  int tempsMoyen  =900; //meme chose pour moyen = 15min
-  int tempsDifficile  =2700 ;// difficile 45min
+  int tempsFacile = 600;      //temps max pour difficulte facileButton = 10min
+  int tempsMoyen = 900;       //meme chose pour moyen = 15min
+  int tempsDifficile = 2700;  // difficile 45min
   int tempsDemoniaque = 3600; // demoniaque 1h
-  int score=0;
-  int scoreMax=0;
+  int score = 0;
+  int scoreMax = 0;
   float newScore = 0.0;
-  if (current_time<tempsFacile && difficulte==0) {
+  if (current_time < tempsFacile && difficulte == 0)
+  {
     scoreMax = 70;
-    score = score + 40;//score normal pour facile
-    if (current_time<0.75*tempsFacile){
-      score=score+30;// attribution d'un bonus si nous somme en dessous de 75% du temps
+    score = score + 40; //score normal pour facile
+    if (current_time < 0.75 * tempsFacile)
+    {
+      score = score + 30; // attribution d'un bonus si nous somme en dessous de 75% du temps
     }
-    if (current_time>tempsFacile){
-      score=score-((int)((current_time-tempsFacile)/60))*5; //penalité si on depasse
+    if (current_time > tempsFacile)
+    {
+      score = score - ((int)((current_time - tempsFacile) / 60)) * 5; //penalité si on depasse
     }
   }
-  if (current_time<tempsMoyen && difficulte==1) {
+  if (current_time < tempsMoyen && difficulte == 1)
+  {
     scoreMax = 80;
-    score = score + 50;//score normal pour moyen
-    if (current_time<0.75*tempsMoyen){
-      score=score+30;// attribution d'un bonus si nous somme en dessous de 75% du temps
+    score = score + 50; //score normal pour moyen
+    if (current_time < 0.75 * tempsMoyen)
+    {
+      score = score + 30; // attribution d'un bonus si nous somme en dessous de 75% du temps
     }
-    if (current_time>tempsMoyen){
-      score=score-((int)((current_time-tempsMoyen)/60))*5; //penalité si on depasse
+    if (current_time > tempsMoyen)
+    {
+      score = score - ((int)((current_time - tempsMoyen) / 60)) * 5; //penalité si on depasse
     }
   }
-  if (current_time<tempsDifficile && difficulte==2) {
+  if (current_time < tempsDifficile && difficulte == 2)
+  {
     scoreMax = 90;
-    score = score + 60;//score normal pour difficile
-    if (current_time<0.75*tempsDifficile){
-      score=score+30;// attribution d'un bonus si nous somme en dessous de 75% du temps
+    score = score + 60; //score normal pour difficile
+    if (current_time < 0.75 * tempsDifficile)
+    {
+      score = score + 30; // attribution d'un bonus si nous somme en dessous de 75% du temps
     }
-    if (current_time>tempsDifficile){
-      score=score-((int)((current_time-tempsDifficile)/60))*5; //penalité si on depasse
+    if (current_time > tempsDifficile)
+    {
+      score = score - ((int)((current_time - tempsDifficile) / 60)) * 5; //penalité si on depasse
     }
   }
-  if (current_time<tempsDemoniaque && difficulte==3) {
+  if (current_time < tempsDemoniaque && difficulte == 3)
+  {
     scoreMax = 100;
-    score = score + 70;//score normal pour demoniaque
-    if (current_time<0.75*tempsDemoniaque){
-      score=score+30;// attribution d'un bonus si nous somme en dessous de 75% du temps
+    score = score + 70; //score normal pour demoniaque
+    if (current_time < 0.75 * tempsDemoniaque)
+    {
+      score = score + 30; // attribution d'un bonus si nous somme en dessous de 75% du temps
     }
-    if (current_time>tempsDemoniaque){
-      score=score-((int)((current_time-tempsDemoniaque)/60))*5; //penalité si on depasse
+    if (current_time > tempsDemoniaque)
+    {
+      score = score - ((int)((current_time - tempsDemoniaque) / 60)) * 5; //penalité si on depasse
     }
   }
-  newScore = ((float) score / (float) scoreMax) * 100;
+  newScore = ((float)score / (float)scoreMax) * 100;
 
   //mettre score dans jp[0].scoreSudoku et ensuite save le score dans p[0].scoreSudoku
-  for (int i = 0; i < 10; i++) {
-    if (p[i].scoreTotal != -1) {
-      if (p[i].ID == jp[0].ID) {
-        if (p[i].scoreSudoku < newScore) {
+  for (int i = 0; i < 10; i++)
+  {
+    if (p[i].scoreTotal != -1)
+    {
+      if (p[i].ID == jp[0].ID)
+      {
+        if (p[i].scoreSudoku < newScore)
+        {
           p[i].scoreSudoku = newScore;
         }
       }

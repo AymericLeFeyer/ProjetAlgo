@@ -10,7 +10,6 @@
 #include "../../headers/global/interface.h"
 #include "../../headers/poker/mainsPoker.h"
 
-
 int victoirePokerManche(SDL_Surface *screen, JoueurPoker *t, CentrePlateau *cp, JoueurPoker k, int nbJoueurs)
 {
   int continuer = 1;

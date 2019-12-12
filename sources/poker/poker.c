@@ -14,7 +14,8 @@
 #include "../../headers/profils/choixProfils.h"
 
 // poker en graphique
-int affichagePoker(SDL_Surface* screen) {
+int affichagePoker(SDL_Surface *screen)
+{
   tabJP jp;
   // variables pour la boucle principale
   SDL_Event event;
@@ -147,9 +148,6 @@ int affichagePoker(SDL_Surface* screen) {
               }
             }
           }
-
-
-
         }
         // Retour au menu
         if (posInclusion(c.x, c.y, posMenuButton) && continuer == 1)
@@ -160,7 +158,8 @@ int affichagePoker(SDL_Surface* screen) {
         if (posInclusion(c.x, c.y, posNextButton) && continuer == 1)
         {
           continuer = selectionProfil(screen, nbJoueurs, jp);
-          if (continuer == 1) continuer = tourPartie(screen, centre, joueurs, nbJoueurs, nbTours, argentDepart, miseDepart,jp);
+          if (continuer == 1)
+            continuer = tourPartie(screen, centre, joueurs, nbJoueurs, nbTours, argentDepart, miseDepart, jp);
         }
       }
     }

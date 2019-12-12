@@ -81,8 +81,6 @@ int afficherMenu(SDL_Surface *screen)
   SDL_Rect breglesLoto = newRect(196, 610, 75, 75);
   SDL_Rect breglesSudoku = newRect(1009, 610, 75, 75);
 
-
-
   // Sons
   Mix_Music *myMus;
   Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
@@ -130,8 +128,6 @@ int afficherMenu(SDL_Surface *screen)
     else
       SDL_BlitSurface(scoreButton, NULL, screen, &boutonScore);
 
-
-
     tabJP tabProfils;
 
     while (SDL_PollEvent(&event))
@@ -142,7 +138,7 @@ int afficherMenu(SDL_Surface *screen)
         continuer = 0;
         return 0;
         break;
-      
+
       case SDL_MOUSEBUTTONDOWN:
         if (event.button.button == SDL_BUTTON_LEFT)
         {
@@ -223,7 +219,6 @@ int afficherMenu(SDL_Surface *screen)
         SDL_BlitSurface(reglesHover, NULL, screen, &breglesSudoku);
       }
 
-
       SDL_Flip(screen);
     }
   }
@@ -247,7 +242,8 @@ int afficherMenu(SDL_Surface *screen)
 }
 
 //affiche les regles de la bataille Navale
-int reglesBT(SDL_Surface *screen){
+int reglesBT(SDL_Surface *screen)
+{
   int continuer = 1;
   SDL_Event event;
   Coord clic;
@@ -255,7 +251,8 @@ int reglesBT(SDL_Surface *screen){
   reglesbt = IMG_Load("assets/imagesRegles/reglesBatailleNavale.png");
   SDL_Rect reglesBatailleNavale = newRect(0, 0, 1280, 720);
 
-  while (continuer ==1){
+  while (continuer == 1)
+  {
     SDL_BlitSurface(reglesbt, NULL, screen, &reglesBatailleNavale);
 
     SDL_Flip(screen);
@@ -289,7 +286,8 @@ int reglesBT(SDL_Surface *screen){
 }
 
 //affiche les regles du poker
-int reglesPoker(SDL_Surface *screen){
+int reglesPoker(SDL_Surface *screen)
+{
   int continuer = 1;
   SDL_Event event;
   Coord clic;
@@ -297,7 +295,8 @@ int reglesPoker(SDL_Surface *screen){
   reglesp = IMG_Load("assets/imagesRegles/reglesPoker.png");
   SDL_Rect reglesPoker = newRect(0, 0, 1280, 720);
 
-  while (continuer ==1){
+  while (continuer == 1)
+  {
     SDL_BlitSurface(reglesp, NULL, screen, &reglesPoker);
 
     SDL_Flip(screen);
@@ -331,7 +330,8 @@ int reglesPoker(SDL_Surface *screen){
 }
 
 //affiche les regles du sudoku
-int reglesSudoku(SDL_Surface *screen){
+int reglesSudoku(SDL_Surface *screen)
+{
   int continuer = 1;
   SDL_Event event;
   Coord clic;
@@ -339,7 +339,8 @@ int reglesSudoku(SDL_Surface *screen){
   regless = IMG_Load("assets/imagesRegles/reglesSudoku.png");
   SDL_Rect reglesSudoku = newRect(0, 0, 1280, 720);
 
-  while (continuer ==1){
+  while (continuer == 1)
+  {
     SDL_BlitSurface(regless, NULL, screen, &reglesSudoku);
 
     SDL_Flip(screen);
@@ -373,7 +374,8 @@ int reglesSudoku(SDL_Surface *screen){
 }
 
 //affiche les regles du loto
-int reglesLoto(SDL_Surface *screen){
+int reglesLoto(SDL_Surface *screen)
+{
   int continuer = 1;
   SDL_Event event;
   Coord clic;
@@ -381,7 +383,8 @@ int reglesLoto(SDL_Surface *screen){
   reglesl = IMG_Load("assets/imagesRegles/reglesLoto.png");
   SDL_Rect reglesLoto = newRect(0, 0, 1280, 720);
 
-  while (continuer ==1){
+  while (continuer == 1)
+  {
     SDL_BlitSurface(reglesl, NULL, screen, &reglesLoto);
 
     SDL_Flip(screen);

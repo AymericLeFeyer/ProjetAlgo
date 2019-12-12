@@ -24,5 +24,3 @@ void sauvegardeProfils(tabP p) //On passe le tableau de profils en paramètre
   else
     printf("Erreur de sauvegarde\n");
 }
-
-//----------

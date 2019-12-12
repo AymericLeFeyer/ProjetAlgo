@@ -18,7 +18,7 @@
 #include "../../headers/profils/chargement.h"
 #include "../../headers/profils/sauvegarde.h"
 
-int afficherLoto(SDL_Surface *screen, int nbJoueurs , tabJP tabProfil)
+int afficherLoto(SDL_Surface *screen, int nbJoueurs, tabJP tabProfil)
 {
   Mix_Music *boule;
   Mix_Music *ok;
@@ -97,7 +97,7 @@ int afficherLoto(SDL_Surface *screen, int nbJoueurs , tabJP tabProfil)
           gagnant = i + 1;
         }
       }
-      if (tailleTas >= 1 && gagnant==0)
+      if (tailleTas >= 1 && gagnant == 0)
       {
         Mix_PlayMusic(boule, 1);
         nombreTire = prendreNombre(&tailleTas, tasBoules);
@@ -255,33 +255,43 @@ int afficherLoto(SDL_Surface *screen, int nbJoueurs , tabJP tabProfil)
 
       continuer = victoireLoto(screen, gagnant);
       //modifit le tableau de profil pour enregistrer les meilleurs scores :
-      for(int i=0; i<nbJoueurs; i++){
-        if(i==0){
-          tabProfil[i].scoreLoto=scoreLoto(totalPunition[i], grille1);
+      for (int i = 0; i < nbJoueurs; i++)
+      {
+        if (i == 0)
+        {
+          tabProfil[i].scoreLoto = scoreLoto(totalPunition[i], grille1);
         }
-        else{
-          if(i==1){
-            tabProfil[i].scoreLoto=scoreLoto(totalPunition[i], grille2);
+        else
+        {
+          if (i == 1)
+          {
+            tabProfil[i].scoreLoto = scoreLoto(totalPunition[i], grille2);
           }
-          else{
-            if(i==2){
-              tabProfil[i].scoreLoto=scoreLoto(totalPunition[i], grille3);
+          else
+          {
+            if (i == 2)
+            {
+              tabProfil[i].scoreLoto = scoreLoto(totalPunition[i], grille3);
             }
-            else{
-              tabProfil[i].scoreLoto=scoreLoto(totalPunition[i], grille4);
+            else
+            {
+              tabProfil[i].scoreLoto = scoreLoto(totalPunition[i], grille4);
             }
           }
         }
-
       }
       // Sauvegarde si c'est mieux
       tabP p;
       chargementProfils(p);
 
-      for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < nbJoueurs; j++) {
-          if (p[i].ID == tabProfil[j].ID) {
-            if (p[i].scoreLoto < tabProfil[j].scoreLoto) {
+      for (int i = 0; i < 10; i++)
+      {
+        for (int j = 0; j < nbJoueurs; j++)
+        {
+          if (p[i].ID == tabProfil[j].ID)
+          {
+            if (p[i].scoreLoto < tabProfil[j].scoreLoto)
+            {
               p[i].scoreLoto = tabProfil[j].scoreLoto;
             }
           }

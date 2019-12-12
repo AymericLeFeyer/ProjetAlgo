@@ -11,13 +11,13 @@ void highscore()
   int total = 0;
   for (i = 0; i < 10; i++)
   {
-    if (p[i].scoreTotal != -1) {
+    if (p[i].scoreTotal != -1)
+    {
       total = p[i].scorePoker + p[i].scoreNavale + p[i].scoreLoto + p[i].scoreSudoku;
       total = total / 4;
       p[i].scoreTotal = total;
       total = 0;
     }
-
   }
   sauvegardeProfils(p);
 }

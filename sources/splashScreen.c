@@ -60,8 +60,6 @@ void afficherSplash(SDL_Surface *screen)
   background = IMG_Load("assets/splash.jpg");
   SDL_Rect fullscreen = newRect(0, 0, 720, 1280);
 
-
-
   // Boucle principale
   while (continuer == 1)
   {
@@ -117,10 +115,12 @@ void afficherSplash(SDL_Surface *screen)
       continuer = 0;
       break;
     case SDL_KEYDOWN:
-      if (event.key.keysym.sym != SDLK_ESCAPE) {
+      if (event.key.keysym.sym != SDLK_ESCAPE)
+      {
         continuer = afficherMenu(screen);
       }
-      else {
+      else
+      {
         continuer = 0;
       }
       break;

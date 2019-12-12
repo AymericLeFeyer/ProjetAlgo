@@ -18,19 +18,19 @@
 #include "../../headers/profils/chargement.h"
 
 //calcule le score total (au niveau de l appel de victoirePokerFinale, appel de fonction en commentaire pour pas faire crash)
-void scorePoker (CentrePlateau cp, JoueurPoker* t, tabJP jp, int nbJoueurs)
+void scorePoker(CentrePlateau cp, JoueurPoker *t, tabJP jp, int nbJoueurs)
 {
-  int i,j,k=0;
-  int argentMax=0;//argent max present dans la partie, va servir de reference pour le pourcentage du score
-  for (i=0;i<nbJoueurs;i++)
-  {     //boucle pour faire la somme total de l argent present en jeu
+  int i, j, k = 0;
+  int argentMax = 0; //argent max present dans la partie, va servir de reference pour le pourcentage du score
+  for (i = 0; i < nbJoueurs; i++)
+  { //boucle pour faire la somme total de l argent present en jeu
     argentMax += t[i].argent;
   }
-  for (j=0;j<nbJoueurs;j++)
+  for (j = 0; j < nbJoueurs; j++)
   {
-    if(jp[j].scorePoker<=100*t[j].argent/(float)argentMax)
+    if (jp[j].scorePoker <= 100 * t[j].argent / (float)argentMax)
     {
-      jp[j].scorePoker=100*t[j].argent/(float)argentMax;
+      jp[j].scorePoker = 100 * t[j].argent / (float)argentMax;
     }
   }
   // sauvegarde
@@ -49,8 +49,7 @@ void scorePoker (CentrePlateau cp, JoueurPoker* t, tabJP jp, int nbJoueurs)
   sauvegardeProfils(p);
 }
 
-
-int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoueurs, int mancheTotale,int argentDepart, int miseDepart,tabJP jp)
+int tourPartie(SDL_Surface *screen, CentrePlateau cp, JoueurPoker *t, int nbJoueurs, int mancheTotale, int argentDepart, int miseDepart, tabJP jp)
 {
   // Images
   SDL_Surface *table = NULL;
@@ -191,8 +190,9 @@ int tourPartie(SDL_Surface* screen, CentrePlateau cp, JoueurPoker* t, int nbJoue
           }
         }
       }
-      if (continuer==1) {
-        scorePoker(cp,t,jp,nbJoueurs);
+      if (continuer == 1)
+      {
+        scorePoker(cp, t, jp, nbJoueurs);
         continuer = victoirePokerFinale(screen, t[maxi]);
       }
     }
@@ -595,7 +595,8 @@ int tourPoker(SDL_Surface *screen, JoueurPoker *j, CentrePlateau *cp, int nbJoue
     if ((choix == 1) || (choix == 3) || (choix == 4) || ((choix == 2) && (etat == 2)))
     {
       SDL_BlitSurface(boutonNext, NULL, screen, &fullscreen);
-      if (choix != 3 && sonMiseDejaJoue == 0) {
+      if (choix != 3 && sonMiseDejaJoue == 0)
+      {
         // Different de passer
         Mix_PlayMusic(miseSon, 1);
         sonMiseDejaJoue = 1;

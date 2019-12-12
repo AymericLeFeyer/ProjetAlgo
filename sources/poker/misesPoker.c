@@ -50,7 +50,6 @@ void suivre(JoueurPoker *j, CentrePlateau *p)
 
 void relancer(JoueurPoker *j, CentrePlateau *p, int value)
 {
-  
 
   j->argent -= value;
   p->mise += value;

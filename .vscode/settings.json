@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "interface.h": "c",
-        "chargement.h": "c"
+        "chargement.h": "c",
+        "tourbataillenavale.h": "c"
     }
 }
